@@ -10,12 +10,19 @@ import com.example.pininterface.interfaces.InterfaceLayoutVisualAidActivity
 import com.example.pininterface.R
 import com.example.pininterface.enums.EnumInterfaceTypes
 
-
+/**
+ * Column Layout with Visual Aid
+ */
 class LayoutColumnVisualAidActivity : LayoutColumnActivity(), InterfaceLayoutVisualAidActivity {
+
     private lateinit var visAid: TextView
     private lateinit var layoutParamsVisAid: ConstraintLayout.LayoutParams
 
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setInterfaceTypeForLayout(EnumInterfaceTypes.COLUMN_VIS)
         Log.e("InterfaceLayout", interfaceType.toString())
@@ -31,12 +38,25 @@ class LayoutColumnVisualAidActivity : LayoutColumnActivity(), InterfaceLayoutVis
         buttonListenersVisualAid(allButtons, visAid, layoutParamsVisAid)
     }
 
+    /**
+     * When button pressed down
+     * Highlights pressed down Button
+     * Greys out other buttons
+     * @param pButton Button that is pressed down
+     */
     override fun buttonPressedVisAid(pButton: Button) {
+
         setColorHighlightAndObscureButtonList(listCtrlButtons, pButton, colorControlHighlighted, colorControlDeactivated)
         setColorHighlightAndObscureButtonList(listNumButtons, pButton, colorNumHighlighted, colorNumDeactivated)
     }
 
+    /**
+     * When button is released
+     * Sets color of all Buttons back to normal
+     * @param pButton Button
+     */
     override fun buttonReleasedVisAid(pButton: Button) {
+
         setColorButtonList(listNumButtons, colorNumNormal)
         setColorButtonList(listCtrlButtons, colorControlNormal)
     }

@@ -10,12 +10,19 @@ import com.example.pininterface.interfaces.InterfaceLayoutVisualAidActivity
 import com.example.pininterface.R
 import com.example.pininterface.enums.EnumInterfaceTypes
 
-
+/**
+ * Standard Layout with Visual Aid
+ */
 class LayoutStandardVisualAidActivity : LayoutStandardActivity(), InterfaceLayoutVisualAidActivity {
+
     private lateinit var visAid: TextView
     private lateinit var layoutParamsVisAid: ConstraintLayout.LayoutParams
 
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setInterfaceTypeForLayout(EnumInterfaceTypes.STANDARD_VIS)
         Log.e("InterfaceLayout", interfaceType.toString())
@@ -31,13 +38,28 @@ class LayoutStandardVisualAidActivity : LayoutStandardActivity(), InterfaceLayou
         buttonListenersVisualAid(allButtons, visAid, layoutParamsVisAid)
     }
 
+    /**
+     * When button pressed down
+     * Changes shape of pressed down Button
+     * Highlights pressed down Button
+     * Greys out other buttons
+     * @param pButton Button that is pressed down
+     */
     override fun buttonPressedVisAid(pButton: Button) {
+
         changeShape(pButton, shapeRoundedSquareButton)
         setColorHighlightAndObscureButtonList(listCtrlButtons, pButton, colorControlHighlighted, colorControlDeactivated)
         setColorHighlightAndObscureButtonList(listNumButtons, pButton, colorNumHighlighted, colorNumDeactivated)
     }
 
+    /**
+     * When button is released
+     * Changes shape of released button back to normal
+     * Sets color of all Buttons back to normal
+     * @param pButton Button
+     */
     override fun buttonReleasedVisAid(pButton: Button) {
+
         changeShape(pButton, shapeRoundButton)
         setColorButtonList(listNumButtons, colorNumNormal)
         setColorButtonList(listCtrlButtons, colorControlNormal)

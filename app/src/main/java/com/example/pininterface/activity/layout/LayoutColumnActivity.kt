@@ -9,10 +9,18 @@ import com.example.pininterface.activity.helper.SuperLayoutActivity
 import com.example.pininterface.databinding.ActivityLayoutInterfaceColumnBinding
 import com.example.pininterface.enums.EnumInterfaceTypes
 
+/**
+ * Column Layout
+ */
 open class LayoutColumnActivity : SuperLayoutActivity(), InterfaceTouchListener {
+
     lateinit var binding: ActivityLayoutInterfaceColumnBinding
 
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setInterfaceTypeForLayout(EnumInterfaceTypes.COLUMN)
         Log.e("InterfaceLayout", interfaceType.toString())
@@ -50,36 +58,27 @@ open class LayoutColumnActivity : SuperLayoutActivity(), InterfaceTouchListener 
         buttonListeners()
         setOnTouchListenerButtonList(listNumButtons, colorNumHighlighted, colorNumNormal)
         setOnTouchListenerButtonList(listCtrlButtons, colorControlHighlighted, colorControlNormal)
-
     }
 
+    /**
+     * When Button pressed down
+     * Highlights Button
+     * @param pButton Button
+     * @param pColorHighlighted highlight Color as Int (background resource value)
+     */
     override fun buttonPressed(pButton: Button, pColorHighlighted: Int) {
+
         setColorButton(pButton, pColorHighlighted)
     }
 
+    /**
+     * When Button released
+     * Changes color of Button back to normal
+     * @param pButton Button
+     * @param pColorNormal normal Color of Button as Int (background resource value)
+     */
     override fun buttonReleased(pButton: Button, pColorNormal: Int) {
+
         setColorButton(pButton, pColorNormal)
     }
-
-    /*
-    @SuppressLint("ClickableViewAccessibility")
-    fun highlightButton(pListButton: MutableList<Button>, pColorHighlighted: Int, pColorNormal: Int) {
-        pListButton.forEachIndexed { _, button ->
-            button.setOnTouchListener { _, eventTest ->
-                when (eventTest.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        setColorButton(button, pColorHighlighted)
-                        false
-                    }
-
-                    MotionEvent.ACTION_UP -> {
-                        setColorButton(button, pColorNormal)
-                        false
-                    }
-
-                    else -> false
-                }
-            }
-        }
-    }*/
 }

@@ -9,15 +9,21 @@ import com.example.pininterface.activity.helper.SuperLayoutActivity
 import com.example.pininterface.databinding.ActivityLayoutInterfaceStandardBinding
 import com.example.pininterface.enums.EnumInterfaceTypes
 
-
+/**
+ * Standard Layout
+ */
 open class LayoutStandardActivity : SuperLayoutActivity(), InterfaceTouchListener {
+
     lateinit var binding: ActivityLayoutInterfaceStandardBinding
 
     var shapeRoundedSquareButton: Int = 0
     var shapeRoundButton: Int = 0
 
-
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setInterfaceTypeForLayout(EnumInterfaceTypes.STANDARD)
         Log.e("InterfaceLayout", interfaceType.toString())
@@ -59,17 +65,39 @@ open class LayoutStandardActivity : SuperLayoutActivity(), InterfaceTouchListene
         setOnTouchListenerButtonList(listCtrlButtons, colorControlHighlighted, colorControlNormal)
     }
 
+    /**
+     * When Button pressed down
+     * Changes shape of Button
+     * Highlights Button
+     * @param pButton Button
+     * @param pColorHighlighted highlight Color as Int (background resource value)
+     */
     override fun buttonPressed(pButton: Button, pColorHighlighted: Int) {
+
         setColorButton(pButton, pColorHighlighted)
         changeShape(pButton, shapeRoundedSquareButton)
     }
 
+    /**
+     * When Button released
+     * Changes shape of Button back to normal
+     * Changes color of Button back to normal
+     * @param pButton Button
+     * @param pColorNormal normal Color of Button as Int (background resource value)
+     */
     override fun buttonReleased(pButton: Button, pColorNormal: Int) {
+
         setColorButton(pButton, pColorNormal)
         changeShape(pButton, shapeRoundButton)
     }
 
+    /**
+     * changes shape of a Button
+     * @param pButton Button
+     * @param pShape the shape as Int (background resource value)
+     */
     fun changeShape(pButton: Button, pShape: Int) {
+
         pButton.setBackgroundResource(pShape)
     }
 }
