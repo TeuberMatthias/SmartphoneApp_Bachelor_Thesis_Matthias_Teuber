@@ -6,19 +6,16 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.pininterface.R
 import com.example.pininterface.Interface.InterfaceGson
 import com.example.pininterface.Interface.InterfaceViewManipulation
-import com.example.pininterface.activity.MainActivity
 import com.example.pininterface.activity.ResultPageActivity
-import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.interfaces.InterfaceDbInputSubmission
-import com.example.pininterface.database.modelclass.ModelClassInterActionSubmission
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
 import com.example.pininterface.logic.Participant
+import com.example.pininterface.logic.TimeDifferenceCalculator
 import java.util.*
 
 
@@ -29,6 +26,8 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
 
     lateinit var pinSubmissionTextView: TextView
     lateinit var pinTargetTextView: TextView
+
+    private var timeDif = TimeDifferenceCalculator()
 
     lateinit var button1: Button
     lateinit var button2: Button
@@ -47,7 +46,6 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     var listCtrlButtons = mutableListOf<Button>()
 
     lateinit var buttonEmergency: Button
-    var emergencyCounter: Int = 0
 
     private var timer: Timer? = null
     private var winActive = true
@@ -67,7 +65,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         //gets the current participant object from the intent via gson
         val intent = intent
         participant = getParticipantFromJson(intent)
-        participant.resetSubmissionPinTimer()
+        //participant.resetSubmissionPinTimer()
 
         colorControlNormal = ContextCompat.getColor(this, R.color.control_button_normal)
         colorControlDeactivated = ContextCompat.getColor(this, R.color.control_button_deactivated)
@@ -81,27 +79,17 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     private fun addSubmission(pSubmission: EnumButtonTypes) {
 
         //TODO: get Time
-        val time = 111
+        val time = timeDif.calcTimeDif()
         dbAddSubmission(participant.getID(), participant.getActiveInterface(), participant.getActivePin().getPin(), pSubmission, time, this)
     }
 
     private fun emergencyButtonClicked() {
-        participant.addSubmission(EnumButtonTypes.EMERGENCY)
-        emergencyCounter++
+
         addSubmission(EnumButtonTypes.EMERGENCY)
-
-        if (emergencyCounter >= 7) {
-            //TODO: SECRET WAY OUT
-            Toast.makeText(this, "abort", Toast.LENGTH_SHORT).show()
-            startNewActivity(participant, MainActivity::class.java)
-        }
-
     }
 
     private fun delButtonClicked() {
         timer?.cancel()
-        emergencyCounter = 0
-        participant.addSubmission(EnumButtonTypes.DEL)
         updateTextView(pinSubmissionTextView, hidePinString(participant.deleteLastDigit()))
         addSubmission(EnumButtonTypes.DEL)
     }
@@ -110,9 +98,6 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         addSubmission(EnumButtonTypes.SUBMIT)
         val cInterfaceType = interfaceType
         timer?.cancel()
-        emergencyCounter = 0
-
-        participant.addSubmission(EnumButtonTypes.SUBMIT)
 
         if (participant.checkActivePinSolved()) {
             if (participant.getActiveInterface() == cInterfaceType) {
@@ -129,8 +114,6 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
 
     private fun numButtonClicked(pButton: EnumButtonTypes) {
         addSubmission(pButton)
-        participant.addSubmission(pButton)
-        emergencyCounter = 0
 
         val pinSubmissionOld = participant.getActivePin().getPinSubmission()
         val pinSubmissionNew = participant.numButtonClicked(pButton)
@@ -162,7 +145,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         addSubmission(EnumButtonTypes.BACK)
-        participant.addSubmission(EnumButtonTypes.BACK)
+        //participant.addSubmission(EnumButtonTypes.BACK)
     }
 
     override fun onPause() {
@@ -170,7 +153,6 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         Log.e("test", "onPause")
         winActive = false
         addSubmission(EnumButtonTypes.WIN_DEACTIVE)
-        participant.addSubmission(EnumButtonTypes.WIN_DEACTIVE)
     }
 
     override fun onResume() {
@@ -179,7 +161,6 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         if (!winActive) {
             winActive = true
             addSubmission(EnumButtonTypes.WIN_ACTIVE)
-            participant.addSubmission(EnumButtonTypes.WIN_ACTIVE)
         }
     }
 

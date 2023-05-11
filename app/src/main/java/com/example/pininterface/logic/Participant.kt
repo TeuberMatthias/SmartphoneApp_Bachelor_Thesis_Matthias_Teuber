@@ -22,16 +22,16 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     private val listInterfacesAsString = listInterfacesAsString()
     private val listPinSetsAsString = listPinSetsAsString()
 
-    private lateinit var buttonInputPin: ButtonInputs
+   // private lateinit var buttonInputPin: ButtonInputs
 
     init {
         nextActiveInterface()
         setActivePin()
-        setActiveSubmissionsPin(activeInterface, activePin.getPin())
+        //setActiveSubmissionsPin(activeInterface, activePin.getPin())
     }
 
     fun getID(): Int {
-        return this.id;
+        return this.id
     }
 
     fun getPinSetsAsString(): String {
@@ -100,37 +100,18 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     /**
      *
      */
-    private fun setActiveSubmissionsPin(pActiveInterfaceType: EnumInterfaceTypes, pPin: String) {
-        this.buttonInputPin = ButtonInputs(pActiveInterfaceType, pPin)
-    }
-
-    /**
-     * Adds a new Button Input to Submission
-     */
-    fun addSubmission(pButton: EnumButtonTypes) {
-        buttonInputPin.addSubmissionEntry(pButton)
-    }
-
-    /**
-     *
-     */
     fun numButtonClicked(pButton: EnumButtonTypes): String {
         return activePin.addDigit(pButton.value)
     }
 
-    /**
-     * Checks if the active Pin is solved
-     * When true, the current
-     */
     fun checkActivePinSolved(): Boolean {
         val solved = activePin.checkSolved()
 
         if (solved) {
             if (setActivePin()) {
-                setActiveSubmissionsPin(activeInterface, activePin.getPin())
+                return true
             } else if (nextActiveInterface()) {
                 setActivePin()
-                setActiveSubmissionsPin(activeInterface, activePin.getPin())
             } else {
                 activeInterface = EnumInterfaceTypes.NONE
             }
@@ -139,27 +120,26 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     }
 
     /**
-     * Deletes Last Digit of the active Pin
+     * Deletes the last digit of the currently active Pin
      * @return The new Pin Submission Field String
      */
     fun deleteLastDigit(): String {
         return activePin.deleteLastDigit()
     }
 
+    /**
+     * Gets the currently active pin
+     * @return The currently active pin as Pin
+     */
     fun getActivePin(): Pin {
         return activePin
     }
 
-
     /**
      * Gets the currently active Interface Type
-     * @return The currently active Interface Type as Enum
+     * @return The currently active Interface Type as EnumInterfaceTypes
      */
     fun getActiveInterface(): EnumInterfaceTypes {
         return this.activeInterface
-    }
-
-    fun resetSubmissionPinTimer() {
-        buttonInputPin.resetTimer()
     }
 }
