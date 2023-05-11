@@ -1,14 +1,12 @@
 package com.example.pininterface.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import com.example.pininterface.R
 import com.example.pininterface.database.interfaces.InterfaceDbDemographics
 import com.example.pininterface.databinding.ActivityDemographicsBinding
-import com.example.pininterface.logic.Demographics
 import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
@@ -52,13 +50,6 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics {
         } else {
             val gender: RadioButton = findViewById(radioGroupGenderValue)
             val dominantHand: RadioButton = findViewById(radioGroupDominantHand)
-
-            //TODO: get rid
-            val demographics = Demographics(age, dominantHand.tag.toString(), gender.tag.toString())
-            Log.e("results", demographics.getDemographicsString())
-
-            participant.setDemographics(demographics)
-
             val id = participant.getID()
 
             dbAddDemographics(id, age, gender.tag.toString(), dominantHand.tag.toString(), this)

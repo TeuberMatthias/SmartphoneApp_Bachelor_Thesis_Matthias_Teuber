@@ -11,15 +11,12 @@ import androidx.core.content.ContextCompat
 import com.example.pininterface.Interface.InterfaceGson
 import com.example.pininterface.Interface.InterfaceViewManipulation
 import com.example.pininterface.R
-import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.interfaces.InterfaceDbSUS
-import com.example.pininterface.database.modelclass.ModelClassSuS
 import com.example.pininterface.databinding.ActivitySystemUsabilityScaleBinding
 import com.example.pininterface.databinding.ModSusScaleBinding
 import com.example.pininterface.enums.EnumInterfaceTypes
 import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
-import com.example.pininterface.logic.SuSResults
 
 class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewManipulation, InterfaceGson, InterfaceDbSUS {
     private lateinit var participant: Participant
@@ -172,12 +169,11 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private fun continueButtonPressed() {
         saveAnswers()
         logAnswers()
-        val susResult = SuSResults(activeInterfaceTyp, listAnswers)
-        if (susResult.checkSuSComplete()) {
+
+        if (checkAllRadioButtonsSet()) {
 
             dbAddSUS(participant.getID(), activeInterfaceTyp, listAnswers, this)
 
-            participant.addSuSResult(susResult)
             if (listUsedInterfaceTypes.isNotEmpty()) {
                 activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()
                 updateTextView(textViewInterfaceTyp, activeInterfaceTyp.value)
@@ -198,5 +194,12 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
     }
 
+    private fun checkAllRadioButtonsSet(): Boolean {
+        listAnswers.forEach {
+            if (it < 0)
+                return false
+        }
+        return true
+    }
 
 }

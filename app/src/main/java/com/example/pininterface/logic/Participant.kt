@@ -24,12 +24,8 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
 
     //TODO: get rid of
     private var listSubmissionsPin = ArrayList<String>()
-    private lateinit var buttonInputPin: ButtonInputs
 
-    //TODO("get rid of")
-    private lateinit var demographics: Demographics
-    private var listSuSResults = mutableListOf<SuSResults>()
-    private var feedback = ""
+    private lateinit var buttonInputPin: ButtonInputs
 
     init {
         nextActiveInterface()
@@ -87,20 +83,8 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
         return false
     }
 
-    fun setFeedBack (pFeedBack: String) {
-        this.feedback = pFeedBack
-    }
-
-    fun getFeedBack(): String {
-        return this.feedback
-    }
-
     fun getUsedInterfaces(): MutableList<EnumInterfaceTypes> {
         return this.listUsedInterfaces.toMutableList()
-    }
-
-    fun addSuSResult(pSuSResults: SuSResults) {
-        this.listSuSResults.add(pSuSResults)
     }
 
     /**
@@ -190,13 +174,4 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     fun resetSubmissionPinTimer() {
         buttonInputPin.resetTimer()
     }
-
-    fun setDemographics(pDemographics: Demographics) {
-        demographics = pDemographics
-    }
-
-    fun getDemographics(): Demographics {
-        return demographics
-    }
-
 }

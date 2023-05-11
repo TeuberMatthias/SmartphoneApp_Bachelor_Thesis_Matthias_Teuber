@@ -35,12 +35,11 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson, InterfaceDbPa
         buttonContinue.setOnClickListener { finishActivity() }
     }
 
-    fun finishActivity() {
-        val feedBack = editTextFeedBack.text.toString()
-        participant.setFeedBack(feedBack)
+    private fun finishActivity() {
+
         dbAddFeedback(participant.getID(), editTextFeedBack.text.toString(), this)
         dbUpdateParticipantComplete(participant.getID(), 1, this)
-        startNewActivity(participant, MainActivity::class.java) //TODO DATABANK
+        startNewActivity(participant, MainActivity::class.java)
     }
 
 
