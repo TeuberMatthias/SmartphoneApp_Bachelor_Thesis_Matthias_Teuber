@@ -7,8 +7,21 @@ import com.example.pininterface.database.modelclass.ModelClassInterActionSubmiss
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
 
+/**
+ * Interface for DB submission actions
+ */
 interface InterfaceDbInputSubmission {
 
+    /**
+     * Adds a new row to submission table of DB
+     * @param pId id
+     * @param pInterface interface typ
+     * @param pPin pin
+     * @param pSubmission submission/button typ
+     * @param pTime time since last submission
+     * @param pContext context ("this" in activity)
+     * @return positive Long if successful, -1 when unsuccessful
+     */
     fun dbAddSubmission(pId: Int, pInterface: EnumInterfaceTypes, pPin: String, pSubmission: EnumButtonTypes, pTime: Int, pContext: Context): Long {
 
         val dataBaseHelper = DataBaseHelper(pContext)

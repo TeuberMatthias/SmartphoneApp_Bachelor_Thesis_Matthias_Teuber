@@ -6,14 +6,28 @@ import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.logic.Participant
 
+/**
+ * Interface for DB participant actions
+ */
 interface InterfaceDbParticipant {
 
+    /**
+     * Gets the entire participant table
+     * @param pContext context ("this" in activity)
+     * @return participant table as MutableList<ModelClassParticipant>
+     */
     fun dbViewListParticipant(pContext: Context): MutableList<ModelClassParticipant> {
 
         val db = DataBaseHelper(pContext)
         return db.viewParticipant()
     }
 
+    /**
+     * Add a new row to participant table of DB
+     * @param pParticipant participant as Participant
+     * @param pContext context ("this" in activity)
+     * @return positive Long if successful, -1 when unsuccessful
+     */
     fun dbAddParticipant(pParticipant: Participant, pContext: Context): Long {
 
         val id = pParticipant.getID()
@@ -28,6 +42,13 @@ interface InterfaceDbParticipant {
         return success
     }
 
+    /**
+     * Updates the complete field for one entry in the participant table
+     * @param pId id of the row/entry as Int
+     * @param pComplete complete status of the row/entry (0=false, 1=true) as int
+     * @param pContext context ("this" in activity)
+     * @return positive Int when successful, -1 if unsuccessful
+     */
     fun dbUpdateParticipantComplete(pId: Int, pComplete: Int, pContext: Context): Int {
 
         val dataBaseHelper = DataBaseHelper(pContext)

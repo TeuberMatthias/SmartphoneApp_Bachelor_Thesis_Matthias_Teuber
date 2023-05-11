@@ -6,8 +6,19 @@ import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.modelclass.ModelClassSuS
 import com.example.pininterface.enums.EnumInterfaceTypes
 
+/**
+ * Interface for DB SUS actions
+ */
 interface InterfaceDbSUS {
 
+    /**
+     * Add a new row to sus table of DB
+     * @param pId id
+     * @param pInterfaceTyp interface typ
+     * @param pListAnswers list of the sus Answers (10 entries)
+     * @param pContext context ("this" in activity)
+     * @return positive Long if successful, -1 when unsuccessful
+     */
     fun dbAddSUS(pId: Int, pInterfaceTyp: EnumInterfaceTypes, pListAnswers: MutableList<Int>, pContext: Context): Long {
 
         val dataBaseHelper = DataBaseHelper(pContext)
