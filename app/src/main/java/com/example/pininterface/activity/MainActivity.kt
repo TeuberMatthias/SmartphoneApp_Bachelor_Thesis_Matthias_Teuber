@@ -9,6 +9,7 @@ import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
+import com.example.pininterface.values.ListInterfaces
 import com.example.pininterface.values.PinSets
 
 /**
@@ -40,7 +41,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         } while (!checkIdFree(id))
 
 
-        val participant = Participant(id, PinSets())
+        val participant = Participant(id, PinSets(), ListInterfaces())
         dbAddParticipant(participant, this)
 
         showParticipants(dbViewListParticipant(this))

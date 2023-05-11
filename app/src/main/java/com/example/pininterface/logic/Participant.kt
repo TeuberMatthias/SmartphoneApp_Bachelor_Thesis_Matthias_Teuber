@@ -2,6 +2,7 @@ package com.example.pininterface.logic
 
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
+import com.example.pininterface.values.ListInterfaces
 import com.example.pininterface.values.PinSets
 
 /**
@@ -9,12 +10,13 @@ import com.example.pininterface.values.PinSets
  * @param pId Participant ID
  * @param pParticipantPinSets the pinSets for this participant
  */
-class Participant (pId: Int, pParticipantPinSets: PinSets) {
+class Participant (pId: Int, pParticipantPinSets: PinSets, pListInterfaces: ListInterfaces) {
 
     // The unique id for the participant
     private val id: Int = pId
     // The Interfaces that will be used for this participant. Order randomized. Once an interface becomes active, it will be removed from this list
-    private val listInterfaces = ArrayList(arrayListOf(EnumInterfaceTypes.STANDARD, EnumInterfaceTypes.STANDARD_VIS, /*EnumInterfaceTypes.COLUMN, EnumInterfaceTypes.COLUMN_VIS*/).shuffled())
+    private val listInterfaces = pListInterfaces.getListInterfaces()
+
     // The currently active Interface
     private lateinit var activeInterface: EnumInterfaceTypes
     // List of the already used Interface, in the same order as they were used
