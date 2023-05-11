@@ -11,7 +11,7 @@ import com.example.pininterface.enums.EnumInterfaceTypes
 class Participant (pId: Int, pParticipantPinSets: PinSets){
     private val id: Int = pId
     // The Interfaces that will be used for this participant. Order randomized
-    private val listInterfaces = ArrayList(arrayListOf(EnumInterfaceTypes.STANDARD, EnumInterfaceTypes.STANDARD_VIS, EnumInterfaceTypes.COLUMN, EnumInterfaceTypes.COLUMN_VIS).shuffled())
+    private val listInterfaces = ArrayList(arrayListOf(EnumInterfaceTypes.STANDARD/*, EnumInterfaceTypes.STANDARD_VIS, EnumInterfaceTypes.COLUMN, EnumInterfaceTypes.COLUMN_VIS*/).shuffled())
     private lateinit var activeInterface: EnumInterfaceTypes
     private var listUsedInterfaces = mutableListOf<EnumInterfaceTypes>()
 

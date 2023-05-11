@@ -8,6 +8,7 @@ import com.example.pininterface.Interface.InterfaceGson
 import com.example.pininterface.R
 import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.ModelClassFeedBack
+import com.example.pininterface.database.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityLayoutFeedbackBinding
 import com.example.pininterface.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
@@ -39,6 +40,7 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson {
         val feedBack = editTextFeedBack.text.toString()
         participant.setFeedBack(feedBack)
         addRecordFeedBack()
+        updateParticipant()
         startNewActivity(participant, MainActivity::class.java) //TODO DATABANK
     }
 
@@ -48,6 +50,14 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson {
 
         val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
         Log.e("dataBase", dataBaseHelper.addFeedBack(ModelClassFeedBack(id, feedback)).toString())
+    }
+
+    private fun updateParticipant() {
+        val id = participant.getID()
+        val complete: Int = 1
+
+        val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
+        Log.e("db_update_participant", dataBaseHelper.updateParticipant(ModelClassParticipant(id, complete)).toString())
     }
 
 }

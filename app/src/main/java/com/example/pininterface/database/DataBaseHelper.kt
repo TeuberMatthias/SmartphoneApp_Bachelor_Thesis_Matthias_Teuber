@@ -7,6 +7,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.pininterface.logic.Participant
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -140,6 +141,20 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             } while (cursor.moveToNext())
         }
         return listParticipant
+    }
+
+    fun updateParticipant(participant: ModelClassParticipant): Int {
+        val db = this.writableDatabase
+        val contentValues = ContentValues().apply {
+            put(KEY_PARTICIPANT_ID, participant.pId)
+            put(KEY_COMPLETE, participant.pComplete)
+            put(KEY_ORDER_PINS, participant.pOrderPins)
+            put(KEY_ORDER_INTERFACES, participant.pOrderInterfaces)
+        }
+
+        val success = db.update(TABLE_PARTICIPANT, contentValues, "$KEY_PARTICIPANT_ID=${participant.pId}", null)
+        db.close()
+        return success
     }
 
     fun addSubmission(submission: ModelClassInterActionSubmission): Long {
