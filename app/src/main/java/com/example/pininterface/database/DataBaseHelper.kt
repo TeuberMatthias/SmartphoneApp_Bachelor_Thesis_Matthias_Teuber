@@ -10,10 +10,11 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     companion object {
         private const val DATABASE_NAME = "thesis_database"
         private const val DATABASE_VERSION = 1
-        private const val TABLE_DEMOGRAPHICS = "participant"
+        private const val TABLE_DEMOGRAPHICS = "demographics"
         private const val TABLE_FEEDBACK = "feedback"
         private const val TABLE_SUS = "sus"
         private const val TABLE_SUBMISSIONS = "submissions"
+        private const val TABLE_PARTICIPANT = "participant"
 
         private const val KEY_ID = "_id"
         private const val KEY_PARTICIPANT_ID = "p_id"
@@ -39,23 +40,69 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_Q8 = "question_8"
         private const val KEY_Q9 = "question_9"
 
+        private const val KEY_COMPLETE = "complete"
+        private const val KEY_ORDER_PINS = "order_pin"
+        private const val KEY_ORDER_INTERFACES = "order_interface"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL("CREATE TABLE $TABLE_DEMOGRAPHICS($KEY_ID INTEGER PRIMARY KEY,$KEY_PARTICIPANT_ID INTEGER,$KEY_AGE INTEGER,$KEY_GENDER TEXT,$KEY_DOMINANT_HAND TEXT)")
-        db?.execSQL("CREATE TABLE $TABLE_FEEDBACK($KEY_ID INTEGER PRIMARY KEY,$KEY_PARTICIPANT_ID INTEGER,$KEY_FEEDBACK TEXT)")
-        db?.execSQL("CREATE TABLE $TABLE_SUS($KEY_ID INTEGER PRIMARY KEY,$KEY_PARTICIPANT_ID INTEGER,$KEY_INTERFACE TEXT," +
+        db?.execSQL("CREATE TABLE $TABLE_PARTICIPANT(" +
+                "$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_COMPLETE INTEGER," +
+                "$KEY_ORDER_PINS TEXT," +
+                "$KEY_ORDER_INTERFACES TEXT)")
+
+        db?.execSQL("CREATE TABLE $TABLE_DEMOGRAPHICS(" +
+                "$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_AGE INTEGER," +
+                "$KEY_GENDER TEXT," +
+                "$KEY_DOMINANT_HAND TEXT)")
+
+        db?.execSQL("CREATE TABLE $TABLE_FEEDBACK(" +
+                "$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_FEEDBACK TEXT)")
+
+        db?.execSQL("CREATE TABLE $TABLE_SUS(" +
+                "$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_INTERFACE TEXT," +
                 "$KEY_Q0 INTEGER,$KEY_Q1 INTEGER,$KEY_Q2 INTEGER,$KEY_Q3 INTEGER,$KEY_Q4 INTEGER," +
                 "$KEY_Q5 INTEGER,$KEY_Q6 INTEGER,$KEY_Q7 INTEGER,$KEY_Q8 INTEGER,$KEY_Q9 INTEGER)")
-        db?.execSQL("CREATE TABLE $TABLE_SUBMISSIONS($KEY_ID INTEGER PRIMARY KEY,$KEY_PARTICIPANT_ID INTEGER,$KEY_INTERFACE, $KEY_PIN TEXT,$KEY_SUBMISSION TEXT,$KEY_TIME INTEGER)")
+
+        db?.execSQL("CREATE TABLE $TABLE_SUBMISSIONS(" +
+                "$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_INTERFACE," +
+                "$KEY_PIN TEXT," +
+                "$KEY_SUBMISSION TEXT," +
+                "$KEY_TIME INTEGER)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_DEMOGRAPHICS")
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_PARTICIPANT")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_DEMOGRAPHICS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_FEEDBACK")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_SUS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_SUBMISSIONS")
         onCreate(db)
+    }
+
+    fun addParticipant(participant: ModelClassParticipant): Long {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues().apply {
+            put(KEY_PARTICIPANT_ID, participant.pId)
+            put(KEY_COMPLETE, participant.pComplete)
+            put(KEY_ORDER_PINS, participant.pOrderPins)
+            put(KEY_ORDER_INTERFACES, participant.pOrderInterfaces)
+        }
+
+        val success = db.insert(TABLE_PARTICIPANT, null, contentValues)
+        db.close()
+        return success
     }
 
     fun addSubmission(submission: ModelClassInterActionSubmission): Long {
