@@ -148,7 +148,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
     private fun setChecked() {
         listQuestionView.forEachIndexed{index, modSusScaleBinding ->
-            val radioGroup = modSusScaleBinding.radioGroup as RadioGroup
+            val radioGroup = modSusScaleBinding.radioGroup
             val checkedValue = listAnswers[index + 5 * page]
             if (checkedValue >= 0) {
                 val radioButton = radioGroup.getChildAt(checkedValue) as RadioButton

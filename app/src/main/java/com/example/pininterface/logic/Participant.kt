@@ -22,9 +22,6 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     private val listInterfacesAsString = listInterfacesAsString()
     private val listPinSetsAsString = listPinSetsAsString()
 
-    //TODO: get rid of
-    private var listSubmissionsPin = ArrayList<String>()
-
     private lateinit var buttonInputPin: ButtonInputs
 
     init {
@@ -129,7 +126,6 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
         val solved = activePin.checkSolved()
 
         if (solved) {
-            this.listSubmissionsPin.add(buttonInputPin.submissionListToString())
             if (setActivePin()) {
                 setActiveSubmissionsPin(activeInterface, activePin.getPin())
             } else if (nextActiveInterface()) {
@@ -161,14 +157,6 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
      */
     fun getActiveInterface(): EnumInterfaceTypes {
         return this.activeInterface
-    }
-
-    /**
-     * Gets all the submissions as Strings in Array List
-     * @return submissions as ArrayList<String>
-     */
-    fun getSubmissionPinList(): ArrayList<String> {
-        return this.listSubmissionsPin
     }
 
     fun resetSubmissionPinTimer() {

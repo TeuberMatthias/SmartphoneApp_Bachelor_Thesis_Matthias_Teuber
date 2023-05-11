@@ -24,8 +24,6 @@ class ResultPageActivity : SuperActivityNavigation() {
         val gson = Gson()
         participant = gson.fromJson<Participant>(intent.getStringExtra("participant"), Participant::class.java)
 
-        val results = createResultString(participant)
-        Log.e("Results","\n" + results)
         binding.results.text = ""
 
         binding.resultsButtonContinue.buttonContinue.setOnClickListener { nextInterfaceActivity(participant) }

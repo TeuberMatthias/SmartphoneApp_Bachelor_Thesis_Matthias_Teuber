@@ -40,16 +40,4 @@ open class SuperActivityNavigation : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK // clears all previous Activities
         startActivity(intent)
     }
-
-    /**
-     * Delete later
-     */
-    fun createResultString(participant: Participant): String {
-        var results = ""
-        participant.getSubmissionPinList().forEach {
-            results += it
-            results += "\n"
-        }
-        return results
-    }
 }
