@@ -4,7 +4,7 @@ package com.example.pininterface.logic
  * Class PIN
  * @param pPin List of the digits as Int of the Pin
  */
-class Pin (pPin: MutableList<Int>){
+class Pin (pPin: MutableList<Int>) {
 
     //The Pin as String
     private var pin = ""

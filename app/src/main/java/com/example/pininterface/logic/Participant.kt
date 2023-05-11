@@ -9,7 +9,7 @@ import com.example.pininterface.values.PinSets
  * @param pId Participant ID
  * @param pParticipantPinSets the pinSets for this participant
  */
-class Participant (pId: Int, pParticipantPinSets: PinSets){
+class Participant (pId: Int, pParticipantPinSets: PinSets) {
 
     // The unique id for the participant
     private val id: Int = pId

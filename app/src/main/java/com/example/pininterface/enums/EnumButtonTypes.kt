@@ -1,6 +1,11 @@
 package com.example.pininterface.enums
 
+/**
+ * Enum Class for User Interactions
+ * @param value Value of the user interaction as Char
+ */
 enum class EnumButtonTypes(val value: Char) {
+
     NUM0('0'),
     NUM1('1'),
     NUM2('2'),
@@ -17,5 +22,4 @@ enum class EnumButtonTypes(val value: Char) {
     WIN_ACTIVE('A'),
     WIN_DEACTIVE('H'),
     EMERGENCY('E'),
-    //WIN_DEACTIVE is when "Home-Button" OR "Recent-Apps" button are pressed
 }

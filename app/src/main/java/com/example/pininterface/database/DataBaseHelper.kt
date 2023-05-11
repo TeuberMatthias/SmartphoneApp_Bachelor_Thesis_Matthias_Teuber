@@ -13,8 +13,14 @@ import com.example.pininterface.database.modelclass.ModelClassInterActionSubmiss
 import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.database.modelclass.ModelClassSuS
 
+/**
+ * Class to manage the DataBank
+ */
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
+    /**
+     * Companion object with the table and key/column names of the DataBank
+     */
     companion object {
         private const val DATABASE_NAME = "thesis_database"
         private const val DATABASE_VERSION = 1
@@ -25,7 +31,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_PARTICIPANT = "participant"
 
         private const val PK_TABLE_SUS = "pk_table_sus"
-        private const val PK_TABLE_SUBMISSIONS = "pk_table_submissions"
 
         private const val KEY_ID = "_id"
         private const val KEY_PARTICIPANT_ID = "p_id"
@@ -56,7 +61,12 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_ORDER_INTERFACES = "order_interface"
     }
 
+    /**
+     * Creates the DataBank Tables
+     * @param db SQLiteDataBase
+     */
     override fun onCreate(db: SQLiteDatabase?) {
+
         db?.execSQL("CREATE TABLE $TABLE_PARTICIPANT(" +
                 "$KEY_PARTICIPANT_ID INTEGER PRIMARY KEY," +
                 "$KEY_COMPLETE INTEGER," +
@@ -89,7 +99,14 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$KEY_TIME INTEGER)")
     }
 
+    /**
+     * Checks on Upgrade of DB if a Table already exists
+     * @param db SQLiteDatabase
+     * @param oldVersion old version of the DB
+     * @param newVersion new version of the DB
+     */
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_PARTICIPANT")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_DEMOGRAPHICS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_FEEDBACK")
@@ -98,14 +115,20 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
-    fun addParticipant(participant: ModelClassParticipant): Long {
+    /**
+     * Adds a new Row to the participant Table
+     * @param pParticipant participant ModelClass
+     * @return positive Long if successful, -1 when unsuccessful
+     */
+    fun addParticipant(pParticipant: ModelClassParticipant): Long {
+
         val db = this.writableDatabase
 
         val contentValues = ContentValues().apply {
-            put(KEY_PARTICIPANT_ID, participant.pId)
-            put(KEY_COMPLETE, participant.pComplete)
-            put(KEY_ORDER_PINS, participant.pOrderPins)
-            put(KEY_ORDER_INTERFACES, participant.pOrderInterfaces)
+            put(KEY_PARTICIPANT_ID, pParticipant.pId)
+            put(KEY_COMPLETE, pParticipant.pComplete)
+            put(KEY_ORDER_PINS, pParticipant.pOrderPins)
+            put(KEY_ORDER_INTERFACES, pParticipant.pOrderInterfaces)
         }
 
         val success = db.insert(TABLE_PARTICIPANT, null, contentValues)
@@ -113,8 +136,13 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
+    /**
+     * Gets the entire participant table
+     * @return participant table as MutableList<ModelClassParticipant>
+     */
     @SuppressLint("Range", "Recycle")
     fun viewParticipant(): MutableList<ModelClassParticipant> {
+
         val listParticipant: MutableList<ModelClassParticipant> = mutableListOf<ModelClassParticipant>()
         val querySelect = "SELECT * FROM $TABLE_PARTICIPANT"
         val db = this.readableDatabase
@@ -147,29 +175,41 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return listParticipant
     }
 
-    fun updateParticipantComplete(participant: ModelClassParticipant): Int {
+    /**
+     * Updates the complete field for one entry in the participant table
+     * @param pParticipant participant as ModelClassParticipant, only the Id and complete attributes matter
+     * @return positive Int when successful, -1 if unsuccessful
+     */
+    fun updateParticipantComplete(pParticipant: ModelClassParticipant): Int {
+
         val db = this.writableDatabase
         val contentValues = ContentValues().apply {
-            put(KEY_PARTICIPANT_ID, participant.pId)
-            put(KEY_COMPLETE, participant.pComplete)
+            put(KEY_PARTICIPANT_ID, pParticipant.pId)
+            put(KEY_COMPLETE, pParticipant.pComplete)
             //put(KEY_ORDER_PINS, participant.pOrderPins)
             //put(KEY_ORDER_INTERFACES, participant.pOrderInterfaces)
         }
 
-        val success = db.update(TABLE_PARTICIPANT, contentValues, "$KEY_PARTICIPANT_ID=${participant.pId}", null)
+        val success = db.update(TABLE_PARTICIPANT, contentValues, "$KEY_PARTICIPANT_ID=${pParticipant.pId}", null)
         db.close()
         return success
     }
 
-    fun addSubmission(submission: ModelClassInterActionSubmission): Long {
+    /**
+     * Adds a new Row to the submission Table
+     * @param pSubmission Submission ModelClass
+     * @return positive Long if successful, -1 when unsuccessful
+     */
+    fun addSubmission(pSubmission: ModelClassInterActionSubmission): Long {
+
         val db = this.writableDatabase
 
         val contentValues = ContentValues().apply {
-            put(KEY_PARTICIPANT_ID, submission.pId)
-            put(KEY_INTERFACE, submission.pInterface)
-            put(KEY_PIN, submission.pPin)
-            put(KEY_SUBMISSION, submission.pSubmission)
-            put(KEY_TIME, submission.pTime)
+            put(KEY_PARTICIPANT_ID, pSubmission.pId)
+            put(KEY_INTERFACE, pSubmission.pInterface)
+            put(KEY_PIN, pSubmission.pPin)
+            put(KEY_SUBMISSION, pSubmission.pSubmission)
+            put(KEY_TIME, pSubmission.pTime)
         }
 
         val success = db.insert(TABLE_SUBMISSIONS, null, contentValues)
@@ -177,13 +217,18 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
+    /**
+     * Adds a new Row to the feedback Table
+     * @param pFeedback Feedback ModelClass
+     * @return positive Long if successful, -1 when unsuccessful
+     */
+    fun addFeedBack(pFeedback: ModelClassFeedBack): Long {
 
-    fun addFeedBack(feedback: ModelClassFeedBack): Long {
         val db = this.writableDatabase
 
         val contentValues = ContentValues().apply {
-            put(KEY_PARTICIPANT_ID, feedback.pId)
-            put(KEY_FEEDBACK, feedback.pFeedBack)
+            put(KEY_PARTICIPANT_ID, pFeedback.pId)
+            put(KEY_FEEDBACK, pFeedback.pFeedBack)
         }
 
         val success = db.insert(TABLE_FEEDBACK, null, contentValues)
@@ -191,14 +236,20 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
-    fun addDemographics(demographics: ModelClassDemographics): Long {
+    /**
+     * Adds a new Row to the demographics Table
+     * @param pDemographics Demographics ModelClass
+     * @return positive Long if successful, -1 when unsuccessful
+     */
+    fun addDemographics(pDemographics: ModelClassDemographics): Long {
+
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
-        contentValues.put(KEY_PARTICIPANT_ID, demographics.id)
-        contentValues.put(KEY_AGE, demographics.age)
-        contentValues.put(KEY_GENDER, demographics.gender)
-        contentValues.put(KEY_DOMINANT_HAND, demographics.dominant_hand)
+        contentValues.put(KEY_PARTICIPANT_ID, pDemographics.id)
+        contentValues.put(KEY_AGE, pDemographics.age)
+        contentValues.put(KEY_GENDER, pDemographics.gender)
+        contentValues.put(KEY_DOMINANT_HAND, pDemographics.dominant_hand)
 
         val success = db.insert(TABLE_DEMOGRAPHICS, null, contentValues)
 
@@ -206,22 +257,28 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return success
     }
 
-    fun addSUS(sus: ModelClassSuS): Long {
+    /**
+     * Adds a new Row to the sus Table
+     * @param pSUS Demograpics ModelClass
+     * @return positive Long if successful, -1 when unsuccessful
+     */
+    fun addSUS(pSUS: ModelClassSuS): Long {
+
         val db = this.writableDatabase
 
         val contentValues = ContentValues().apply {
-            put(KEY_PARTICIPANT_ID, sus.pId)
-            put(KEY_INTERFACE, sus.pInterfaceTyp)
-            put(KEY_Q0, sus.pQ0)
-            put(KEY_Q1, sus.pQ1)
-            put(KEY_Q2, sus.pQ2)
-            put(KEY_Q3, sus.pQ3)
-            put(KEY_Q4, sus.pQ4)
-            put(KEY_Q5, sus.pQ5)
-            put(KEY_Q6, sus.pQ6)
-            put(KEY_Q7, sus.pQ7)
-            put(KEY_Q8, sus.pQ8)
-            put(KEY_Q9, sus.pQ9)
+            put(KEY_PARTICIPANT_ID, pSUS.pId)
+            put(KEY_INTERFACE, pSUS.pInterfaceTyp)
+            put(KEY_Q0, pSUS.pQ0)
+            put(KEY_Q1, pSUS.pQ1)
+            put(KEY_Q2, pSUS.pQ2)
+            put(KEY_Q3, pSUS.pQ3)
+            put(KEY_Q4, pSUS.pQ4)
+            put(KEY_Q5, pSUS.pQ5)
+            put(KEY_Q6, pSUS.pQ6)
+            put(KEY_Q7, pSUS.pQ7)
+            put(KEY_Q8, pSUS.pQ8)
+            put(KEY_Q9, pSUS.pQ9)
         }
 
         val success = db.insert(TABLE_SUS, null, contentValues)
