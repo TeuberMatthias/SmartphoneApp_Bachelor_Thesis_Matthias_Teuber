@@ -55,7 +55,7 @@ class Pin (pPin: MutableList<Int>){
     fun addDigit(pChar: Char): String {
 
         /*
-        would prevent the user to submit more digits then the target pin
+        would prevent the user to submit more digits then the target pin:
 
         if (pinSubmission.length < pin.length)
             pinSubmission += pChar
