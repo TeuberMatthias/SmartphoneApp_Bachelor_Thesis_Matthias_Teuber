@@ -1,4 +1,4 @@
-package com.example.pininterface.Interface
+package com.example.pininterface.interfaces
 
 import android.content.res.ColorStateList
 import android.widget.Button

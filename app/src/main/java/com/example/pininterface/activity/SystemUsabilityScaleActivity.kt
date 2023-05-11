@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.example.pininterface.Interface.InterfaceGson
-import com.example.pininterface.Interface.InterfaceViewManipulation
+import com.example.pininterface.interfaces.InterfaceGson
+import com.example.pininterface.interfaces.InterfaceViewManipulation
 import com.example.pininterface.R
 import com.example.pininterface.database.interfaces.InterfaceDbSUS
 import com.example.pininterface.databinding.ActivitySystemUsabilityScaleBinding

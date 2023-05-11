@@ -1,4 +1,4 @@
-package com.example.pininterface.Interface
+package com.example.pininterface.interfaces
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent

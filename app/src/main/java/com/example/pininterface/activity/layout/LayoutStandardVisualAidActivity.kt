@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.example.pininterface.Interface.InterfaceLayoutVisualAidActivity
+import com.example.pininterface.interfaces.InterfaceLayoutVisualAidActivity
 import com.example.pininterface.R
 import com.example.pininterface.enums.EnumInterfaceTypes
 

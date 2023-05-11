@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.pininterface.R
-import com.example.pininterface.Interface.InterfaceGson
-import com.example.pininterface.Interface.InterfaceViewManipulation
+import com.example.pininterface.interfaces.InterfaceGson
+import com.example.pininterface.interfaces.InterfaceViewManipulation
 import com.example.pininterface.activity.ResultPageActivity
 import com.example.pininterface.database.interfaces.InterfaceDbInputSubmission
 import com.example.pininterface.enums.EnumButtonTypes
