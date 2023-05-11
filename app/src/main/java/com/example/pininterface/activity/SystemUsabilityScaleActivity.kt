@@ -17,7 +17,11 @@ import com.example.pininterface.enums.EnumInterfaceTypes
 import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 
+/**
+ * SystemUsabilityScaleActivity (SUS)
+ */
 class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewManipulation, InterfaceGson, InterfaceDbSUS {
+
     private lateinit var participant: Participant
     private lateinit var binding: ActivitySystemUsabilityScaleBinding
 
@@ -39,8 +43,11 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private var colorButtonInactive: Int = 0
     private var colorButtonActive: Int = 0
 
-
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_system_usability_scale)
 
@@ -61,7 +68,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         val question4 = binding.question4
         listQuestionView = mutableListOf(question0, question1, question2, question3, question4)
 
-        listQuestionText = mutableListOf<String>(getString(R.string.sus_00), getString(R.string.sus_01),
+        listQuestionText = mutableListOf(getString(R.string.sus_00), getString(R.string.sus_01),
             getString(R.string.sus_02), getString(R.string.sus_03), getString(R.string.sus_04),
             getString(R.string.sus_05), getString(R.string.sus_06), getString(R.string.sus_07),
             getString(R.string.sus_08), getString(R.string.sus_09))
@@ -73,9 +80,9 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         participant = getParticipantFromJson(intent)
 
         listUsedInterfaceTypes = participant.getUsedInterfaces()
-        if (listUsedInterfaceTypes.isEmpty()) {
+        if (listUsedInterfaceTypes.isEmpty()) { // should never happen
             Log.e("listUsedInterfaceTypes", "list is empty")
-            //TODO: go next activity
+            startNewActivity(participant, FeedBackActivity::class.java)
         }
         activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()
 
@@ -90,17 +97,33 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
     }
 
+    /**
+     * Creates a MutableList with size 10 filled with -1
+     * List will be used to uncheck RadioButtons
+     */
     private fun initListAnswers(): MutableList<Int> {
-        return mutableListOf<Int>(-1, -1, -1, -1, -1, -1, -1 , -1, -1, -1)
+
+        return mutableListOf(-1, -1, -1, -1, -1, -1, -1 , -1, -1, -1)
     }
 
+    /**
+     * Writes the SUS questions.
+     * There are 10 SUS questions total, but only 5 can be displayed on each page.
+     * This function can detect which questions should be displayed
+     */
     private fun writeQuestions() {
+
         listQuestionView.forEachIndexed { index, questionView ->
             updateTextView(questionView.textQuestion, listQuestionText[index + 5 * page])
         }
     }
 
+    /**
+     * Saves the which RadioButtons are checked/saves the Answers in listAnswers
+     * will also clear/uncheck all checked RadioButtons
+     */
     private fun saveAnswers() {
+
         listQuestionView.forEachIndexed { index, modSusScaleBinding ->
             val selectedID = modSusScaleBinding.radioGroup.checkedRadioButtonId
             if (selectedID >= 0) {
@@ -111,7 +134,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
     }
 
+    /**
+     * TODO look if can be combined with nextButtonPressed
+     *
+     *
+     */
     private fun backButtonPressed() {
+
         saveAnswers()
         if (page == 1) {
             page = 0
@@ -119,10 +148,10 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
         setChecked()
         writeQuestions()
-        logAnswers()
     }
 
     private fun nextButtonPressed() {
+
         saveAnswers()
         if (page == 0) {
             page = 1
@@ -130,10 +159,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
         setChecked()
         writeQuestions()
-        logAnswers()
     }
 
+    /**
+     * TODO: look if can be combined
+     */
     private fun updateButtonsPage1() {
+
         setColorButton(buttonNext, colorButtonInactive)
         setColorButton(buttonBack, colorButtonActive)
         updateTextView(textViewPageIndicator, "(" + getString(R.string.page) + " 2/2)")
@@ -145,7 +177,11 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         updateTextView(textViewPageIndicator, "(" + getString(R.string.page) + " 1/2)")
     }
 
+    /**
+     * Sets the checked RadioButtons
+     */
     private fun setChecked() {
+
         listQuestionView.forEachIndexed{index, modSusScaleBinding ->
             val radioGroup = modSusScaleBinding.radioGroup
             val checkedValue = listAnswers[index + 5 * page]
@@ -156,18 +192,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
     }
 
-    //TODO: Delete later
-    private fun logAnswers() {
-        var string = ""
-        listAnswers.forEach {
-            string += "$it: "
-        }
-        Log.e("test", string)
-    }
-
+    /**
+     * buttonContinuePressed
+     * TODO: explain
+     */
     private fun continueButtonPressed() {
+
         saveAnswers()
-        logAnswers()
 
         if (checkAllRadioButtonsSet()) {
 
@@ -193,7 +224,12 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
     }
 
+    /**
+     * checks if all the RadioButtons are set
+     * @return true if all RadioButtons are set, false if not
+     */
     private fun checkAllRadioButtonsSet(): Boolean {
+
         listAnswers.forEach {
             if (it < 0)
                 return false
