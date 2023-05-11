@@ -19,9 +19,14 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     private var listActivePinSet = ArrayList<Pin>()
     private lateinit var activePin: Pin
 
+    private val listInterfacesAsString = listInterfacesAsString()
+    private val listPinSetsAsString = listPinSetsAsString()
+
+    //TODO: get rid of
     private var listSubmissionsPin = ArrayList<String>()
     private lateinit var buttonInputPin: ButtonInputs
 
+    //TODO("get rid of")
     private lateinit var demographics: Demographics
     private var listSuSResults = mutableListOf<SuSResults>()
     private var feedback = ""
@@ -34,6 +39,35 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
 
     fun getID(): Int {
         return this.id;
+    }
+
+    fun getPinSetsAsString(): String {
+        return listPinSetsAsString
+    }
+
+    fun getInterfacesAsString(): String {
+        return listInterfacesAsString
+    }
+
+    private fun listInterfacesAsString(): String {
+        var string = ""
+        listInterfaces.forEach {
+            string += it.value + ";"
+        }
+        return string
+    }
+
+    private fun listPinSetsAsString(): String {
+        var string = ""
+
+        listParticipantPinSets.forEach { pinSet ->
+            string += "("
+            pinSet.forEach { pin ->
+                string += pin.getPin() + ";"
+            }
+            string = string.substring(0, string.length - 1) + ")"
+        }
+        return string
     }
 
     /**

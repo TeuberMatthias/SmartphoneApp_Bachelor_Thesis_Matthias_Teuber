@@ -40,7 +40,7 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson {
         val feedBack = editTextFeedBack.text.toString()
         participant.setFeedBack(feedBack)
         addRecordFeedBack()
-        updateParticipant()
+        updateParticipantComplete()
         startNewActivity(participant, MainActivity::class.java) //TODO DATABANK
     }
 
@@ -52,12 +52,12 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson {
         Log.e("dataBase", dataBaseHelper.addFeedBack(ModelClassFeedBack(id, feedback)).toString())
     }
 
-    private fun updateParticipant() {
+    private fun updateParticipantComplete() {
         val id = participant.getID()
         val complete: Int = 1
 
         val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
-        Log.e("db_update_participant", dataBaseHelper.updateParticipant(ModelClassParticipant(id, complete)).toString())
+        Log.e("db_update_participant", dataBaseHelper.updateParticipantComplete(ModelClassParticipant(id, complete)).toString())
     }
 
 }

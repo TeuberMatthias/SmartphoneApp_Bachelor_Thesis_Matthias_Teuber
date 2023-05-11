@@ -31,15 +31,15 @@ class MainActivity : SuperActivityNavigation() {
         var id: Int = 0
         do {
             id = (0..999_999).random()
-        } while (!checkIdFree(id))
+        } while (!dbCheckIdFree(id))
 
 
         val participant = Participant(id, PinSets())
-        writeParticipant(id)
+        dbWriteParticipant(participant)
 
 
         Log.e("Participant id:", participant.getID().toString())
-        showParticipants(getListParticipant())
+        dbShowParticipants(dbGetListParticipant())
 
         button.setOnClickListener { nextInterfaceActivity(participant) }
 
@@ -49,25 +49,30 @@ class MainActivity : SuperActivityNavigation() {
 
     }
 
-    private fun writeParticipant(pID: Int) {
+    private fun dbWriteParticipant(pParticipant: Participant) {
+        val id = pParticipant.getID()
+        val orderPins = pParticipant.getPinSetsAsString()
+        val orderInterfaces = pParticipant.getInterfacesAsString()
+
         val db = DataBaseHelper(this)
-        val participant = ModelClassParticipant(pID)
+        val participant = ModelClassParticipant(id, 0, orderPins, orderInterfaces)
+
         Log.e("db_participant",db.addParticipant(participant).toString())
     }
 
-    private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
+    private fun dbShowParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
         pListParticipant.forEach {
             val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pOrderPins},orderInterfaces:${it.pOrderInterfaces}"
             Log.e("participant", string)
         }
     }
-    private fun getListParticipant(): MutableList<ModelClassParticipant> {
+    private fun dbGetListParticipant(): MutableList<ModelClassParticipant> {
         val db: DataBaseHelper = DataBaseHelper(this)
         return db.viewParticipant()
     }
 
-    private fun checkIdFree(pId: Int): Boolean {
-        val listParticipant = getListParticipant()
+    private fun dbCheckIdFree(pId: Int): Boolean {
+        val listParticipant = dbGetListParticipant()
         listParticipant.forEach {
             if (it.pId == pId) {
                 Log.e("id_used", "Id: $pId already in use")
