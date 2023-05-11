@@ -14,8 +14,7 @@ import com.example.pininterface.Interface.InterfaceViewManipulation
 import com.example.pininterface.activity.MainActivity
 import com.example.pininterface.activity.ResultPageActivity
 import com.example.pininterface.database.DataBaseHelper
-import com.example.pininterface.database.ModelClassFeedBack
-import com.example.pininterface.database.ModelClassInterActionSubmission
+import com.example.pininterface.database.modelclass.ModelClassInterActionSubmission
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
 import com.example.pininterface.logic.Participant

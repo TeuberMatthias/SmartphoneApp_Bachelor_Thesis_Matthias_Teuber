@@ -1,4 +1,4 @@
-package com.example.pininterface.database
+package com.example.pininterface.database.modelclass
 
 class ModelClassInterActionSubmission(val pId: Int,
                                       val pInterface: String,

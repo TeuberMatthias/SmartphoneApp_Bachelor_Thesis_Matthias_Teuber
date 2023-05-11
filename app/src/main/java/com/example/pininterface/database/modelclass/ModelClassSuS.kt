@@ -1,4 +1,4 @@
-package com.example.pininterface.database
+package com.example.pininterface.database.modelclass
 
 class ModelClassSuS(val pId: Int, val pInterfaceTyp: String,
                     val pQ0: Int, val pQ1: Int, val pQ2: Int, val pQ3: Int, val pQ4: Int,

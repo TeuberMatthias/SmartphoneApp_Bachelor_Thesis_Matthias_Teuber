@@ -7,6 +7,11 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.pininterface.database.modelclass.ModelClassDemographics
+import com.example.pininterface.database.modelclass.ModelClassFeedBack
+import com.example.pininterface.database.modelclass.ModelClassInterActionSubmission
+import com.example.pininterface.database.modelclass.ModelClassParticipant
+import com.example.pininterface.database.modelclass.ModelClassSuS
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 

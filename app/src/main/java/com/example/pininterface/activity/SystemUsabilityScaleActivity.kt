@@ -12,8 +12,8 @@ import com.example.pininterface.Interface.InterfaceGson
 import com.example.pininterface.Interface.InterfaceViewManipulation
 import com.example.pininterface.R
 import com.example.pininterface.database.DataBaseHelper
-import com.example.pininterface.database.ModelClassDemographics
-import com.example.pininterface.database.ModelClassSuS
+import com.example.pininterface.database.interfaces.InterfaceDbSUS
+import com.example.pininterface.database.modelclass.ModelClassSuS
 import com.example.pininterface.databinding.ActivitySystemUsabilityScaleBinding
 import com.example.pininterface.databinding.ModSusScaleBinding
 import com.example.pininterface.enums.EnumInterfaceTypes
@@ -21,7 +21,7 @@ import com.example.pininterface.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.example.pininterface.logic.SuSResults
 
-class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewManipulation, InterfaceGson {
+class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewManipulation, InterfaceGson, InterfaceDbSUS {
     private lateinit var participant: Participant
     private lateinit var binding: ActivitySystemUsabilityScaleBinding
 
@@ -174,7 +174,9 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         logAnswers()
         val susResult = SuSResults(activeInterfaceTyp, listAnswers)
         if (susResult.checkSuSComplete()) {
-            dbHelperSuS()
+
+            dbAddSUS(participant.getID(), activeInterfaceTyp, listAnswers, this)
+
             participant.addSuSResult(susResult)
             if (listUsedInterfaceTypes.isNotEmpty()) {
                 activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()
@@ -196,13 +198,5 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         }
     }
 
-    private fun dbHelperSuS() {
-        val id = participant.getID()
-        val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
 
-        val modelClassSUS: ModelClassSuS = ModelClassSuS(id, activeInterfaceTyp.toString(),
-            listAnswers[0], listAnswers[1], listAnswers[2], listAnswers[3], listAnswers[4],
-            listAnswers[5], listAnswers[6], listAnswers[7],  listAnswers[9], listAnswers[9])
-        Log.e("SUS DB", dataBaseHelper.addSUS(modelClassSUS).toString())
-    }
 }

@@ -6,15 +6,14 @@ import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import com.example.pininterface.R
-import com.example.pininterface.database.DataBaseHelper
-import com.example.pininterface.database.ModelClassDemographics
+import com.example.pininterface.database.interfaces.InterfaceDbDemographics
 import com.example.pininterface.databinding.ActivityDemographicsBinding
 import com.example.pininterface.logic.Demographics
 import com.example.pininterface.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
 
-class DemographicActivity : SuperActivityNavigation() {
+class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics {
     private lateinit var participant: Participant
     private lateinit var binding: ActivityDemographicsBinding
     lateinit var buttonContinue: Button
@@ -53,16 +52,21 @@ class DemographicActivity : SuperActivityNavigation() {
         } else {
             val gender: RadioButton = findViewById(radioGroupGenderValue)
             val dominantHand: RadioButton = findViewById(radioGroupDominantHand)
+
+            //TODO: get rid
             val demographics = Demographics(age, dominantHand.tag.toString(), gender.tag.toString())
             Log.e("results", demographics.getDemographicsString())
+
             participant.setDemographics(demographics)
 
             val id = participant.getID()
-            val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
-            val modelClassDemographics: ModelClassDemographics = ModelClassDemographics(id, age, gender.tag.toString(), dominantHand.tag.toString())
-            Log.e("Demograpics DB", dataBaseHelper.addDemographics(modelClassDemographics).toString())
+
+            dbAddDemographics(id, age, gender.tag.toString(), dominantHand.tag.toString(), this)
+
             startNewActivity(participant, SystemUsabilityScaleActivity::class.java)
         }
     }
+
+
 
 }

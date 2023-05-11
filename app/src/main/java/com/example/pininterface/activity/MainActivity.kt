@@ -3,9 +3,9 @@ package com.example.pininterface.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import com.example.pininterface.Interface.InterfaceDbParticipant
+import com.example.pininterface.database.interfaces.InterfaceDbParticipant
 import com.example.pininterface.R
-import com.example.pininterface.database.ModelClassParticipant
+import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
@@ -33,11 +33,11 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
 
         val participant = Participant(id, PinSets())
-        dbWriteParticipant(participant, this)
+        dbAddParticipant(participant, this)
 
 
         Log.e("Participant id:", participant.getID().toString())
-        showParticipants(dbGetListParticipant(this))
+        showParticipants(dbViewListParticipant(this))
 
         button.setOnClickListener { nextInterfaceActivity(participant) }
 
@@ -58,7 +58,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
 
     private fun checkIdFree(pId: Int): Boolean {
-        val listParticipant = dbGetListParticipant(this)
+        val listParticipant = dbViewListParticipant(this)
         listParticipant.forEach {
             if (it.pId == pId) {
                 Log.e("id_used", "Id: $pId already in use")

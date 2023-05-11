@@ -1,20 +1,20 @@
-package com.example.pininterface.Interface
+package com.example.pininterface.database.interfaces
 
 import android.content.Context
 import android.util.Log
 import com.example.pininterface.database.DataBaseHelper
-import com.example.pininterface.database.ModelClassParticipant
+import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.logic.Participant
 
 interface InterfaceDbParticipant {
 
-    fun dbGetListParticipant(pContext: Context): MutableList<ModelClassParticipant> {
+    fun dbViewListParticipant(pContext: Context): MutableList<ModelClassParticipant> {
 
         val db = DataBaseHelper(pContext)
         return db.viewParticipant()
     }
 
-    fun dbWriteParticipant(pParticipant: Participant, pContext: Context): Long {
+    fun dbAddParticipant(pParticipant: Participant, pContext: Context): Long {
 
         val id = pParticipant.getID()
         val orderPins = pParticipant.getPinSetsAsString()
