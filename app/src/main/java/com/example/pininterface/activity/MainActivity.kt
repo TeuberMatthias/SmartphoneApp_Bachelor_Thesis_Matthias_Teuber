@@ -7,6 +7,7 @@ import com.example.pininterface.R
 import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.ModelClassDemographics
 import com.example.pininterface.database.ModelClassFeedBack
+import com.example.pininterface.database.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
@@ -26,31 +27,55 @@ class MainActivity : SuperActivityNavigation() {
 
         val button = binding.buttonMainStart
         //TODO(Check that participant ID is unique)
-        val participant = Participant((0..10000).random(), PinSets())
 
+        var id: Int = 0
+        do {
+            id = (0..999_999).random()
+        } while (!checkIdFree(id))
+
+
+        val participant = Participant(id, PinSets())
+        writeParticipant(id)
+
+
+        Log.e("Participant id:", participant.getID().toString())
+        showParticipants(getListParticipant())
 
         button.setOnClickListener { nextInterfaceActivity(participant) }
-        //button.setOnClickListener { test() }
 
-        val displayMetrics = resources.displayMetrics
-        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        //val displayMetrics = resources.displayMetrics
+        //val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        //Log.e("dp", "$dpWidth dp")
 
-        Log.e("dp", "$dpWidth dp")
     }
 
-    private fun test() {
-        val id = 11
-        val feedback = "test"
+    private fun writeParticipant(pID: Int) {
+        val db = DataBaseHelper(this)
+        val participant = ModelClassParticipant(pID)
+        Log.e("db_participant",db.addParticipant(participant).toString())
+    }
 
-        val age = 29
-        val hand = "rechts"
-        val gender = "male"
+    private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
+        pListParticipant.forEach {
+            val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pOrderPins},orderInterfaces:${it.pOrderInterfaces}"
+            Log.e("participant", string)
+        }
+    }
+    private fun getListParticipant(): MutableList<ModelClassParticipant> {
+        val db: DataBaseHelper = DataBaseHelper(this)
+        return db.viewParticipant()
+    }
 
-
-        val dataBaseHelper = DataBaseHelper(this)
-
-        Log.e("dataBase_demographics", dataBaseHelper.addDemographics(ModelClassDemographics(id, age, gender, hand)).toString())
-        Log.e("dataBase_feedback", dataBaseHelper.addFeedBack(ModelClassFeedBack(id, feedback)).toString())
+    private fun checkIdFree(pId: Int): Boolean {
+        val listParticipant = getListParticipant()
+        listParticipant.forEach {
+            if (it.pId == pId) {
+                Log.e("id_used", "Id: $pId already in use")
+                return false
+            }
+        }
+        Log.e("id_used", "Id: $pId not in use")
+        return true
     }
 
 }

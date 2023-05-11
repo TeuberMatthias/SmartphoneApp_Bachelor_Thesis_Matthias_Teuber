@@ -1,8 +1,11 @@
 package com.example.pininterface.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -47,8 +50,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL("CREATE TABLE $TABLE_PARTICIPANT(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
-                "$KEY_PARTICIPANT_ID INTEGER," +
+                //"$KEY_ID INTEGER PRIMARY KEY," +
+                "$KEY_PARTICIPANT_ID INTEGER PRIMARY KEY," +
                 "$KEY_COMPLETE INTEGER," +
                 "$KEY_ORDER_PINS TEXT," +
                 "$KEY_ORDER_INTERFACES TEXT)")
@@ -103,6 +106,40 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val success = db.insert(TABLE_PARTICIPANT, null, contentValues)
         db.close()
         return success
+    }
+
+    @SuppressLint("Range", "Recycle")
+    fun viewParticipant(): MutableList<ModelClassParticipant> {
+        val listParticipant: MutableList<ModelClassParticipant> = mutableListOf<ModelClassParticipant>()
+        val querySelect = "SELECT * FROM $TABLE_PARTICIPANT"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+
+        try {
+            cursor = db.rawQuery(querySelect, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(querySelect)
+
+            return mutableListOf()
+        }
+
+        var id: Int
+        var complete: Int
+        var orderPins: String
+        var orderInterfaces: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(KEY_PARTICIPANT_ID))
+                complete = cursor.getInt(cursor.getColumnIndex(KEY_COMPLETE))
+                orderPins = cursor.getString(cursor.getColumnIndex(KEY_ORDER_PINS))
+                orderInterfaces = cursor.getString(cursor.getColumnIndex(KEY_ORDER_INTERFACES))
+
+                val participant = ModelClassParticipant(id, complete, orderPins, orderInterfaces)
+                listParticipant.add(participant)
+            } while (cursor.moveToNext())
+        }
+        return listParticipant
     }
 
     fun addSubmission(submission: ModelClassInterActionSubmission): Long {
