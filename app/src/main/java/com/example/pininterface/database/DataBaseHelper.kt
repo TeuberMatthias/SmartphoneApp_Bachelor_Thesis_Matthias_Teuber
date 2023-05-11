@@ -246,10 +246,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
-        contentValues.put(KEY_PARTICIPANT_ID, pDemographics.id)
-        contentValues.put(KEY_AGE, pDemographics.age)
-        contentValues.put(KEY_GENDER, pDemographics.gender)
-        contentValues.put(KEY_DOMINANT_HAND, pDemographics.dominant_hand)
+        contentValues.put(KEY_PARTICIPANT_ID, pDemographics.pId)
+        contentValues.put(KEY_AGE, pDemographics.pAge)
+        contentValues.put(KEY_GENDER, pDemographics.pGender)
+        contentValues.put(KEY_DOMINANT_HAND, pDemographics.pDominant_hand)
 
         val success = db.insert(TABLE_DEMOGRAPHICS, null, contentValues)
 
