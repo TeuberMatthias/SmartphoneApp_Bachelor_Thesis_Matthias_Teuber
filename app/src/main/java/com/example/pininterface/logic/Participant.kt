@@ -2,6 +2,7 @@ package com.example.pininterface.logic
 
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
+import com.example.pininterface.values.PinSets
 
 /**
  * Participant

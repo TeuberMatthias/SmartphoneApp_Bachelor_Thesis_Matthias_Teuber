@@ -9,7 +9,7 @@ import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
-import com.example.pininterface.logic.PinSets
+import com.example.pininterface.values.PinSets
 
 
 class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {

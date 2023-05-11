@@ -1,7 +1,10 @@
-package com.example.pininterface.logic
+package com.example.pininterface.values
+
+import com.example.pininterface.logic.Pin
 
 /**
  * PinSets
+ * All the different PinSets with their corrosponding Pins that will be used for the User Study
  */
 class PinSets {
 
