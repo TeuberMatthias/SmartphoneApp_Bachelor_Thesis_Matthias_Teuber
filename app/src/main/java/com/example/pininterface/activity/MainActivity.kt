@@ -28,7 +28,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
         var id: Int
         do {
-            id = (0..999_999).random()
+            id = (100_000..999_999).random()
         } while (!checkIdFree(id))
 
 
