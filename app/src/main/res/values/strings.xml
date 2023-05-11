@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">PinInterface</string>
+    <string name="target_pin">Einzugebener PIN:</string>
+    <string name="start">Start</string>
+    <string name="user_study">User Study</string>
+
+    <string name="interface_types_standard">Android Interface</string>
+    <string name="interface_types_column">Column Interface</string>
+    <string name="interface_types_standard_vis_aid">Android Interface with Visual Aid</string>
+    <string name="interface_types_column_vis_aid">Column Interface with Visual Aid</string>
+    <string name="interface_types_none">No Interface Selected</string>
+
+
+    <string name="demographics">Demographics</string>
+    <string name="gender">Geschlecht</string>
+    <string name="gender_female">Weiblich</string>
+    <string name="gender_male">Männlich</string>
+    <string name="gender_unknown">Divers</string>
+    <string name="continue_button">Weiter</string>
+    <string name="age">Alter</string>
+    <string name="hint_age">Hier das Alter eingeben</string>
+    <string name="righthanded">Rechts</string>
+    <string name="lefthanded">Links</string>
+    <string name="ambidextrous">Beidhändig</string>
+    <string name="dominant_hand">Dominante Hand</string>
+    <string name="age_not_set">Kein Alter gesetzt</string>
+    <string name="gender_not_set">Kein Geschlecht ausgewählt</string>
+    <string name="dominant_hand_not_set">Dominante Hand nicht ausgewählt</string>
+
+    <string name="wrong_pin">FALSCH</string>
+    <string name="error_pin_not_found_01">ERROR 01 - PIN nicht gefunden</string>
+    <string name="error_pin_submission_string">Error 02</string>
+
+    <string name="baseline_backspace">\u232B</string>
+    <string name="baseline_keyboard_tab">\u21E5</string>
+    <string name="emergency">Notruf</string>
+
+
+    <string name="layout_standard">Standard Layout</string>
+    <string name="layout_standard_with_visAid">Standard Layout mit visueller Hilfe</string>
+    <string name="layout_column">Spalten Layout</string>
+    <string name="layout_column_with_visAid">Spalten Layout mit visueller Hilfe</string>
+
+    <string name="sus_00">Ich kann mir sehr gut vorstellen, dieses Layout regelmäßig zu nutzen.</string>
+    <string name="sus_01">Ich empfinde dieses Layout als unnötig komplex.</string>
+    <string name="sus_02">Ich empfinde dieses Layout als einfach zu nutzen</string>
+    <string name="sus_03">Ich denke, dass ich technischen Support brauchen würde, um dieses Layout zu nutzen.</string>
+    <string name="sus_04">Ich finde, dass die verschiedenen Funktionen dieses Layouts gut integriert sind.</string>
+    <string name="sus_05">Ich finde, dass es im Layout zu viele Inkonsistenzen gibt.</string>
+    <string name="sus_06">Ich kann mir vorstellen, dass die meisten Leute dieses Layout schnell zu beherrschen lernen.</string>
+    <string name="sus_07">Ich empfinde die Bedienung als sehr umständlich.</string>
+    <string name="sus_08">Ich habe mich bei der Nutzung dieses Layouts sehr sicher gefühlt.</string>
+    <string name="sus_09">Ich musste eine Menge Dinge lernen, bevor ich mit diesem Layout arbeiten konnte.</string>
+    <string name="system_usability_scale">System Usability Scale</string>
+    <string name="back">zurück</string>
+    <string name="next">nächste</string>
+    <string name="page">Seite</string>
+    <string name="feedback">Feedback</string>
+    <string name="hint_feedback_anyonym">Um Ihre Anonymität zu wahren, bitte keine Namen oder sonstige identifizierbarende Merkmale nennen.</string>
+    <string name="feedback_edit_text">Feedback...</string>
+    <string name="not_all_fields_filled">Bitte alle Felder ausfüllen</string>
+
+
+</resources>

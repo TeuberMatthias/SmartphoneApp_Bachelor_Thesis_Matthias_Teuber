@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <!--Standard Interface -->
+    <style name="number_button" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintWidth_percent">0.25</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textColor">@color/number_button_normal_text</item>
+        <item name="backgroundTint">@color/number_button_normal</item>
+
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:background">@drawable/round_button</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="control_button" parent="number_button">
+        <item name="android:textColor">@color/control_button_normal_text</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="backgroundTint">@color/control_button_normal</item>
+        <item name="layout_constraintBottom_toBottomOf">@+id/button_0</item>
+    </style>
+
+    <!--Column Interface -->
+    <style name="column_button" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintWidth_percent">0.47</item>
+        <item name="layout_constraintHeight_percent">0.09</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textColor">@color/number_button_normal_text</item>
+        <item name="android:backgroundTint">@color/number_button_normal</item>
+
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="column_button_control" parent="column_button">
+        <item name="android:textColor">@color/control_button_normal_text</item>
+        <item name="android:backgroundTint">@color/control_button_normal</item>
+        <item name="android:layout_marginBottom">56dp</item>
+    </style>
+
+</resources>
