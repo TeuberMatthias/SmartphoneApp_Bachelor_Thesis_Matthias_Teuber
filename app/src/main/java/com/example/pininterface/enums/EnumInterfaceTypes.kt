@@ -1,16 +1,13 @@
 package com.example.pininterface.enums
 
-enum class EnumInterfaceTypes (val value: String) {
-//enum class EnumInterfaceTypes {
-    STANDARD("Standard Interface"),
-    COLUMN("Column Interface"),
-    STANDARD_VIS("Standard Interface mit Visual Aid"),
-    COLUMN_VIS("Column Interface mit Visual Aid"),
-    NONE("NONE"),
-    /*STANDARD(Resources.getSystem().getString(R.string.interface_types_standard)),
-    COLUMN(Resources.getSystem().getString(R.string.interface_types_column)),
-    STANDARD_VIS(Resources.getSystem().getString(R.string.interface_types_standard_vis_aid)),
-    COLUMN_VIS(Resources.getSystem().getString(R.string.interface_types_column_vis_aid)),
-    NONE(Resources.getSystem().getString(R.string.interface_types_none)),*/
-    //TODO: gucken was hier nicht stimmt
+import androidx.annotation.StringRes
+import com.example.pininterface.R
+
+enum class EnumInterfaceTypes (@StringRes val stringResId: Int) {
+
+    STANDARD(R.string.interface_types_standard),
+    COLUMN(R.string.interface_types_column),
+    STANDARD_VIS(R.string.interface_types_standard_vis_aid),
+    COLUMN_VIS(R.string.interface_types_column_vis_aid),
+    NONE(R.string.interface_types_none),
 }

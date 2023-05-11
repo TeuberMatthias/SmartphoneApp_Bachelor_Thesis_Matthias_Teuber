@@ -174,7 +174,7 @@ class Participant (pId: Int, pParticipantPinSets: PinSets){
     private fun listInterfacesAsString(): String {
         var string = ""
         listInterfaces.forEach {
-            string += it.value + ";"
+            string += it.toString() + ";"
         }
         return string
     }

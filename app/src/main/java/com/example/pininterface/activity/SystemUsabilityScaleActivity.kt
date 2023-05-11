@@ -85,7 +85,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         buttonBack.setOnClickListener { backButtonPressed() }
 
         writeQuestions()
-        updateTextView(textViewInterfaceTyp, activeInterfaceTyp.value)
+        updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
         updateButtonsPage0()
 
     }
@@ -175,7 +175,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
             if (listUsedInterfaceTypes.isNotEmpty()) {
                 activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()
-                updateTextView(textViewInterfaceTyp, activeInterfaceTyp.value)
+                updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
                 listAnswers = initListAnswers()
                 page = 0
                 updateButtonsPage0()
