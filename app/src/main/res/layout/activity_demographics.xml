@@ -75,12 +75,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="number"
         android:hint="@string/hint_age"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_text"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/age_text" />
 
     <RadioGroup
         android:id="@+id/radioGroup_dominant_hand"

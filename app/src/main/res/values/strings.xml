@@ -62,6 +62,10 @@
     <string name="no_gender_selected">No Gender Selected</string>
     <string name="invalid_age_selected">Invalid Age Selected</string>
     <string name="no_dominant_hand_selected">No Dominant Hand Selected</string>
+    <string name="next_interface">"Nächstes Interface: "</string>
+    <string name="all_pin_interfaces_solved">Alle Pin Interfaces gelöst!</string>
+    <string name="message_take_of_gloves">Bitte die Handschuhe nun ausziehen.</string>
+    <string name="message_put_on_gloves">Bitte die Handschuhe nun anziehen.</string>
 
 
 </resources>

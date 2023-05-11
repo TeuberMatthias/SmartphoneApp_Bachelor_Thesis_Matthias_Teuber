@@ -39,7 +39,9 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         Log.e("Participant id:", participant.getID().toString())
         showParticipants(dbViewListParticipant(this))
 
-        button.setOnClickListener { nextInterfaceActivity(participant) }
+        button.setOnClickListener { startNewActivity(participant, IntermediatePageActivity::class.java) }
+        //button.setOnClickListener { nextInterfaceActivity(participant) }
+
 
         //val displayMetrics = resources.displayMetrics
         //val dpWidth = displayMetrics.widthPixels / displayMetrics.density

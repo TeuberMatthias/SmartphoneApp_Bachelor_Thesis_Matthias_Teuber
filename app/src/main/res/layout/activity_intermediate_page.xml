@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".activity.ResultPageActivity">
+    tools:context=".activity.IntermediatePageActivity">
 
 
     <TextView
@@ -17,18 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/results"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="No Results"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultViewTitle" />
-
     <include
-        android:id="@+id/results_button_continue"
+        android:id="@+id/button_continue_intermediate_page"
         layout="@layout/mod_continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,6 +26,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_message_interface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/button_continue_intermediate_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_message_gloves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_continue_intermediate_page" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

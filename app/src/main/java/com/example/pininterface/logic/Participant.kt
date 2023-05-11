@@ -14,7 +14,7 @@ class Participant (pId: Int, pParticipantPinSets: PinSets) {
     // The unique id for the participant
     private val id: Int = pId
     // The Interfaces that will be used for this participant. Order randomized. Once an interface becomes active, it will be removed from this list
-    private val listInterfaces = ArrayList(arrayListOf(EnumInterfaceTypes.STANDARD/*, EnumInterfaceTypes.STANDARD_VIS, EnumInterfaceTypes.COLUMN, EnumInterfaceTypes.COLUMN_VIS*/).shuffled())
+    private val listInterfaces = ArrayList(arrayListOf(EnumInterfaceTypes.STANDARD, EnumInterfaceTypes.STANDARD_VIS, EnumInterfaceTypes.COLUMN, EnumInterfaceTypes.COLUMN_VIS).shuffled())
     // The currently active Interface
     private lateinit var activeInterface: EnumInterfaceTypes
     // List of the already used Interface, in the same order as they were used

@@ -19,7 +19,7 @@
        <activity android:name=".activity.layout.LayoutColumnVisualAidActivity"> </activity>
 
 
-        <activity android:name=".activity.ResultPageActivity"> </activity>
+        <activity android:name=".activity.IntermediatePageActivity"> </activity>
         <activity android:name=".activity.DemographicActivity"> </activity>
         <activity android:name=".activity.SystemUsabilityScaleActivity"> </activity>
         <activity android:name=".activity.FeedBackActivity"> </activity>

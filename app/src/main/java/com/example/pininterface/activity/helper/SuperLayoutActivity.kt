@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import com.example.pininterface.R
 import com.example.pininterface.interfaces.InterfaceGson
 import com.example.pininterface.interfaces.InterfaceViewManipulation
-import com.example.pininterface.activity.ResultPageActivity
+import com.example.pininterface.activity.IntermediatePageActivity
 import com.example.pininterface.database.interfaces.InterfaceDbInputSubmission
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
@@ -104,7 +104,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
                 updateTextView(pinSubmissionTextView, participant.getActivePin().getPinSubmission())
                 updateTextView(pinTargetTextView, participant.getActivePin().getPin())
             } else {
-                startNewActivity(participant, ResultPageActivity::class.java)
+                startNewActivity(participant, IntermediatePageActivity::class.java)
             }
         } else {
             updateTextView(pinSubmissionTextView, getString(R.string.wrong_pin))
