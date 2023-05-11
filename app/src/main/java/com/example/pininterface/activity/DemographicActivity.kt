@@ -73,7 +73,4 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
             startNewActivity(participant, SystemUsabilityScaleActivity::class.java)
         }
     }
-
-
-
 }

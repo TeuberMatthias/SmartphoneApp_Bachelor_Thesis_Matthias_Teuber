@@ -1,6 +1,7 @@
 package com.example.pininterface.activity.helper
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
@@ -27,5 +28,15 @@ open class SuperActivityNavigation : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 
         startActivity(intent)
+    }
+
+    /**
+     * Overrides the Back Button
+     * Back Button does nothing except trigger a Toast
+     */
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+
+        Toast.makeText(this, "Back Button disabled", Toast.LENGTH_SHORT).show()
     }
 }
