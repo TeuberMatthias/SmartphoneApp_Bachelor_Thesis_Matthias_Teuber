@@ -25,7 +25,7 @@
 
     <color name="button_visual_aid_highlighted">#FF5722</color>
 
-    <color name="emergency_button">#E17096</color>
+    <color name="emergency_button">#FFCCFE</color>
     <color name="background">#D3D3D3</color>
 
     <color name="button_inactive">#62AF65</color>
