@@ -19,7 +19,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_SUBMISSIONS = "submissions"
         private const val TABLE_PARTICIPANT = "participant"
 
-        private const val KEY_ID = "_id"
+        private const val PK_TABLE_SUS = "pk_table_sus"
+        private const val PK_TABLE_SUBMISSIONS = "pk_table_submissions"
+
+        //private const val KEY_ID = "_id"
         private const val KEY_PARTICIPANT_ID = "p_id"
         private const val KEY_AGE = "age"
         private const val KEY_GENDER = "gender"
@@ -50,38 +53,35 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL("CREATE TABLE $TABLE_PARTICIPANT(" +
-                //"$KEY_ID INTEGER PRIMARY KEY," +
                 "$KEY_PARTICIPANT_ID INTEGER PRIMARY KEY," +
                 "$KEY_COMPLETE INTEGER," +
                 "$KEY_ORDER_PINS TEXT," +
                 "$KEY_ORDER_INTERFACES TEXT)")
 
         db?.execSQL("CREATE TABLE $TABLE_DEMOGRAPHICS(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
-                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_PARTICIPANT_ID INTEGER PRIMARY KEY," +
                 "$KEY_AGE INTEGER," +
                 "$KEY_GENDER TEXT," +
                 "$KEY_DOMINANT_HAND TEXT)")
 
         db?.execSQL("CREATE TABLE $TABLE_FEEDBACK(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
-                "$KEY_PARTICIPANT_ID INTEGER," +
+                "$KEY_PARTICIPANT_ID INTEGER PRIMARY KEY," +
                 "$KEY_FEEDBACK TEXT)")
 
         db?.execSQL("CREATE TABLE $TABLE_SUS(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
-                "$KEY_PARTICIPANT_ID INTEGER," +
-                "$KEY_INTERFACE TEXT," +
+                "$KEY_PARTICIPANT_ID INTEGER NOT NULL," +
+                "$KEY_INTERFACE TEXT NOT NULL," +
                 "$KEY_Q0 INTEGER,$KEY_Q1 INTEGER,$KEY_Q2 INTEGER,$KEY_Q3 INTEGER,$KEY_Q4 INTEGER," +
-                "$KEY_Q5 INTEGER,$KEY_Q6 INTEGER,$KEY_Q7 INTEGER,$KEY_Q8 INTEGER,$KEY_Q9 INTEGER)")
+                "$KEY_Q5 INTEGER,$KEY_Q6 INTEGER,$KEY_Q7 INTEGER,$KEY_Q8 INTEGER,$KEY_Q9 INTEGER," +
+                "CONSTRAINT $PK_TABLE_SUS PRIMARY KEY ($KEY_PARTICIPANT_ID, $KEY_INTERFACE))")
 
         db?.execSQL("CREATE TABLE $TABLE_SUBMISSIONS(" +
-                "$KEY_ID INTEGER PRIMARY KEY," +
-                "$KEY_PARTICIPANT_ID INTEGER," +
-                "$KEY_INTERFACE," +
-                "$KEY_PIN TEXT," +
+                "$KEY_PARTICIPANT_ID INTEGER NOT NULL," +
+                "$KEY_INTERFACE TEXT NOT NULL," +
+                "$KEY_PIN TEXT NOT NULL," +
                 "$KEY_SUBMISSION TEXT," +
-                "$KEY_TIME INTEGER)")
+                "$KEY_TIME INTEGER," +
+                "CONSTRAINT $PK_TABLE_SUBMISSIONS PRIMARY KEY ($KEY_PARTICIPANT_ID, $KEY_INTERFACE, $KEY_PIN))")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
