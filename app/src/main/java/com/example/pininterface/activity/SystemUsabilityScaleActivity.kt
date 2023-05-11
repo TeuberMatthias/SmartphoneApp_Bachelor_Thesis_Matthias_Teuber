@@ -17,7 +17,7 @@ import com.example.pininterface.database.modelclass.ModelClassSuS
 import com.example.pininterface.databinding.ActivitySystemUsabilityScaleBinding
 import com.example.pininterface.databinding.ModSusScaleBinding
 import com.example.pininterface.enums.EnumInterfaceTypes
-import com.example.pininterface.helper.SuperActivityNavigation
+import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.example.pininterface.logic.SuSResults
 

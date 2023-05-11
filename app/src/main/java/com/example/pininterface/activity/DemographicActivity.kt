@@ -9,7 +9,7 @@ import com.example.pininterface.R
 import com.example.pininterface.database.interfaces.InterfaceDbDemographics
 import com.example.pininterface.databinding.ActivityDemographicsBinding
 import com.example.pininterface.logic.Demographics
-import com.example.pininterface.helper.SuperActivityNavigation
+import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
 

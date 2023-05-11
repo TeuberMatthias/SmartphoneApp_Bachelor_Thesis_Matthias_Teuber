@@ -7,7 +7,7 @@ import com.example.pininterface.database.interfaces.InterfaceDbParticipant
 import com.example.pininterface.R
 import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
-import com.example.pininterface.helper.SuperActivityNavigation
+import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.example.pininterface.logic.PinSets
 

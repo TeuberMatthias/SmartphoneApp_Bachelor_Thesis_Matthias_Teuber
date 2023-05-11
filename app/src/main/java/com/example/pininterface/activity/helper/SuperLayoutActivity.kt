@@ -1,4 +1,4 @@
-package com.example.pininterface.helper
+package com.example.pininterface.activity.helper
 
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +14,7 @@ import com.example.pininterface.Interface.InterfaceViewManipulation
 import com.example.pininterface.activity.MainActivity
 import com.example.pininterface.activity.ResultPageActivity
 import com.example.pininterface.database.DataBaseHelper
+import com.example.pininterface.database.interfaces.InterfaceDbInputSubmission
 import com.example.pininterface.database.modelclass.ModelClassInterActionSubmission
 import com.example.pininterface.enums.EnumButtonTypes
 import com.example.pininterface.enums.EnumInterfaceTypes
@@ -21,7 +22,7 @@ import com.example.pininterface.logic.Participant
 import java.util.*
 
 
-open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipulation,
+open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipulation, InterfaceDbInputSubmission,
     InterfaceGson {
     open lateinit var interfaceType: EnumInterfaceTypes
     lateinit var participant: Participant
@@ -78,15 +79,10 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     }
 
     private fun addSubmission(pSubmission: EnumButtonTypes) {
-        val id = participant.getID()
-        val activeInterface = participant.getActiveInterface().toString()
-        val activePin = participant.getActivePin().getPin()
-        val submission = pSubmission.toString()
-        val time = 999 //TODO("only test, rewrite later to get real time")
 
-        val dataBaseHelper = DataBaseHelper(this)
-        val modelClass = ModelClassInterActionSubmission(id, activeInterface, activePin, submission, time)
-        Log.e("submission DB", dataBaseHelper.addSubmission(modelClass).toString())
+        //TODO: get Time
+        val time = 111
+        dbAddSubmission(participant.getID(), participant.getActiveInterface(), participant.getActivePin().getPin(), pSubmission, time, this)
     }
 
     private fun emergencyButtonClicked() {

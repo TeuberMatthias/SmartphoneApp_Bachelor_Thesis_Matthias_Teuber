@@ -8,7 +8,7 @@ import com.example.pininterface.database.interfaces.InterfaceDbParticipant
 import com.example.pininterface.Interface.InterfaceGson
 import com.example.pininterface.R
 import com.example.pininterface.databinding.ActivityLayoutFeedbackBinding
-import com.example.pininterface.helper.SuperActivityNavigation
+import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 
 class FeedBackActivity : SuperActivityNavigation(), InterfaceGson, InterfaceDbParticipant,

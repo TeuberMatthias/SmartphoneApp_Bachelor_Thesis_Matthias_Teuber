@@ -1,4 +1,4 @@
-package com.example.pininterface.helper
+package com.example.pininterface.activity.helper
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.pininterface.R
 import com.example.pininterface.databinding.ActivityResultPageBinding
-import com.example.pininterface.helper.SuperActivityNavigation
+import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
 

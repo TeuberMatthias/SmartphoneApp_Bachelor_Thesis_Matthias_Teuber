@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.Button
 import com.example.pininterface.R
 import com.example.pininterface.Interface.InterfaceTouchListener
-import com.example.pininterface.helper.SuperLayoutActivity
+import com.example.pininterface.activity.helper.SuperLayoutActivity
 import com.example.pininterface.databinding.ActivityLayoutInterfaceStandardBinding
 import com.example.pininterface.enums.EnumInterfaceTypes
 
