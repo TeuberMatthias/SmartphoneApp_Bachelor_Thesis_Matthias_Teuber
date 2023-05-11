@@ -88,12 +88,15 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
         buttonContinue.setOnClickListener { continueButtonPressed() }
 
-        buttonNext.setOnClickListener { nextButtonPressed() }
-        buttonBack.setOnClickListener { backButtonPressed() }
+        buttonNext.setOnClickListener { buttonPressedNextOrBack(buttonNext) }
+        buttonBack.setOnClickListener { buttonPressedNextOrBack(buttonBack) }
+
+        //buttonNext.setOnClickListener { nextButtonPressed() }
+        //buttonBack.setOnClickListener { backButtonPressed() }
 
         writeQuestions()
         updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
-        updateButtonsPage0()
+        updateButtonsNextAndBack(buttonNext, buttonBack)
 
     }
 
@@ -135,46 +138,45 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     }
 
     /**
-     * TODO look if can be combined with nextButtonPressed
-     *
-     *
+     * Saves answers in listAnswers
+     * If on page 1 and back button pressed changes to page 0
+     * If on page 0 and next button pressed changes to page 1
+     * Updates next and back Button color
+     * Sets checked RadioButtons
+     * Writes the sus Questions
+     * @param pButton next or back button
      */
-    private fun backButtonPressed() {
+    private fun buttonPressedNextOrBack(pButton: Button) {
 
         saveAnswers()
-        if (page == 1) {
+
+        if (page == 1 && pButton == buttonBack) {
             page = 0
-            updateButtonsPage0()
-        }
-        setChecked()
-        writeQuestions()
-    }
-
-    private fun nextButtonPressed() {
-
-        saveAnswers()
-        if (page == 0) {
+            updateButtonsNextAndBack(buttonNext, buttonBack)
+        } else if (page == 0 && pButton == buttonNext) {
             page = 1
-            updateButtonsPage1()
+            updateButtonsNextAndBack(buttonBack, buttonNext)
         }
+
         setChecked()
         writeQuestions()
     }
 
     /**
-     * TODO: look if can be combined
+     * Updates the Back and Next Button/sets their color and updates the pageIndicator textView
+     * @param pButtonActivate active Button
+     * @param pButtonInactive inactive Button
      */
-    private fun updateButtonsPage1() {
+    private fun updateButtonsNextAndBack(pButtonActivate: Button, pButtonInactive: Button) {
 
-        setColorButton(buttonNext, colorButtonInactive)
-        setColorButton(buttonBack, colorButtonActive)
-        updateTextView(textViewPageIndicator, "(" + getString(R.string.page) + " 2/2)")
-    }
+        setColorButton(pButtonActivate, colorButtonActive)
+        setColorButton(pButtonInactive, colorButtonInactive)
+        val pageIndicator = if (pButtonActivate == buttonNext)
+            "(" + getString(R.string.page) + " 1/2)"
+        else
+            "(" + getString(R.string.page) + " 2/2)"
 
-    private fun updateButtonsPage0() {
-        setColorButton(buttonNext, colorButtonActive)
-        setColorButton(buttonBack, colorButtonInactive)
-        updateTextView(textViewPageIndicator, "(" + getString(R.string.page) + " 1/2)")
+        updateTextView(textViewPageIndicator, pageIndicator)
     }
 
     /**
@@ -194,7 +196,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
     /**
      * buttonContinuePressed
-     * TODO: explain
+     * saves answers to listAnswers
+     * checks if answers are complete
+     * Toast with error message if answers are not complete
+     * If answers complete commits answers to DB
+     * Then checks if there is another interface available
+     * If no other interface it will start the next activity (feedback)
+     * if there is another interface it will reset sus view
      */
     private fun continueButtonPressed() {
 
@@ -209,13 +217,12 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
                 updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
                 listAnswers = initListAnswers()
                 page = 0
-                updateButtonsPage0()
+                updateButtonsNextAndBack(buttonNext, buttonBack)
                 writeQuestions()
                 listQuestionView.forEach {
                     it.radioGroup.clearCheck()
                 }
             } else {
-                Log.e("Finished", "All SuS complete")
                 startNewActivity(participant, FeedBackActivity::class.java)
             }
         } else {
