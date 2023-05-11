@@ -2,14 +2,17 @@ package com.example.pininterface.activity.helper
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
 
+/**
+ * Super Class with a function to go to start a new Activity
+ */
 open class SuperActivityNavigation : AppCompatActivity() {
-    
+
     /**
      * Starts a new Activity
+     * clears all previous Activities
      * @param pParticipant participant
      * @param pLayoutClass new Activity
      */
@@ -19,7 +22,10 @@ open class SuperActivityNavigation : AppCompatActivity() {
         val intent = Intent(this, pLayoutClass).apply {
             putExtra("participant", gson.toJson(pParticipant))
         }
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK // clears previous Activities
+
+        // clears previous Activities
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+
         startActivity(intent)
     }
 }
