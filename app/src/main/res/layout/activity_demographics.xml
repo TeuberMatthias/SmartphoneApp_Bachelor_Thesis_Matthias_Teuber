@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/demographics"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,21 +33,24 @@
             android:tag="FEMALE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gender_female" />
+            android:text="@string/gender_female"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/gender_male"
             android:tag="MALE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gender_male" />
+            android:text="@string/gender_male"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/gender_unknown"
             android:tag="UNKNOWN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gender_unknown" />
+            android:text="@string/gender_unknown"
+            android:textSize="16sp" />
     </RadioGroup>
 
     <TextView
@@ -55,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/gender"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/demographics_title" />
@@ -65,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="@string/age"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup_gender" />
@@ -76,6 +82,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/hint_age"
+        android:textSize="24sp"
         android:importantForAutofill="no"
         android:inputType="number"
         android:minHeight="48dp"
@@ -98,21 +105,24 @@
             android:tag="LEFT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lefthanded" />
+            android:text="@string/lefthanded"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/ambidextrous"
             android:tag="AMBIDEXTROUS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ambidextrous" />
+            android:text="@string/ambidextrous"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/rightHanded"
             android:tag="RIGHT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/righthanded" />
+            android:text="@string/righthanded"
+            android:textSize="16sp" />
     </RadioGroup>
 
     <TextView
@@ -121,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/dominant_hand"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_input" />
