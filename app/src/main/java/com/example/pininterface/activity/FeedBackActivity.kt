@@ -1,19 +1,17 @@
 package com.example.pininterface.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import com.example.pininterface.Interface.InterfaceDbFeedback
+import com.example.pininterface.Interface.InterfaceDbParticipant
 import com.example.pininterface.Interface.InterfaceGson
 import com.example.pininterface.R
-import com.example.pininterface.database.DataBaseHelper
-import com.example.pininterface.database.ModelClassFeedBack
-import com.example.pininterface.database.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityLayoutFeedbackBinding
 import com.example.pininterface.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 
-class FeedBackActivity : SuperActivityNavigation(), InterfaceGson {
+class FeedBackActivity : SuperActivityNavigation(), InterfaceGson, InterfaceDbParticipant, InterfaceDbFeedback {
     private lateinit var participant: Participant
 
     private lateinit var binding: ActivityLayoutFeedbackBinding
@@ -39,25 +37,13 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson {
     fun finishActivity() {
         val feedBack = editTextFeedBack.text.toString()
         participant.setFeedBack(feedBack)
-        addRecordFeedBack()
-        updateParticipantComplete()
+        dbAddRecordFeedBack(participant.getID(), editTextFeedBack.text.toString(), this)
+        dbUpdateParticipantComplete(participant.getID(), 1, this)
         startNewActivity(participant, MainActivity::class.java) //TODO DATABANK
     }
 
-    private fun addRecordFeedBack() {
-        val id = participant.getID()
-        val feedback = editTextFeedBack.text.toString()
 
-        val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
-        Log.e("dataBase", dataBaseHelper.addFeedBack(ModelClassFeedBack(id, feedback)).toString())
-    }
 
-    private fun updateParticipantComplete() {
-        val id = participant.getID()
-        val complete: Int = 1
 
-        val dataBaseHelper: DataBaseHelper = DataBaseHelper(this)
-        Log.e("db_update_participant", dataBaseHelper.updateParticipantComplete(ModelClassParticipant(id, complete)).toString())
-    }
 
 }

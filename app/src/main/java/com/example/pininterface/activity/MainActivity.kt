@@ -3,10 +3,8 @@ package com.example.pininterface.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import com.example.pininterface.Interface.InterfaceDbParticipant
 import com.example.pininterface.R
-import com.example.pininterface.database.DataBaseHelper
-import com.example.pininterface.database.ModelClassDemographics
-import com.example.pininterface.database.ModelClassFeedBack
 import com.example.pininterface.database.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.helper.SuperActivityNavigation
@@ -14,7 +12,7 @@ import com.example.pininterface.logic.Participant
 import com.example.pininterface.logic.PinSets
 
 
-class MainActivity : SuperActivityNavigation() {
+class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
     private lateinit var binding: ActivityMainBinding
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,18 +26,18 @@ class MainActivity : SuperActivityNavigation() {
         val button = binding.buttonMainStart
         //TODO(Check that participant ID is unique)
 
-        var id: Int = 0
+        var id: Int
         do {
             id = (0..999_999).random()
-        } while (!dbCheckIdFree(id))
+        } while (!checkIdFree(id))
 
 
         val participant = Participant(id, PinSets())
-        dbWriteParticipant(participant)
+        dbWriteParticipant(participant, this)
 
 
         Log.e("Participant id:", participant.getID().toString())
-        dbShowParticipants(dbGetListParticipant())
+        showParticipants(dbGetListParticipant(this))
 
         button.setOnClickListener { nextInterfaceActivity(participant) }
 
@@ -49,30 +47,18 @@ class MainActivity : SuperActivityNavigation() {
 
     }
 
-    private fun dbWriteParticipant(pParticipant: Participant) {
-        val id = pParticipant.getID()
-        val orderPins = pParticipant.getPinSetsAsString()
-        val orderInterfaces = pParticipant.getInterfacesAsString()
 
-        val db = DataBaseHelper(this)
-        val participant = ModelClassParticipant(id, 0, orderPins, orderInterfaces)
 
-        Log.e("db_participant",db.addParticipant(participant).toString())
-    }
-
-    private fun dbShowParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
+    private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
         pListParticipant.forEach {
             val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pOrderPins},orderInterfaces:${it.pOrderInterfaces}"
             Log.e("participant", string)
         }
     }
-    private fun dbGetListParticipant(): MutableList<ModelClassParticipant> {
-        val db: DataBaseHelper = DataBaseHelper(this)
-        return db.viewParticipant()
-    }
 
-    private fun dbCheckIdFree(pId: Int): Boolean {
-        val listParticipant = dbGetListParticipant()
+
+    private fun checkIdFree(pId: Int): Boolean {
+        val listParticipant = dbGetListParticipant(this)
         listParticipant.forEach {
             if (it.pId == pId) {
                 Log.e("id_used", "Id: $pId already in use")
