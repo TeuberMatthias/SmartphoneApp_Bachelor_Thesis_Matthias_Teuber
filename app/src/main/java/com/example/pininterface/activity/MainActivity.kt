@@ -33,7 +33,6 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         setContentView(view)
 
         val button = binding.buttonMainStart
-        //TODO(Check that participant ID is unique)
 
         var id: Int
         do {
@@ -44,8 +43,6 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         val participant = Participant(id, PinSets())
         dbAddParticipant(participant, this)
 
-
-        Log.e("Participant id:", participant.getID().toString())
         showParticipants(dbViewListParticipant(this))
 
         button.setOnClickListener { startNewActivity(participant, IntermediatePageActivity::class.java) }
