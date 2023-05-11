@@ -8,15 +8,24 @@ import com.example.pininterface.R
 import com.example.pininterface.database.interfaces.InterfaceDbDemographics
 import com.example.pininterface.databinding.ActivityDemographicsBinding
 import com.example.pininterface.activity.helper.SuperActivityNavigation
+import com.example.pininterface.interfaces.InterfaceGson
 import com.example.pininterface.logic.Participant
-import com.google.gson.Gson
 
-class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics {
+/**
+ * Activity Demographic
+ * Validate and save the user demographics
+ */
+class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, InterfaceGson {
+
     private lateinit var participant: Participant
     private lateinit var binding: ActivityDemographicsBinding
     lateinit var buttonContinue: Button
 
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demographics)
 
@@ -24,28 +33,35 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics {
         val view = binding.root
         setContentView(view)
 
-        val intent = intent
-        val gson = Gson()
-        participant = gson.fromJson<Participant>(intent.getStringExtra("participant"), Participant::class.java)
-
         buttonContinue = binding.demographicsContinue.buttonContinue
-        buttonContinue.setOnClickListener { continueButtonPressed() }
 
+        val intent = intent
+        participant = getParticipantFromJson(intent)
+
+        buttonContinue.setOnClickListener { continueButtonPressed() }
     }
 
-    fun continueButtonPressed() {
+    /**
+     * buttonContinue Pressed
+     * Checks if the submitted demographics are valid and complete
+     * Goes to the next activity (SystemUsabilityScaleActivity) if yes,
+     * otherwise displays toast with error message
+     */
+    private fun continueButtonPressed() {
+
         val radioGroupGenderValue = binding.radioGroupGender.checkedRadioButtonId
-        val radioGroupDominantHand = binding.radioGroupId.checkedRadioButtonId
+        val radioGroupDominantHand = binding.radioGroupDominantHand.checkedRadioButtonId
+
         val age: Int = binding.ageInput.text.toString().toIntOrNull() ?: -1
 
         if (radioGroupGenderValue <= 0) {
-            Toast.makeText(this, "No Gender Selected", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.no_gender_selected), Toast.LENGTH_LONG).show()
             return
-        } else if (age < 13 || age > 120) {
-            Toast.makeText(this, "Invalid Age Selected", Toast.LENGTH_LONG).show()
+        } else if (age < 3 || age > 120) {
+            Toast.makeText(this, getString(R.string.invalid_age_selected), Toast.LENGTH_LONG).show()
             return
         } else if (radioGroupDominantHand <= 0) {
-            Toast.makeText(this, "No Dominant Hand Selected", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.no_dominant_hand_selected), Toast.LENGTH_LONG).show()
             return
         } else {
             val gender: RadioButton = findViewById(radioGroupGenderValue)

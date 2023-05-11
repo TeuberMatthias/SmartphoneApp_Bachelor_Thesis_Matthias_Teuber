@@ -21,4 +21,5 @@ interface InterfaceGson {
             Participant::class.java
         )
     }
+
 }

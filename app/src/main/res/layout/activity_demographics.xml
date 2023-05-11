@@ -79,10 +79,11 @@
         android:hint="@string/hint_age"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_text" />
+        app:layout_constraintTop_toBottomOf="@+id/age_text"
+        android:importantForAutofill="no" />
 
     <RadioGroup
-        android:id="@+id/radioGroup_id"
+        android:id="@+id/radioGroup_dominant_hand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

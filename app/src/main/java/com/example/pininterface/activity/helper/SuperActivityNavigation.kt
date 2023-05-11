@@ -15,9 +15,10 @@ open class SuperActivityNavigation : AppCompatActivity() {
 
     /**
      * Goes to the Next InterfaceActiviy, depending of the active Interface of the current Participant.
-     * @param pParticipant: The current participant
+     * @param pParticipant current participant
      */
     fun nextInterfaceActivity(pParticipant: Participant) {
+
         when (pParticipant.getActiveInterface()) {
             EnumInterfaceTypes.STANDARD     -> startNewActivity(pParticipant, LayoutStandardActivity::class.java)
             EnumInterfaceTypes.COLUMN       -> startNewActivity(pParticipant, LayoutColumnActivity::class.java)
@@ -29,15 +30,16 @@ open class SuperActivityNavigation : AppCompatActivity() {
 
     /**
      * Starts a new Activity
-     * @param pParticipant: participant
-     * @param pLayoutClass: The next Activity
+     * @param pParticipant participant
+     * @param pLayoutClass new Activity
      */
     inline fun <reified T> startNewActivity(pParticipant: Participant, pLayoutClass: Class<T>) {
+
         val gson = Gson()
         val intent = Intent(this, pLayoutClass).apply {
             putExtra("participant", gson.toJson(pParticipant))
         }
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK // clears all previous Activities
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK // clears previous Activities
         startActivity(intent)
     }
 }

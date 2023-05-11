@@ -57,8 +57,11 @@
     <string name="page">Seite</string>
     <string name="feedback">Feedback</string>
     <string name="hint_feedback_anyonym">Um Ihre Anonymität zu wahren, bitte keine Namen oder sonstige identifizierbarende Merkmale nennen.</string>
-    <string name="feedback_edit_text">Feedback...</string>
+    <string name="feedback_edit_text">Feedback…</string>
     <string name="not_all_fields_filled">Bitte alle Felder ausfüllen</string>
+    <string name="no_gender_selected">No Gender Selected</string>
+    <string name="invalid_age_selected">Invalid Age Selected</string>
+    <string name="no_dominant_hand_selected">No Dominant Hand Selected</string>
 
 
 </resources>
