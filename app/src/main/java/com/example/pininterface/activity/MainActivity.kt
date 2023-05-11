@@ -11,11 +11,20 @@ import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
 import com.example.pininterface.values.PinSets
 
-
+/**
+ * MainActivity
+ * once participant is finished, loops back to MainActivity
+ */
 class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
+
     private lateinit var binding: ActivityMainBinding
+
+    /**
+     * onCreate
+     */
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -40,25 +49,29 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         showParticipants(dbViewListParticipant(this))
 
         button.setOnClickListener { startNewActivity(participant, IntermediatePageActivity::class.java) }
-        //button.setOnClickListener { nextInterfaceActivity(participant) }
-
 
         //val displayMetrics = resources.displayMetrics
         //val dpWidth = displayMetrics.widthPixels / displayMetrics.density
         //Log.e("dp", "$dpWidth dp")
-
     }
 
-
-
+    /**
+     * displays the participant table in Log
+     * @param pListParticipant the participant table as MutableList<ModelClassParticipant>
+     */
     private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
+
         pListParticipant.forEach {
             val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pOrderPins},orderInterfaces:${it.pOrderInterfaces}"
             Log.e("participant", string)
         }
     }
 
-
+    /**
+     * Checks if an Id is already in DB
+     * @param pId id
+     * @return true if id is free/not in DB, false if id was already used
+     */
     private fun checkIdFree(pId: Int): Boolean {
         val listParticipant = dbViewListParticipant(this)
         listParticipant.forEach {
