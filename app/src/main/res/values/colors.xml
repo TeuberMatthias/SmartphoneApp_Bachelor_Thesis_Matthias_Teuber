@@ -12,16 +12,16 @@
     <color name="number_button_normal">#FFFFFF</color>
     <color name="number_button_normal_text">#000000</color>
     <color name="number_button_deactivated">#CFCCCC</color>
-    <color name="number_button_deactivated_text">#FFFFFFFF</color>
+    <color name="number_button_deactivated_text">#918D8D</color>
     <color name="number_button_highlighted">#2196F3</color>
-    <color name="number_button_highlighted_text">#FFFFFFFF</color>
+    <color name="number_button_highlighted_text">#07FFF7</color>
 
     <color name="control_button_normal">#525367</color>
     <color name="control_button_normal_text">#FFFFFF</color>
     <color name="control_button_deactivated">#AEAFAE</color>
-    <color name="control_button_deactivated_text">#FFFFFFFF</color>
+    <color name="control_button_deactivated_text">#9A9696</color>
     <color name="control_button_highlighted">#000000</color>
-    <color name="control_button_highlighted_text">#FFFFFFFF</color>
+    <color name="control_button_highlighted_text">#AF4C4C</color>
 
     <color name="button_visual_aid_highlighted">#FF5722</color>
 

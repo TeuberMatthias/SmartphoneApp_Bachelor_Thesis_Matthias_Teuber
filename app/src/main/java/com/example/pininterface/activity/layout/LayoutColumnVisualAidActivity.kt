@@ -46,8 +46,8 @@ class LayoutColumnVisualAidActivity : LayoutColumnActivity(), InterfaceLayoutVis
      */
     override fun buttonPressedVisAid(pButton: Button) {
 
-        setColorHighlightAndObscureButtonList(listCtrlButtons, pButton, colorControlHighlighted, colorControlDeactivated)
-        setColorHighlightAndObscureButtonList(listNumButtons, pButton, colorNumHighlighted, colorNumDeactivated)
+        setColorHighlightAndObscureButtonList(listCtrlButtons, pButton, colorControlHighlighted, colorControlDeactivated, colorTextControlHighlighted, colorTextControlDeactivated)
+        setColorHighlightAndObscureButtonList(listNumButtons, pButton, colorNumHighlighted, colorNumDeactivated, colorTextNumHighlighted, colorTextNumDeactivated)
     }
 
     /**
@@ -59,5 +59,7 @@ class LayoutColumnVisualAidActivity : LayoutColumnActivity(), InterfaceLayoutVis
 
         setColorButtonList(listNumButtons, colorNumNormal)
         setColorButtonList(listCtrlButtons, colorControlNormal)
+        setColorTextButtonList(listCtrlButtons, colorTextControlNormal)
+        setColorTextButtonList(listNumButtons, colorTextNumNormal)
     }
 }

@@ -48,8 +48,8 @@ class LayoutStandardVisualAidActivity : LayoutStandardActivity(), InterfaceLayou
     override fun buttonPressedVisAid(pButton: Button) {
 
         changeShape(pButton, shapeRoundedSquareButton)
-        setColorHighlightAndObscureButtonList(listCtrlButtons, pButton, colorControlHighlighted, colorControlDeactivated)
-        setColorHighlightAndObscureButtonList(listNumButtons, pButton, colorNumHighlighted, colorNumDeactivated)
+        setColorHighlightAndObscureButtonList(listCtrlButtons, pButton, colorControlHighlighted, colorControlDeactivated, colorTextControlHighlighted, colorTextControlDeactivated)
+        setColorHighlightAndObscureButtonList(listNumButtons, pButton, colorNumHighlighted, colorNumDeactivated, colorTextNumHighlighted, colorTextNumDeactivated)
     }
 
     /**
@@ -63,6 +63,8 @@ class LayoutStandardVisualAidActivity : LayoutStandardActivity(), InterfaceLayou
         changeShape(pButton, shapeRoundButton)
         setColorButtonList(listNumButtons, colorNumNormal)
         setColorButtonList(listCtrlButtons, colorControlNormal)
+        setColorTextButtonList(listCtrlButtons, colorTextControlNormal)
+        setColorTextButtonList(listNumButtons, colorTextNumNormal)
     }
 
 }

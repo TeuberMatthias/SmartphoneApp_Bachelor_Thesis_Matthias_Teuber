@@ -54,10 +54,16 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     var colorControlNormal: Int = 0
     var colorControlDeactivated: Int = 0
     var colorControlHighlighted: Int = 0
+    var colorTextControlNormal: Int = 0
+    var colorTextControlHighlighted: Int = 0
+    var colorTextControlDeactivated: Int = 0
 
     var colorNumNormal: Int = 0
     var colorNumDeactivated: Int = 0
     var colorNumHighlighted: Int = 0
+    var colorTextNumNormal: Int = 0
+    var colorTextNumHighlighted: Int = 0
+    var colorTextNumDeactivated: Int = 0
 
 
     /**
@@ -78,6 +84,14 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         colorNumNormal = ContextCompat.getColor(this, R.color.number_button_normal)
         colorNumDeactivated = ContextCompat.getColor(this, R.color.number_button_deactivated)
         colorNumHighlighted = ContextCompat.getColor(this, R.color.number_button_highlighted)
+
+        colorTextNumNormal = ContextCompat.getColor(this, R.color.number_button_normal_text)
+        colorTextNumHighlighted = ContextCompat.getColor(this, R.color.number_button_highlighted_text)
+        colorTextNumDeactivated = ContextCompat.getColor(this, R.color.number_button_deactivated_text)
+
+        colorTextControlNormal = ContextCompat.getColor(this, R.color.control_button_normal_text)
+        colorTextControlHighlighted = ContextCompat.getColor(this, R.color.control_button_highlighted_text)
+        colorTextControlDeactivated = ContextCompat.getColor(this, R.color.control_button_deactivated_text)
     }
 
     /**
