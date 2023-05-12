@@ -140,9 +140,9 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
      */
     private fun acceptButtonClicked() {
 
+        timer?.cancel()
         addSubmission(EnumButtonTypes.SUBMIT)
         val cInterfaceType = interfaceType
-        timer?.cancel()
 
         if (participant.checkActivePinSolved()) {
             if (participant.getActiveInterface() == cInterfaceType) {
@@ -166,6 +166,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
      */
     private fun numButtonClicked(pButton: EnumButtonTypes) {
 
+        timer?.cancel()
         addSubmission(pButton)
 
         val pinSubmissionOld = participant.getActivePin().getPinSubmission()

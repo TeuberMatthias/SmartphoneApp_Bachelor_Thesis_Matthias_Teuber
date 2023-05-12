@@ -136,6 +136,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
+    //TODO: try to combine addOrderPins with addOrderInterfaces
     /**
      * Adds a new Row to the order_pin Table
      * If the order of interfaces already exist it will return the id of the existing row
