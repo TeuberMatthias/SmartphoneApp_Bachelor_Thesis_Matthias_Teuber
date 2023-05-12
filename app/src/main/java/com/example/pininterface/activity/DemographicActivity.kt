@@ -73,4 +73,6 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
             startNewActivity(participant, SystemUsabilityScaleActivity::class.java)
         }
     }
+
+    //TODO: maybe add a "any mobility impairements" or something like that question?
 }
