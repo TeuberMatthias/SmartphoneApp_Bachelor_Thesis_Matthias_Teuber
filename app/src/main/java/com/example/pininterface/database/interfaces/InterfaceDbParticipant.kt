@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.pininterface.database.DataBaseHelper
 import com.example.pininterface.database.modelclass.ModelClassOrderInterfaces
+import com.example.pininterface.database.modelclass.ModelClassOrderPins
 import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.logic.Participant
 
@@ -32,13 +33,14 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces {
     fun dbAddParticipant(pParticipant: Participant, pContext: Context): Long {
 
         val id = pParticipant.getID()
-        val orderPins = pParticipant.getPinSetsAsString()
+        val orderPinsString = pParticipant.getPinSetsAsString()
+        val orderPinsId = dbGetIdOrderPins(ModelClassOrderPins(-1,orderPinsString), pContext)
 
         val orderInterfacesString = pParticipant.getInterfacesAsString()
         val orderInterfacesId = dbGetIdOrderInterfaces(ModelClassOrderInterfaces(-1, orderInterfacesString), pContext)
 
         val db = DataBaseHelper(pContext)
-        val participant = ModelClassParticipant(id, 0, orderPins, orderInterfacesId)
+        val participant = ModelClassParticipant(id, 0, orderPinsId, orderInterfacesId)
 
         val success = db.addParticipant(participant)
         Log.e("db.add_participant", success.toString())
@@ -59,5 +61,14 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces {
         val success = dataBaseHelper.updateParticipantComplete(ModelClassParticipant(pId, pComplete))
         Log.e("db.update_participant", success.toString())
         return success
+    }
+
+    fun dbGetIdOrderPins(pModelClassOrderPins: ModelClassOrderPins, pContext: Context): Int {
+
+        val dataBaseHelper = DataBaseHelper(pContext)
+
+        val success = dataBaseHelper.addOrderPins(pModelClassOrderPins)
+        Log.e("db.getOrderPinsID", success.toString())
+        return success.toInt()
     }
 }

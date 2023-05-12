@@ -60,7 +60,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
     private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
 
         pListParticipant.forEach {
-            val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pOrderPins},orderInterfaces:${it.pOrderInterfaces}"
+            val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pIdOrderPins},orderInterfaces:${it.pIdOrderInterfaces}"
             Log.e("participant", string)
         }
     }

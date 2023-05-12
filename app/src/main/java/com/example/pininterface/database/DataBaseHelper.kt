@@ -12,6 +12,7 @@ import com.example.pininterface.database.modelclass.ModelClassDemographics
 import com.example.pininterface.database.modelclass.ModelClassFeedBack
 import com.example.pininterface.database.modelclass.ModelClassInterActionSubmission
 import com.example.pininterface.database.modelclass.ModelClassOrderInterfaces
+import com.example.pininterface.database.modelclass.ModelClassOrderPins
 import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.database.modelclass.ModelClassSuS
 
@@ -32,11 +33,15 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_SUBMISSIONS = "submissions"
         private const val TABLE_PARTICIPANT = "participant"
         private const val TABLE_ORDER_INTERFACES = "order_interfaces"
+        private const val TABLE_ORDER_PINS = "order_pins"
 
         private const val PK_TABLE_SUS = "pk_table_sus"
 
-        private const val KEY_ID_SUBMISSION = "_id"
-        private const val KEY_ID_PARTICIPANT = "p_id"
+        private const val KEY_ID_SUBMISSION = "id_submission"
+        private const val KEY_ID_PARTICIPANT = "id_participant"
+        private const val KEY_ID_ORDER_INTERFACES = "id_order_interface"
+        private const val KEY_ID_ORDER_PINS = "id_order_pins"
+
         private const val KEY_AGE = "age"
         private const val KEY_GENDER = "gender"
         private const val KEY_DOMINANT_HAND = "dominant_hand"
@@ -58,7 +63,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_COMPLETE = "complete"
         private const val KEY_ORDER_PINS = "order_pin"
         private const val KEY_ORDER_INTERFACES = "order_interface"
-        private const val KEY_ID_ORDER_INTERFACES = "order_interface_id"
     }
 
     /**
@@ -70,7 +74,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db?.execSQL("CREATE TABLE $TABLE_PARTICIPANT(" +
                 "$KEY_ID_PARTICIPANT INTEGER PRIMARY KEY," +
                 "$KEY_COMPLETE INTEGER," +
-                "$KEY_ORDER_PINS TEXT," +
+                "$KEY_ID_ORDER_PINS INTEGER," +
                 "$KEY_ID_ORDER_INTERFACES INTEGER)" +
                 "")
 
@@ -107,6 +111,11 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$KEY_ID_ORDER_INTERFACES INTEGER PRIMARY KEY," +
                 "$KEY_ORDER_INTERFACES TEXT UNIQUE)" +
                 "")
+
+        db?.execSQL("CREATE TABLE $TABLE_ORDER_PINS(" +
+                "$KEY_ID_ORDER_PINS INTEGER PRIMARY KEY," +
+                "$KEY_ORDER_PINS TEXT UNIQUE)" +
+                "")
     }
 
     /**
@@ -122,7 +131,43 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL("DROP TABLE IF EXISTS $TABLE_FEEDBACK")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_SUS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_SUBMISSIONS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_INTERFACES")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_PINS")
         onCreate(db)
+    }
+
+    @SuppressLint("Range")
+    fun addOrderPins(pOrderPins: ModelClassOrderPins): Long {
+
+        val db = this.writableDatabase
+        val orderPins = pOrderPins.pOrderPins
+
+        val contentValues = ContentValues().apply {
+            put(KEY_ORDER_PINS, orderPins)
+        }
+
+        var primaryKeyIdOrderPins: Long
+
+        try {
+            primaryKeyIdOrderPins = db.insertOrThrow(TABLE_ORDER_PINS, null, contentValues)
+        } catch (e: SQLiteConstraintException) {
+            // unique column constraint violation
+            val query = "SELECT $KEY_ID_ORDER_PINS FROM $TABLE_ORDER_PINS WHERE $KEY_ORDER_PINS = ?"
+            val selectionArgs = arrayOf(orderPins)
+
+            val cursor = db.rawQuery(query, selectionArgs)
+
+            primaryKeyIdOrderPins = if (cursor.moveToFirst()) {
+                cursor.getLong(cursor.getColumnIndex(KEY_ID_ORDER_PINS))
+            } else {
+                -1
+            }
+
+            cursor.close()
+        }
+
+        db.close()
+        return primaryKeyIdOrderPins
     }
 
     /**
@@ -177,8 +222,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val contentValues = ContentValues().apply {
             put(KEY_ID_PARTICIPANT, pParticipant.pId)
             put(KEY_COMPLETE, pParticipant.pComplete)
-            put(KEY_ORDER_PINS, pParticipant.pOrderPins)
-            put(KEY_ID_ORDER_INTERFACES, pParticipant.pOrderInterfaces)
+            put(KEY_ID_ORDER_PINS, pParticipant.pIdOrderPins)
+            put(KEY_ID_ORDER_INTERFACES, pParticipant.pIdOrderInterfaces)
         }
 
         val success = db.insert(TABLE_PARTICIPANT, null, contentValues)
@@ -208,17 +253,17 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         var id: Int
         var complete: Int
-        var orderPins: String
-        var orderInterfaces: Int
+        var orderPinsID: Int
+        var orderInterfacesID: Int
 
         if (cursor.moveToFirst()) {
             do {
                 id = cursor.getInt(cursor.getColumnIndex(KEY_ID_PARTICIPANT))
                 complete = cursor.getInt(cursor.getColumnIndex(KEY_COMPLETE))
-                orderPins = cursor.getString(cursor.getColumnIndex(KEY_ORDER_PINS))
-                orderInterfaces = cursor.getInt(cursor.getColumnIndex(KEY_ID_ORDER_INTERFACES))
+                orderPinsID = cursor.getInt(cursor.getColumnIndex(KEY_ID_ORDER_PINS))
+                orderInterfacesID = cursor.getInt(cursor.getColumnIndex(KEY_ID_ORDER_INTERFACES))
 
-                val participant = ModelClassParticipant(id, complete, orderPins, orderInterfaces)
+                val participant = ModelClassParticipant(id, complete, orderPinsID, orderInterfacesID)
                 listParticipant.add(participant)
             } while (cursor.moveToNext())
         }
@@ -236,8 +281,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val contentValues = ContentValues().apply {
             put(KEY_ID_PARTICIPANT, pParticipant.pId)
             put(KEY_COMPLETE, pParticipant.pComplete)
-            //put(KEY_ORDER_PINS, participant.pOrderPins)
-            //put(KEY_ID_ORDER_INTERFACES, participant.pOrderInterfaces)
         }
 
         val success = db.update(TABLE_PARTICIPANT, contentValues, "$KEY_ID_PARTICIPANT=${pParticipant.pId}", null)
