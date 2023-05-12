@@ -49,7 +49,9 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     lateinit var buttonEmergency: Button
 
     private var timer: Timer? = null
+
     private var winActive = true
+    private var interfaceFinished = false
 
     var colorControlNormal: Int = 0
     var colorControlDeactivated: Int = 0
@@ -147,6 +149,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
                 updateTextView(pinSubmissionTextView, participant.getActivePin().getPinSubmission())
                 updateTextView(pinTargetTextView, participant.getActivePin().getPin())
             } else {
+                interfaceFinished = true
                 startNewActivity(participant, IntermediatePageActivity::class.java)
             }
         } else {
@@ -182,6 +185,43 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     }
 
     /**
+     * Back Button clicked
+     * Adds back button submission to DB
+     */
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+
+        addSubmission(EnumButtonTypes.BACK)
+    }
+
+    /**
+     * App on Pause / home Button pressed (or recent apps and then clicked away)
+     * Adds WinDeactivated as submission to DB
+     */
+    override fun onPause() {
+
+        super.onPause()
+        winActive = false
+        if (!interfaceFinished) {
+            addSubmission(EnumButtonTypes.WIN_DEACTIVE)
+        }
+    }
+
+    /**
+     * onResume
+     * App is back from being inactive
+     * Adds WinActivated as submission to DB
+     */
+    override fun onResume() {
+
+        super.onResume()
+        if (!winActive) {
+            winActive = true
+            addSubmission(EnumButtonTypes.WIN_ACTIVE)
+        }
+    }
+
+    /**
      * Updates Pin Submission TextView after a delay (1000ms)
      * Cancels older timers
      * @param pUpdate new pin submission TextView text
@@ -202,41 +242,6 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
 
         timer = Timer()
         timer?.schedule(myTimerTask, 1000)
-    }
-
-    /**
-     * Back Button clicked
-     * Adds back button submission to DB
-     */
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-
-        addSubmission(EnumButtonTypes.BACK)
-    }
-
-    /**
-     * App on Pause / home Button pressed (or recent apps and then clicked away)
-     * Adds WinDeactivated as submission to DB
-     */
-    override fun onPause() {
-
-        super.onPause()
-        winActive = false
-        addSubmission(EnumButtonTypes.WIN_DEACTIVE)
-    }
-
-    /**
-     * onResume
-     * App is back from being inactive
-     * Adds WinActivated as submission to DB
-     */
-    override fun onResume() {
-
-        super.onResume()
-        if (!winActive) {
-            winActive = true
-            addSubmission(EnumButtonTypes.WIN_ACTIVE)
-        }
     }
 
     /*
