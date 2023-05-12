@@ -207,8 +207,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addParticipant(pParticipant: ModelClassParticipant): Long {
 
-        val db = this.writableDatabase
-
         val contentValues = ContentValues().apply {
             put(KEY_ID_PARTICIPANT, pParticipant.pId)
             put(KEY_COMPLETE, pParticipant.pComplete)
@@ -216,9 +214,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_ID_ORDER_INTERFACES, pParticipant.pIdOrderInterfaces)
         }
 
-        val success = db.insert(TABLE_PARTICIPANT, null, contentValues)
-        db.close()
-        return success
+        return addRowToTable(TABLE_PARTICIPANT, contentValues)
     }
 
     /**
@@ -285,8 +281,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addSubmission(pSubmission: ModelClassInterActionSubmission): Long {
 
-        val db = this.writableDatabase
-
         val contentValues = ContentValues().apply {
             put(KEY_ID_PARTICIPANT, pSubmission.pId)
             put(KEY_INTERFACE, pSubmission.pInterface)
@@ -295,9 +289,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_TIME, pSubmission.pTime)
         }
 
-        val success = db.insert(TABLE_SUBMISSIONS, null, contentValues)
-        db.close()
-        return success
+        return addRowToTable(TABLE_SUBMISSIONS, contentValues)
     }
 
     /**
@@ -307,16 +299,12 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addFeedBack(pFeedback: ModelClassFeedBack): Long {
 
-        val db = this.writableDatabase
-
         val contentValues = ContentValues().apply {
             put(KEY_ID_PARTICIPANT, pFeedback.pId)
             put(KEY_FEEDBACK, pFeedback.pFeedBack)
         }
 
-        val success = db.insert(TABLE_FEEDBACK, null, contentValues)
-        db.close()
-        return success
+        return addRowToTable(TABLE_FEEDBACK, contentValues)
     }
 
     /**
@@ -326,18 +314,13 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addDemographics(pDemographics: ModelClassDemographics): Long {
 
-        val db = this.writableDatabase
-
         val contentValues = ContentValues()
         contentValues.put(KEY_ID_PARTICIPANT, pDemographics.pId)
         contentValues.put(KEY_AGE, pDemographics.pAge)
         contentValues.put(KEY_GENDER, pDemographics.pGender)
         contentValues.put(KEY_DOMINANT_HAND, pDemographics.pDominant_hand)
 
-        val success = db.insert(TABLE_DEMOGRAPHICS, null, contentValues)
-
-        db.close()
-        return success
+        return addRowToTable(TABLE_DEMOGRAPHICS, contentValues)
     }
 
     /**
@@ -346,8 +329,6 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      * @return positive Long if successful, -1 when unsuccessful
      */
     fun addSUS(pSUS: ModelClassSuS): Long {
-
-        val db = this.writableDatabase
 
         val contentValues = ContentValues().apply {
             put(KEY_ID_PARTICIPANT, pSUS.pId)
@@ -364,7 +345,20 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_Q9, pSUS.pQ9)
         }
 
-        val success = db.insert(TABLE_SUS, null, contentValues)
+        return addRowToTable(TABLE_SUS, contentValues)
+    }
+
+    /**
+     * Adds a new Row to a Table
+     * @param pTABLE The Table where the row should be added
+     * @param pContentValues The values of the row in form of contentValues
+     * @return positive Long if successful, -1 when unsuccessful
+     */
+    private fun addRowToTable(pTABLE: String, pContentValues: ContentValues): Long {
+
+        val db = this.writableDatabase
+
+        val success = db.insert(pTABLE, null, pContentValues)
         db.close()
         return success
     }
