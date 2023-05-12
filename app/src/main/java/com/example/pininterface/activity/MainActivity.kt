@@ -42,8 +42,8 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
 
         val participant = Participant(id, PinSets(), ListInterfaces())
-        dbAddParticipant(participant, this)
 
+        dbAddParticipant(participant, this)
         showParticipants(dbViewListParticipant(this))
 
         button.setOnClickListener { startNewActivity(participant, IntermediatePageActivity::class.java) }

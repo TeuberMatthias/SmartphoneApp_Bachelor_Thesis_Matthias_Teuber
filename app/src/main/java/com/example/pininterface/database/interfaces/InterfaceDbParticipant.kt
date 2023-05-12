@@ -3,13 +3,14 @@ package com.example.pininterface.database.interfaces
 import android.content.Context
 import android.util.Log
 import com.example.pininterface.database.DataBaseHelper
+import com.example.pininterface.database.modelclass.ModelClassOrderInterfaces
 import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.logic.Participant
 
 /**
  * Interface for DB participant actions
  */
-interface InterfaceDbParticipant {
+interface InterfaceDbParticipant : InterfaceDbOrderInterfaces {
 
     /**
      * Gets the entire participant table
@@ -32,10 +33,12 @@ interface InterfaceDbParticipant {
 
         val id = pParticipant.getID()
         val orderPins = pParticipant.getPinSetsAsString()
-        val orderInterfaces = pParticipant.getInterfacesAsString()
+
+        val orderInterfacesString = pParticipant.getInterfacesAsString()
+        val orderInterfacesId = dbGetIdOrderInterfaces(ModelClassOrderInterfaces(-1, orderInterfacesString), pContext)
 
         val db = DataBaseHelper(pContext)
-        val participant = ModelClassParticipant(id, 0, orderPins, orderInterfaces)
+        val participant = ModelClassParticipant(id, 0, orderPins, orderInterfacesId)
 
         val success = db.addParticipant(participant)
         Log.e("db.add_participant", success.toString())
