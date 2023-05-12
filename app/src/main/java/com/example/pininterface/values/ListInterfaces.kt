@@ -11,9 +11,9 @@ class ListInterfaces() {
 
     private val listInterfaces = ArrayList(arrayListOf(
         EnumInterfaceTypes.STANDARD,
-    //    EnumInterfaceTypes.STANDARD_VIS,
-    //    EnumInterfaceTypes.COLUMN,
-    //    EnumInterfaceTypes.COLUMN_VIS
+        EnumInterfaceTypes.STANDARD_VIS,
+        EnumInterfaceTypes.COLUMN,
+        EnumInterfaceTypes.COLUMN_VIS
     ).shuffled())
 
     /**
