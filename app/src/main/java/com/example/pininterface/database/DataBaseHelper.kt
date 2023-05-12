@@ -136,6 +136,12 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
+    /**
+     * Adds a new Row to the order_pin Table
+     * If the order of interfaces already exist it will return the id of the existing row
+     * @param pOrderPins order_interfaces ModelClass
+     * @return the id of the row, -1 if action unsuccessful
+     */
     @SuppressLint("Range")
     fun addOrderPins(pOrderPins: ModelClassOrderPins): Long {
 

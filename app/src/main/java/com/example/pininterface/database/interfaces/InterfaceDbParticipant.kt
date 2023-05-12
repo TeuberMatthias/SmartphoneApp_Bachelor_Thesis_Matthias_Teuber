@@ -11,7 +11,7 @@ import com.example.pininterface.logic.Participant
 /**
  * Interface for DB participant actions
  */
-interface InterfaceDbParticipant : InterfaceDbOrderInterfaces {
+interface InterfaceDbParticipant : InterfaceDbOrderInterfaces, InterfaceDbOrderPins {
 
     /**
      * Gets the entire participant table
@@ -61,14 +61,5 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces {
         val success = dataBaseHelper.updateParticipantComplete(ModelClassParticipant(pId, pComplete))
         Log.e("db.update_participant", success.toString())
         return success
-    }
-
-    fun dbGetIdOrderPins(pModelClassOrderPins: ModelClassOrderPins, pContext: Context): Int {
-
-        val dataBaseHelper = DataBaseHelper(pContext)
-
-        val success = dataBaseHelper.addOrderPins(pModelClassOrderPins)
-        Log.e("db.getOrderPinsID", success.toString())
-        return success.toInt()
     }
 }
