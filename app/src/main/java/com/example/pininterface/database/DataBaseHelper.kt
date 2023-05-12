@@ -136,45 +136,56 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
-    //TODO: try to combine addOrderPins with addOrderInterfaces
+    /**
+     * Adds a new row to a table with an Integer Primary Key and one unique Text column
+     * If the unique Text already is in the DB it will give back the primary key of the already
+     * existing row with this unique Text
+     * Will return -1 if action is unsuccessful
+     * @param pTABLE the table
+     * @param pKEY_ID_PRIMARY name of the primary key column (Integer)
+     * @param pKEY_UNIQUE_COLUMN the unique text column
+     * @param pContent the text field that is supposed to be inserted
+     * @return the primary key of the row which includes pContent as float
+     */
+    @SuppressLint("Range")
+    private fun getPrimaryKeyFromUniqueColumnStringValue(pTABLE: String, pKEY_ID_PRIMARY: String, pKEY_UNIQUE_COLUMN: String, pContent: String): Long {
+
+        val  db = this.writableDatabase
+        var primaryKey: Long
+
+        val contentValues = ContentValues().apply {
+            put(pKEY_UNIQUE_COLUMN, pContent)
+        }
+
+        try {
+            primaryKey = db.insertOrThrow(pTABLE, null, contentValues)
+        } catch (e: SQLiteConstraintException) {
+            val query = "SELECT $pKEY_ID_PRIMARY FROM $pTABLE WHERE $pKEY_UNIQUE_COLUMN = ?"
+            val selectionArgs = arrayOf(pContent)
+
+            val cursor = db.rawQuery(query, selectionArgs)
+
+            primaryKey = if (cursor.moveToFirst()) {
+                cursor.getLong(cursor.getColumnIndex(pKEY_ID_PRIMARY))
+            } else {
+                -1
+            }
+            cursor.close()
+        }
+        db.close()
+        return primaryKey
+    }
+
     /**
      * Adds a new Row to the order_pin Table
      * If the order of interfaces already exist it will return the id of the existing row
      * @param pOrderPins order_interfaces ModelClass
      * @return the id of the row, -1 if action unsuccessful
      */
-    @SuppressLint("Range")
     fun addOrderPins(pOrderPins: ModelClassOrderPins): Long {
 
-        val db = this.writableDatabase
         val orderPins = pOrderPins.pOrderPins
-
-        val contentValues = ContentValues().apply {
-            put(KEY_ORDER_PINS, orderPins)
-        }
-
-        var primaryKeyIdOrderPins: Long
-
-        try {
-            primaryKeyIdOrderPins = db.insertOrThrow(TABLE_ORDER_PINS, null, contentValues)
-        } catch (e: SQLiteConstraintException) {
-            // unique column constraint violation
-            val query = "SELECT $KEY_ID_ORDER_PINS FROM $TABLE_ORDER_PINS WHERE $KEY_ORDER_PINS = ?"
-            val selectionArgs = arrayOf(orderPins)
-
-            val cursor = db.rawQuery(query, selectionArgs)
-
-            primaryKeyIdOrderPins = if (cursor.moveToFirst()) {
-                cursor.getLong(cursor.getColumnIndex(KEY_ID_ORDER_PINS))
-            } else {
-                -1
-            }
-
-            cursor.close()
-        }
-
-        db.close()
-        return primaryKeyIdOrderPins
+        return getPrimaryKeyFromUniqueColumnStringValue(TABLE_ORDER_PINS, KEY_ID_ORDER_PINS, KEY_ORDER_PINS, orderPins)
     }
 
     /**
@@ -183,38 +194,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      * @param pOrderInterfaces order_interfaces ModelClass
      * @return the id of the row, -1 if action unsuccessful
      */
-    @SuppressLint("Range")
     fun addOrderInterfaces(pOrderInterfaces: ModelClassOrderInterfaces): Long {
 
-        val db = this.writableDatabase
         val orderInterfaces = pOrderInterfaces.pOrderInterfaces
-
-        val contentValues = ContentValues().apply {
-            put(KEY_ORDER_INTERFACES, orderInterfaces)
-        }
-
-        var primaryKeyIdOrderInterfaces: Long
-
-        try {
-            primaryKeyIdOrderInterfaces = db.insertOrThrow(TABLE_ORDER_INTERFACES, null, contentValues)
-        } catch (e: SQLiteConstraintException) {
-            // unique column constraint violation
-            val query = "SELECT $KEY_ID_ORDER_INTERFACES FROM $TABLE_ORDER_INTERFACES WHERE $KEY_ORDER_INTERFACES = ?"
-            val selectionArgs = arrayOf(orderInterfaces)
-
-            val cursor = db.rawQuery(query, selectionArgs)
-
-            primaryKeyIdOrderInterfaces = if (cursor.moveToFirst()) {
-                cursor.getLong(cursor.getColumnIndex(KEY_ID_ORDER_INTERFACES))
-            } else {
-                -1
-            }
-
-            cursor.close()
-        }
-
-        db.close()
-        return primaryKeyIdOrderInterfaces
+        return getPrimaryKeyFromUniqueColumnStringValue(TABLE_ORDER_INTERFACES, KEY_ID_ORDER_INTERFACES, KEY_ORDER_INTERFACES, orderInterfaces)
     }
 
     /**
