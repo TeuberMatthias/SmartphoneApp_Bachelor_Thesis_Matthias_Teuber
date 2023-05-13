@@ -20,9 +20,13 @@
 
 
         <activity android:name=".activity.IntermediatePageActivity"> </activity>
-        <activity android:name=".activity.DemographicActivity"> </activity>
+
+        <activity android:name=".activity.DemographicActivity"
+            android:windowSoftInputMode="adjustResize"> </activity>
+
         <activity android:name=".activity.SystemUsabilityScaleActivity"> </activity>
-        <activity android:name=".activity.FeedBackActivity"> </activity>
+        <activity android:name=".activity.FeedBackActivity"
+            android:windowSoftInputMode="adjustResize"> </activity>
 
 
         <activity
