@@ -44,7 +44,7 @@ class IntermediatePageActivity : SuperActivityNavigation(), InterfaceGson, Inter
 
         textViewMessageInterface = binding.textViewMessageInterface
         textViewMessageGloves = binding.textViewMessageGloves
-        buttonContinue = binding.buttonContinueIntermediatePage.buttonContinue
+        buttonContinue = binding.buttonContinueIntermediatePage
 
         val intent = intent
         participant = getParticipantFromJson(intent)

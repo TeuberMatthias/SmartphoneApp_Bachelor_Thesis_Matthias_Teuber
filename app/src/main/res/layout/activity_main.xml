@@ -10,10 +10,8 @@
 
     <Button
         android:id="@+id/button_main_start"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
         android:background="@drawable/round_button"
         android:text="@string/start"
         android:textSize="48sp"
