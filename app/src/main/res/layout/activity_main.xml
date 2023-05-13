@@ -15,7 +15,7 @@
         android:background="@drawable/round_button"
         android:text="@string/start"
         android:textSize="48sp"
-        app:backgroundTint="#3F51B5"
+        app:backgroundTint="@color/button_continue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

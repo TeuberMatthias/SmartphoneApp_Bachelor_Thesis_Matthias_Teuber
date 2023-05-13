@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_grey">#D3D3D3</color>
 
+    <color name="button_continue">#3F51B5</color>
+
     <color name="number_button_normal">#FFFFFF</color>
     <color name="number_button_normal_text">#000000</color>
     <color name="number_button_deactivated">#CFCCCC</color>

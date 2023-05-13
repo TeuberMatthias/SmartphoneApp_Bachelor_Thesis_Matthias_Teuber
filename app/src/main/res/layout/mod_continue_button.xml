@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:showIn="@layout/activity_intermediate_page">
+    tools:showIn="@layout/activity_demographics">
 
     <Button
         android:id="@+id/button_continue"
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/continue_button"
-        app:backgroundTint="@color/purple_500"
+        app:backgroundTint="@color/button_continue"
         android:background="@drawable/rounded_square_button"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
