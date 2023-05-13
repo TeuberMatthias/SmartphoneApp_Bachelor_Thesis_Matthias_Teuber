@@ -25,6 +25,8 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private lateinit var participant: Participant
     private lateinit var binding: ActivitySystemUsabilityScaleBinding
 
+    private var toast_sus: Toast? = null
+
     private lateinit var activeInterfaceTyp: EnumInterfaceTypes
     private var listUsedInterfaceTypes = mutableListOf<EnumInterfaceTypes>()
     private var page: Int = 0
@@ -223,11 +225,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
                     it.radioGroup.clearCheck()
                 }
             } else {
+                toast_sus?.cancel()
                 startNewActivity(participant, FeedBackActivity::class.java)
             }
         } else {
             setChecked()
-            Toast.makeText(this, getString(R.string.not_all_fields_filled), Toast.LENGTH_LONG).show()
+            toast_sus = Toast.makeText(this, getString(R.string.not_all_fields_filled), Toast.LENGTH_SHORT)
+            toast_sus?.show()
         }
     }
 
