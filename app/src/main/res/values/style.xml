@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -10,7 +9,7 @@
     <style name="number_button" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="layout_constraintWidth_percent">0.25</item>
+        <item name="layout_constraintWidth_percent">0.2</item>
         <item name="layout_constraintDimensionRatio">1:1</item>
         <item name="android:textSize">36sp</item>
         <item name="android:layout_marginBottom">8dp</item>
