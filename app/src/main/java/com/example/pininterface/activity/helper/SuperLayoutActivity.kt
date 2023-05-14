@@ -22,50 +22,50 @@ import java.util.*
  */
 open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipulation, InterfaceDbInputSubmission, InterfaceGson {
 
-    open lateinit var interfaceType: EnumInterfaceTypes
-    lateinit var participant: Participant
+    protected open lateinit var interfaceType: EnumInterfaceTypes
+    protected lateinit var participant: Participant
 
-    lateinit var pinSubmissionTextView: TextView
-    lateinit var pinTargetTextView: TextView
+    protected lateinit var pinSubmissionTextView: TextView
+    protected lateinit var pinTargetTextView: TextView
 
     private var timeDif = TimeDifferenceCalculator()
 
-    lateinit var button1: Button
-    lateinit var button2: Button
-    lateinit var button3: Button
-    lateinit var button4: Button
-    lateinit var button5: Button
-    lateinit var button6: Button
-    lateinit var button7: Button
-    lateinit var button8: Button
-    lateinit var button9: Button
-    lateinit var button0: Button
-    var listNumButtons = mutableListOf<Button>()
+    protected lateinit var button1: Button
+    protected lateinit var button2: Button
+    protected lateinit var button3: Button
+    protected lateinit var button4: Button
+    protected lateinit var button5: Button
+    protected lateinit var button6: Button
+    protected lateinit var button7: Button
+    protected lateinit var button8: Button
+    protected lateinit var button9: Button
+    protected lateinit var button0: Button
+    protected var listNumButtons = mutableListOf<Button>()
 
-    lateinit var buttonDel: Button
-    lateinit var buttonAccept: Button
-    var listCtrlButtons = mutableListOf<Button>()
+    protected lateinit var buttonDel: Button
+    protected lateinit var buttonAccept: Button
+    protected var listCtrlButtons = mutableListOf<Button>()
 
-    lateinit var buttonEmergency: Button
+    protected lateinit var buttonEmergency: Button
 
     private var timer: Timer? = null
 
     private var winActive = true
     private var interfaceFinished = false
 
-    var colorControlNormal: Int = 0
-    var colorControlDeactivated: Int = 0
-    var colorControlHighlighted: Int = 0
-    var colorTextControlNormal: Int = 0
-    var colorTextControlHighlighted: Int = 0
-    var colorTextControlDeactivated: Int = 0
+    protected var colorControlNormal: Int = 0
+    protected var colorControlDeactivated: Int = 0
+    protected var colorControlHighlighted: Int = 0
+    protected var colorTextControlNormal: Int = 0
+    protected var colorTextControlHighlighted: Int = 0
+    protected var colorTextControlDeactivated: Int = 0
 
-    var colorNumNormal: Int = 0
-    var colorNumDeactivated: Int = 0
-    var colorNumHighlighted: Int = 0
-    var colorTextNumNormal: Int = 0
-    var colorTextNumHighlighted: Int = 0
-    var colorTextNumDeactivated: Int = 0
+    protected var colorNumNormal: Int = 0
+    protected var colorNumDeactivated: Int = 0
+    protected var colorNumHighlighted: Int = 0
+    protected var colorTextNumNormal: Int = 0
+    protected var colorTextNumHighlighted: Int = 0
+    protected var colorTextNumDeactivated: Int = 0
 
 
     /**

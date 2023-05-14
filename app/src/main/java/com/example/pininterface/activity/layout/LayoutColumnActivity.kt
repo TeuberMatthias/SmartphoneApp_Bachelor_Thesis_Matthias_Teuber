@@ -14,7 +14,7 @@ import com.example.pininterface.enums.EnumInterfaceTypes
  */
 open class LayoutColumnActivity : SuperLayoutActivity(), InterfaceTouchListener {
 
-    lateinit var binding: ActivityLayoutInterfaceColumnBinding
+    protected lateinit var binding: ActivityLayoutInterfaceColumnBinding
 
     /**
      * onCreate

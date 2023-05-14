@@ -16,8 +16,8 @@ open class LayoutStandardActivity : SuperLayoutActivity(), InterfaceTouchListene
 
     lateinit var binding: ActivityLayoutInterfaceStandardBinding
 
-    var shapeRoundedSquareButton: Int = 0
-    var shapeRoundButton: Int = 0
+    protected var shapeRoundedSquareButton: Int = 0
+    protected var shapeRoundButton: Int = 0
 
     /**
      * onCreate

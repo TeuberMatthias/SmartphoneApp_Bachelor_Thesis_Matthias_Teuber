@@ -19,8 +19,8 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
 
     private lateinit var participant: Participant
     private lateinit var binding: ActivityDemographicsBinding
-    lateinit var buttonContinue: Button
-    private var toast_demograpics: Toast? = null
+    private lateinit var buttonContinue: Button
+    private var toastDemographics: Toast? = null
 
     /**
      * onCreate
@@ -56,19 +56,19 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
         val age: Int = binding.ageInput.text.toString().toIntOrNull() ?: -1
 
         if (radioGroupGenderValue <= 0) {
-            toast_demograpics = Toast.makeText(this, getString(R.string.no_gender_selected), Toast.LENGTH_LONG)
-            toast_demograpics?.show()
+            toastDemographics = Toast.makeText(this, getString(R.string.no_gender_selected), Toast.LENGTH_LONG)
+            toastDemographics?.show()
             return
         } else if (age < 3 || age > 120) {
-            toast_demograpics = Toast.makeText(this, getString(R.string.invalid_age_selected), Toast.LENGTH_LONG)
-            toast_demograpics?.show()
+            toastDemographics = Toast.makeText(this, getString(R.string.invalid_age_selected), Toast.LENGTH_LONG)
+            toastDemographics?.show()
             return
         } else if (radioGroupDominantHand <= 0) {
-            toast_demograpics = Toast.makeText(this, getString(R.string.no_dominant_hand_selected), Toast.LENGTH_LONG)
-            toast_demograpics?.show()
+            toastDemographics = Toast.makeText(this, getString(R.string.no_dominant_hand_selected), Toast.LENGTH_LONG)
+            toastDemographics?.show()
             return
         } else {
-            toast_demograpics?.cancel()
+            toastDemographics?.cancel()
 
             val gender: RadioButton = findViewById(radioGroupGenderValue)
             val dominantHand: RadioButton = findViewById(radioGroupDominantHand)
