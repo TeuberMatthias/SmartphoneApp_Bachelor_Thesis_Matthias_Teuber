@@ -40,6 +40,8 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson, InterfaceDbPa
         editTextFeedBack = binding.editTextFeedback
         buttonContinue = binding.buttonFeedbackContinue.buttonContinue
         buttonContinue.setOnClickListener { finishParticipant() }
+
+        buttonContinue.text = getString(R.string.finish)
     }
 
     /**
