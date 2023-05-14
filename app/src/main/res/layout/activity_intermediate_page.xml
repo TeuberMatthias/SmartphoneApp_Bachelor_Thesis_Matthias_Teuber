@@ -32,8 +32,9 @@
 
     <TextView
         android:id="@+id/text_view_message_interface"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text=""
         android:gravity="center"
         android:textSize="24sp"
@@ -44,8 +45,9 @@
 
     <TextView
         android:id="@+id/text_view_message_gloves"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text=""
         android:gravity="center"
         android:textSize="24sp"

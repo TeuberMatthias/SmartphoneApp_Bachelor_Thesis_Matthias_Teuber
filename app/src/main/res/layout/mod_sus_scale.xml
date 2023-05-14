@@ -11,18 +11,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Question"
+        android:text=""
         android:textStyle="bold"
         android:textSize="16sp"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        tools:ignore="MissingConstraints" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/textQuestion"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +33,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1" />
+            android:text="1"
+            tools:ignore="HardcodedText" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -71,6 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7" />
+            android:text="7"
+            tools:ignore="HardcodedText" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
