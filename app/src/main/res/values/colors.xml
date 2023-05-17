@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_grey">#D3D3D3</color>
+    <color name="light_grey">#F2F0F4</color>
 
     <color name="button_continue">#3F51B5</color>
 
@@ -18,7 +18,7 @@
     <color name="number_button_highlighted">#2196F3</color>
     <color name="number_button_highlighted_text">#07FFF7</color>
 
-    <color name="control_button_normal">#525367</color>
+    <color name="control_button_normal">#585E71</color>
     <color name="control_button_normal_text">#FFFFFF</color>
     <color name="control_button_deactivated">#AEAFAE</color>
     <color name="control_button_deactivated_text">#9A9696</color>
@@ -27,7 +27,7 @@
 
     <color name="button_visual_aid_highlighted">#FF5722</color>
 
-    <color name="emergency_button">#FFCCFE</color>
+    <color name="emergency_button">#FED6F9</color>
     <color name="background">#D3D3D3</color>
 
     <color name="button_inactive">#62AF65</color>
