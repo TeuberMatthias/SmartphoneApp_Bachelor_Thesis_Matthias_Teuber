@@ -33,6 +33,8 @@ open class SuperActivityNavigation : AppCompatActivity() {
      */
     inline fun <reified T> startNewActivity(pParticipant: Participant, pLayoutClass: Class<T>) {
 
+        vibrate(50)
+
         val gson = Gson()
         val intent = Intent(this, pLayoutClass).apply {
             putExtra("participant", gson.toJson(pParticipant))

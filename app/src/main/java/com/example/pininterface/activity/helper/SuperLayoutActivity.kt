@@ -67,6 +67,8 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     protected var colorTextNumHighlighted: Int = 0
     protected var colorTextNumDeactivated: Int = 0
 
+    private val vibrationDuration: Long = 500
+
 
     /**
      * onCreate
@@ -166,7 +168,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
             }
         } else {
             updateTextView(pinSubmissionTextView, participant.getActivePin().resetPinSubmission())
-            vibrate(100)
+            vibrate(vibrationDuration)
             startTimerPinSubmissionTextViewUpdate(
                 hidePinString(
                     participant.getActivePin().getPinSubmission()
