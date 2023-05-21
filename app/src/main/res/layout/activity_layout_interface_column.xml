@@ -15,16 +15,18 @@
         android:id="@+id/button_column_del"
         android:tag="\u232B"
         style="@style/column_button_control"
+        android:layout_marginBottom="4dp"
         app:icon="@drawable/baseline_backspace_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/emergency"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_column_accept"
-        android:tag="\u21E5"
         style="@style/column_button_control"
+        android:layout_marginBottom="0dp"
+        android:tag="\u21E5"
         app:icon="@drawable/baseline_keyboard_tab_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/button_column_del"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
@@ -109,7 +111,13 @@
 
     <include
         android:id="@+id/emergency"
-        layout="@layout/mod_emergency_button" />
+        layout="@layout/mod_emergency_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/visAidColumn"

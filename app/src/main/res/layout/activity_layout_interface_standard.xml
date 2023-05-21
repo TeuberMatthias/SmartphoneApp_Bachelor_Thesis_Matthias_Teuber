@@ -31,10 +31,10 @@
     <Button
         android:id="@+id/button_0"
         style="@style/number_button"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="24dp"
         android:tag="0"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/emergency"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -115,7 +115,13 @@
 
     <include
         android:id="@+id/emergency"
-        layout="@layout/mod_emergency_button" />
+        layout="@layout/mod_emergency_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/visAid"
