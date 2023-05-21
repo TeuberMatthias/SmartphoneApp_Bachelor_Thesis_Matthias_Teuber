@@ -79,6 +79,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         val intent = intent
         participant = getParticipantFromJson(intent)
 
+
         colorControlNormal = ContextCompat.getColor(this, R.color.control_button_normal)
         colorControlDeactivated = ContextCompat.getColor(this, R.color.control_button_deactivated)
         colorControlHighlighted = ContextCompat.getColor(this, R.color.control_button_highlighted)
@@ -88,12 +89,16 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
         colorNumHighlighted = ContextCompat.getColor(this, R.color.number_button_highlighted)
 
         colorTextNumNormal = ContextCompat.getColor(this, R.color.number_button_normal_text)
-        colorTextNumHighlighted = ContextCompat.getColor(this, R.color.number_button_highlighted_text)
-        colorTextNumDeactivated = ContextCompat.getColor(this, R.color.number_button_deactivated_text)
+        colorTextNumHighlighted =
+            ContextCompat.getColor(this, R.color.number_button_highlighted_text)
+        colorTextNumDeactivated =
+            ContextCompat.getColor(this, R.color.number_button_deactivated_text)
 
         colorTextControlNormal = ContextCompat.getColor(this, R.color.control_button_normal_text)
-        colorTextControlHighlighted = ContextCompat.getColor(this, R.color.control_button_highlighted_text)
-        colorTextControlDeactivated = ContextCompat.getColor(this, R.color.control_button_deactivated_text)
+        colorTextControlHighlighted =
+            ContextCompat.getColor(this, R.color.control_button_highlighted_text)
+        colorTextControlDeactivated =
+            ContextCompat.getColor(this, R.color.control_button_deactivated_text)
     }
 
     /**
@@ -103,7 +108,14 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     private fun addSubmission(pSubmission: EnumButtonTypes) {
 
         val time = timeDif.calcTimeDif()
-        dbAddSubmission(participant.getID(), participant.getActiveInterface(), participant.getActivePin().getPin(), pSubmission, time, this)
+        dbAddSubmission(
+            participant.getID(),
+            participant.getActiveInterface(),
+            participant.getActivePin().getPin(),
+            pSubmission,
+            time,
+            this
+        )
     }
 
     /**
@@ -153,8 +165,13 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
                 startNewActivity(participant, IntermediatePageActivity::class.java)
             }
         } else {
-            updateTextView(pinSubmissionTextView, getString(R.string.wrong_pin))
-            startTimerPinSubmissionTextViewUpdate(hidePinString(participant.getActivePin().getPinSubmission()))
+            updateTextView(pinSubmissionTextView, participant.getActivePin().resetPinSubmission())
+            vibrate(100)
+            startTimerPinSubmissionTextViewUpdate(
+                hidePinString(
+                    participant.getActivePin().getPinSubmission()
+                )
+            )
         }
     }
 
@@ -266,6 +283,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
      * Initiates button Listeners for Number, Delete, Accept and Emergency Button
      */
     open fun buttonListeners() {
+
         listNumButtons.forEachIndexed { index, button ->
             button.setOnClickListener { numButtonClicked(EnumButtonTypes.values()[index]) }
         }

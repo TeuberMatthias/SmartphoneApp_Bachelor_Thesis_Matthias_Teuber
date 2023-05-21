@@ -73,4 +73,13 @@ class Pin (pPin: MutableList<Int>) {
         pinSubmission = pinSubmission.reversed().replaceFirst("\\d".toRegex(), "").reversed()
         return pinSubmission
     }
+
+    /**
+     * resets the pin submission back to an empty string
+     * @return the pin submission (empty string)
+     */
+    fun resetPinSubmission(): String {
+        pinSubmission = ""
+        return pinSubmission
+    }
 }
