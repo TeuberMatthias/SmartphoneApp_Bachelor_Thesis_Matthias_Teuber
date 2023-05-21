@@ -26,7 +26,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     companion object {
         private const val DATABASE_NAME = "thesis_database"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 3
         private const val TABLE_DEMOGRAPHICS = "demographics"
         private const val TABLE_FEEDBACK = "feedback"
         private const val TABLE_SUS = "sus"
@@ -99,12 +99,13 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "")
 
         db?.execSQL("CREATE TABLE $TABLE_SUBMISSIONS(" +
-                "$KEY_ID_SUBMISSION INTEGER PRIMARY KEY," +
+                "$KEY_ID_SUBMISSION INTEGER," +
                 "$KEY_ID_PARTICIPANT INTEGER," +
                 "$KEY_INTERFACE TEXT," +
                 "$KEY_PIN TEXT," +
                 "$KEY_SUBMISSION TEXT," +
-                "$KEY_TIME INTEGER)" +
+                "$KEY_TIME INTEGER," +
+                "PRIMARY KEY ($KEY_ID_SUBMISSION, $KEY_ID_PARTICIPANT))" +
                 "")
 
         db?.execSQL("CREATE TABLE $TABLE_ORDER_INTERFACES(" +
@@ -281,7 +282,20 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addSubmission(pSubmission: ModelClassInterActionSubmission): Long {
 
+        val db = writableDatabase
+
+        val query = "SELECT MAX($KEY_ID_SUBMISSION) " +
+                "FROM $TABLE_SUBMISSIONS " +
+                "WHERE $KEY_ID_PARTICIPANT = ${pSubmission.pId}"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val idSubmission = cursor.getInt(0) + 1
+
+        cursor.close()
+        db.close()
+
         val contentValues = ContentValues().apply {
+            put(KEY_ID_SUBMISSION, idSubmission)
             put(KEY_ID_PARTICIPANT, pSubmission.pId)
             put(KEY_INTERFACE, pSubmission.pInterface)
             put(KEY_PIN, pSubmission.pPin)
