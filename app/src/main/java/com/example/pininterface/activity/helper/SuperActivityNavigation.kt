@@ -1,29 +1,16 @@
 package com.example.pininterface.activity.helper
 
-import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.VibratorManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pininterface.database.interfaces.Vibrate
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
 
 /**
  * Super Class with a function to go to start a new Activity
  */
-open class SuperActivityNavigation : AppCompatActivity() {
-
-    private lateinit var vibrator: VibratorManager
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-
-        vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-    }
+open class SuperActivityNavigation : AppCompatActivity(), Vibrate {
 
     /**
      * Starts a new Activity
@@ -33,7 +20,7 @@ open class SuperActivityNavigation : AppCompatActivity() {
      */
     inline fun <reified T> startNewActivity(pParticipant: Participant, pLayoutClass: Class<T>) {
 
-        vibrate(50)
+        vibrate(this, 50)
 
         val gson = Gson()
         val intent = Intent(this, pLayoutClass).apply {
@@ -55,11 +42,12 @@ open class SuperActivityNavigation : AppCompatActivity() {
 
         Toast.makeText(this, "Back Button disabled", Toast.LENGTH_SHORT).show()
     }
-
+/*
     /**
      * vibrate for a set amount of time
      * @param pTime time how long the phone should vibrate (Long)
      */
+    @RequiresApi(Build.VERSION_CODES.S)
     fun vibrate(pTime: Long) {
 
         if (vibrator.defaultVibrator.hasVibrator()) {
@@ -70,9 +58,12 @@ open class SuperActivityNavigation : AppCompatActivity() {
     /**
      * Stops the Vibrator if activity is destroyed
      */
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onDestroy() {
 
         super.onDestroy()
         vibrator.cancel()
     }
+
+ */
 }

@@ -1,5 +1,6 @@
 package com.example.pininterface.activity.helper
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -73,6 +74,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
     /**
      * onCreate
      */
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -168,7 +170,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
             }
         } else {
             updateTextView(pinSubmissionTextView, participant.getActivePin().resetPinSubmission())
-            vibrate(vibrationDuration)
+            vibrate(this, vibrationDuration)
             startTimerPinSubmissionTextViewUpdate(
                 hidePinString(
                     participant.getActivePin().getPinSubmission()
