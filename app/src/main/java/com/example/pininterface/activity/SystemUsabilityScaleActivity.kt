@@ -135,7 +135,6 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
     /**
      * Saves the which RadioButtons are checked/saves the Answers in listAnswers
-     * will also clear/uncheck all checked RadioButtons
      */
     private fun saveAnswers() {
 
@@ -144,11 +143,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
             if (selectedID >= 0) {
                 val selectedRadioButton: RadioButton = findViewById(selectedID)
                 listAnswers[index + 5 * page] = selectedRadioButton.tag.toString().toInt()
-                //modSusScaleBinding.radioGroup.clearCheck()
             }
         }
     }
 
+    /**
+     * clear/uncheck all checked RadioButtons
+     */
     private fun clearAnswers() {
 
         listQuestionView.forEach {
@@ -167,7 +168,6 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
      */
     private fun buttonPressedNextOrBack(pButton: Button) {
 
-        //saveAnswers()
         clearAnswers()
 
         if (page == 1 && pButton == buttonBack) {
@@ -226,11 +226,10 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
      */
     private fun continueButtonPressed() {
 
-        //saveAnswers()
         clearAnswers()
         buttonContinue.visibility = View.INVISIBLE
 
-        if (checkAllRadioButtonsSet()) {
+        if (checkAllRadioButtonsSet()) { // kann man entfernen da button nur sichtbar ist wenn alle gesetzt
 
             dbAddSUS(participant.getID(), activeInterfaceTyp, listAnswers, this)
 

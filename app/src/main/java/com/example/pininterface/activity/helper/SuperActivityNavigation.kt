@@ -3,14 +3,14 @@ package com.example.pininterface.activity.helper
 import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.pininterface.database.interfaces.Vibrate
+import com.example.pininterface.database.interfaces.InterfaceVibrate
 import com.example.pininterface.logic.Participant
 import com.google.gson.Gson
 
 /**
  * Super Class with a function to go to start a new Activity
  */
-open class SuperActivityNavigation : AppCompatActivity(), Vibrate {
+open class SuperActivityNavigation : AppCompatActivity(), InterfaceVibrate {
 
     /**
      * Starts a new Activity

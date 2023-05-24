@@ -5,7 +5,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 
-interface Vibrate {
+interface InterfaceVibrate {
 
     fun vibrate(pContext: Context, pDuration: Long) {
 
