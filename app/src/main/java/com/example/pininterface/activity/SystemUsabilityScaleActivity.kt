@@ -2,8 +2,10 @@ package com.example.pininterface.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -70,6 +72,8 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         val question4 = binding.question4
         listQuestionView = mutableListOf(question0, question1, question2, question3, question4)
 
+        buttonContinue.visibility = View.INVISIBLE
+
         listQuestionText = mutableListOf(getString(R.string.sus_00), getString(R.string.sus_01),
             getString(R.string.sus_02), getString(R.string.sus_03), getString(R.string.sus_04),
             getString(R.string.sus_05), getString(R.string.sus_06), getString(R.string.sus_07),
@@ -93,12 +97,18 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         buttonNext.setOnClickListener { buttonPressedNextOrBack(buttonNext) }
         buttonBack.setOnClickListener { buttonPressedNextOrBack(buttonBack) }
 
-        //buttonNext.setOnClickListener { nextButtonPressed() }
-        //buttonBack.setOnClickListener { backButtonPressed() }
-
         writeQuestions()
         updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
         updateButtonsNextAndBack(buttonNext, buttonBack)
+
+        for (questionView in listQuestionView) {
+            val radioGroup: RadioGroup = questionView.radioGroup
+            radioGroup.setOnCheckedChangeListener { _, _ ->
+                saveAnswers()
+                if (checkAllRadioButtonsSet())
+                    buttonContinue.visibility = View.VISIBLE
+            }
+        }
 
     }
 
@@ -134,8 +144,15 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
             if (selectedID >= 0) {
                 val selectedRadioButton: RadioButton = findViewById(selectedID)
                 listAnswers[index + 5 * page] = selectedRadioButton.tag.toString().toInt()
-                modSusScaleBinding.radioGroup.clearCheck()
+                //modSusScaleBinding.radioGroup.clearCheck()
             }
+        }
+    }
+
+    private fun clearAnswers() {
+
+        listQuestionView.forEach {
+            it.radioGroup.clearCheck()
         }
     }
 
@@ -150,7 +167,8 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
      */
     private fun buttonPressedNextOrBack(pButton: Button) {
 
-        saveAnswers()
+        //saveAnswers()
+        clearAnswers()
 
         if (page == 1 && pButton == buttonBack) {
             page = 0
@@ -208,7 +226,9 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
      */
     private fun continueButtonPressed() {
 
-        saveAnswers()
+        //saveAnswers()
+        clearAnswers()
+        buttonContinue.visibility = View.INVISIBLE
 
         if (checkAllRadioButtonsSet()) {
 
