@@ -26,7 +26,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     companion object {
         private const val DATABASE_NAME = "thesis_database"
-        private const val DATABASE_VERSION = 7
+        private const val DATABASE_VERSION = 8
         private const val TABLE_DEMOGRAPHICS = "demographics"
         private const val TABLE_FEEDBACK = "feedback"
         private const val TABLE_SUS = "sus"

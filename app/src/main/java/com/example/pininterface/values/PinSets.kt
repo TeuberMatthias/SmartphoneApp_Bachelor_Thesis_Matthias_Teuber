@@ -17,8 +17,8 @@ class PinSets {
     private val pinSet1 = ArrayList(arrayListOf(
         pinS1P01,
         pinS1P02,
-        pinS1P03,
-        pinS1P04
+        //pinS1P03,
+        //pinS1P04
     ).shuffled())
 
     //PIN Set 2
@@ -30,8 +30,8 @@ class PinSets {
     private val pinSet2 = ArrayList(arrayListOf(
         pinS2P01,
         pinS2P02,
-        pinS2P03,
-        pinS2P04
+        //pinS2P03,
+        //pinS2P04
     ).shuffled())
 
     //PIN Set 3
@@ -43,8 +43,8 @@ class PinSets {
     private val pinSet3 = ArrayList(arrayListOf(
         pinS3P01,
         pinS3P02,
-        pinS3P03,
-        pinS3P04
+        //pinS3P03,
+        //pinS3P04
     ).shuffled())
 
     //PIN Set 4
@@ -56,8 +56,8 @@ class PinSets {
     private val pinSet4 = ArrayList(arrayListOf(
         pinS4P01,
         pinS4P02,
-        pinS4P03,
-        pinS4P04
+        //pinS4P03,
+        //pinS4P04
     ).shuffled())
 
     //All PIN Sets, individual Pin Sets shuffled

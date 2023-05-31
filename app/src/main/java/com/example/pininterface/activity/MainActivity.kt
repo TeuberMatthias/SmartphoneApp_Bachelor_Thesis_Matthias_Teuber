@@ -39,7 +39,13 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         sharedPreferences = getSharedPreferences("userStudyTeuberSharedPreferences", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
         phoneID = sharedPreferences.getString("phoneID", "1").toString()
+        if (phoneID == "1") {
+            editor.putString("phoneID", "1")
+            editor.apply()
+        }
+
         Log.e("phoneId: ", phoneID)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -51,7 +57,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
         updateEditTextPhoneID()
 
-        if (!checkSizeDB(800_000)) {
+        if (!checkSizeDB(500_000)) {
             Toast.makeText(this, "DataBase is Full!", Toast.LENGTH_LONG).show()
             buttonStart.isEnabled = false
         }
