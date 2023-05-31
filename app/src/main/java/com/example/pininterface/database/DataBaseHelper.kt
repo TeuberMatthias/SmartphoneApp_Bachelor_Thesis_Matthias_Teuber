@@ -187,6 +187,31 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     /**
+     * counts the Rows of a Table
+     * @param pTABLE Table
+     * @return number of Rows of Table
+     */
+    private fun countRowsOfTable(pTABLE: String): Int {
+
+        val db = this.writableDatabase
+        val query = "SELECT COUNT(*) FROM $pTABLE"
+        val cursor = db.rawQuery(query, null)
+
+        var rowCount = 0
+        if (cursor.moveToFirst())
+            rowCount = cursor.getInt(0)
+
+        cursor.close()
+        db.close()
+        return rowCount
+    }
+
+    fun countRowsParticipant(): Int {
+
+        return countRowsOfTable(TABLE_PARTICIPANT)
+    }
+
+    /**
      * Adds a new Row to the order_pin Table
      * If the order of interfaces already exist it will return the id of the existing row
      * @param pOrderPins order_interfaces ModelClass

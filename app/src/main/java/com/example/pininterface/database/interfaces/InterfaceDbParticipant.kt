@@ -63,4 +63,15 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces, InterfaceDbOrderP
         Log.e("db.update_participant", success.toString())
         return success
     }
+
+    /**
+     * Counts the number of Rows of Table Participants
+     * @param pContext Context (this)
+     * @return number of rows of Participant
+     */
+    fun countRowsParticipant(pContext: Context): Int {
+
+        val dataBaseHelper = DataBaseHelper(pContext)
+        return dataBaseHelper.countRowsParticipant()
+    }
 }

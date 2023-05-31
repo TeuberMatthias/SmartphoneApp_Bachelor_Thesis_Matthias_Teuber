@@ -49,17 +49,39 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
         updateEditTextPhoneID()
 
+        if (!checkSizeDB(800_000)) {
+            Toast.makeText(this, "DataBase is Full!", Toast.LENGTH_LONG).show()
+            buttonStart.isEnabled = false
+        }
+
         buttonStart.setOnClickListener { start() }
         buttonApplyPhoneID.setOnClickListener { applyPhoneId() }
     }
 
+    /**
+     * Checks if the Database is full
+     * Counts the rows of the Participant table and compares it to pSize
+     * @param pSize Integer number
+     * @return false if number Rows > pSize, true if number Rows < pSize
+     */
+    private fun checkSizeDB(pSize: Int): Boolean {
 
+        val dbSize = countRowsParticipant(this)
+        return dbSize < pSize
+    }
+
+    /**
+     * Starts the User Study
+     */
     private fun start() {
 
         val intent = Intent(this, StartActivity::class.java)
         startActivity(intent)
     }
 
+    /**
+     * applys the Phone ID
+     */
     private fun applyPhoneId() {
 
         val newPhoneID = editTextFieldPhoneID.text.toString().toIntOrNull() ?: -1
@@ -73,6 +95,9 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         updateEditTextPhoneID()
     }
 
+    /**
+     * updates the hint of the editTextView phone ID
+     */
     private fun updateEditTextPhoneID() {
 
         editTextFieldPhoneID.hint = getString(R.string.phone_id, phoneID)
