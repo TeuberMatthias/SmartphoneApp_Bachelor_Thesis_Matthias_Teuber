@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import com.example.pininterface.database.interfaces.InterfaceDbParticipant
@@ -38,6 +39,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         sharedPreferences = getSharedPreferences("userStudyTeuberSharedPreferences", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
         phoneID = sharedPreferences.getString("phoneID", "1").toString()
+        Log.e("phoneId: ", phoneID)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root

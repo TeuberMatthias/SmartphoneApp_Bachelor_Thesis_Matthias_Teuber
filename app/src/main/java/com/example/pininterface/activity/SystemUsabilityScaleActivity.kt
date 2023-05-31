@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -27,7 +28,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private lateinit var participant: Participant
     private lateinit var binding: ActivitySystemUsabilityScaleBinding
 
-    private var toast_sus: Toast? = null
+    private var toastSUS: Toast? = null
 
     private lateinit var activeInterfaceTyp: EnumInterfaceTypes
     private var listUsedInterfaceTypes = mutableListOf<EnumInterfaceTypes>()
@@ -36,7 +37,10 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private lateinit var buttonContinue: Button
     private lateinit var buttonNext: Button
     private lateinit var buttonBack: Button
-    private lateinit var textViewInterfaceTyp: TextView
+
+    private lateinit var buttonShowInterfaceTyp: Button
+    private lateinit var imageViewInterfaceTyp: ImageView
+
     private lateinit var textViewPageIndicator: TextView
 
     private lateinit var listQuestionView: MutableList<ModSusScaleBinding>
@@ -62,8 +66,10 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         buttonBack = binding.buttonBack
         buttonNext = binding.buttonNext
         buttonContinue = binding.systemUsabilityScaleContinue.buttonContinue
-        textViewInterfaceTyp = binding.interfaceTyp
         textViewPageIndicator = binding.textViewPageIndicator
+
+        buttonShowInterfaceTyp = binding.buttonInterfaceTyp
+        imageViewInterfaceTyp = binding.imageViewInterfaceTyp
 
         val question0 = binding.question0
         val question1 = binding.question1
@@ -97,8 +103,11 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         buttonNext.setOnClickListener { buttonPressedNextOrBack(buttonNext) }
         buttonBack.setOnClickListener { buttonPressedNextOrBack(buttonBack) }
 
+        buttonShowInterfaceTyp.setOnClickListener { buttonShowInterfaceTypPressed() }
+        imageViewInterfaceTyp.setOnClickListener { imageViewInterfaceTypPressed() }
+
         writeQuestions()
-        updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
+        updateTextView(buttonShowInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
         updateButtonsNextAndBack(buttonNext, buttonBack)
 
         for (questionView in listQuestionView) {
@@ -110,6 +119,24 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
             }
         }
 
+    }
+
+    private fun buttonShowInterfaceTypPressed() {
+
+        when (activeInterfaceTyp) {
+            EnumInterfaceTypes.STANDARD -> imageViewInterfaceTyp.setImageResource(R.drawable.interface_standard)
+            EnumInterfaceTypes.COLUMN -> imageViewInterfaceTyp.setImageResource(R.drawable.interface_column)
+            EnumInterfaceTypes.STANDARD_VIS -> imageViewInterfaceTyp.setImageResource(R.drawable.interface_standard_vis_aid)
+            EnumInterfaceTypes.COLUMN_VIS -> imageViewInterfaceTyp.setImageResource(R.drawable.interface_column_vis_aid)
+            else -> return
+        }
+
+        imageViewInterfaceTyp.visibility = View.VISIBLE
+    }
+
+    private fun imageViewInterfaceTypPressed() {
+
+        imageViewInterfaceTyp.visibility = View.GONE
     }
 
     /**
@@ -235,7 +262,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
             if (listUsedInterfaceTypes.isNotEmpty()) {
                 activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()
-                updateTextView(textViewInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
+                updateTextView(buttonShowInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
                 listAnswers = initListAnswers()
                 page = 0
                 updateButtonsNextAndBack(buttonNext, buttonBack)
@@ -244,13 +271,13 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
                     it.radioGroup.clearCheck()
                 }
             } else {
-                toast_sus?.cancel()
+                toastSUS?.cancel()
                 startNewActivity(participant, FeedBackActivity::class.java)
             }
         } else {
             setChecked()
-            toast_sus = Toast.makeText(this, getString(R.string.not_all_fields_filled), Toast.LENGTH_SHORT)
-            toast_sus?.show()
+            toastSUS = Toast.makeText(this, getString(R.string.not_all_fields_filled), Toast.LENGTH_SHORT)
+            toastSUS?.show()
         }
     }
 

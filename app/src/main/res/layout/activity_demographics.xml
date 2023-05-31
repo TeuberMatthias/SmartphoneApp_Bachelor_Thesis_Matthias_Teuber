@@ -68,7 +68,7 @@
         android:id="@+id/age_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/age"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,13 +79,13 @@
         android:id="@+id/age_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/hint_age"
-        android:textSize="24sp"
         android:importantForAutofill="no"
         android:inputType="number"
         android:minHeight="48dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_text" />
@@ -94,7 +94,7 @@
         android:id="@+id/radioGroup_dominant_hand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,25 +102,25 @@
 
         <RadioButton
             android:id="@+id/lefthanded"
-            android:tag="LEFT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="LEFT"
             android:text="@string/lefthanded"
             android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/ambidextrous"
-            android:tag="AMBIDEXTROUS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="AMBIDEXTROUS"
             android:text="@string/ambidextrous"
             android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/rightHanded"
-            android:tag="RIGHT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="RIGHT"
             android:text="@string/righthanded"
             android:textSize="16sp" />
     </RadioGroup>
@@ -129,7 +129,7 @@
         android:id="@+id/dominant_hand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/dominant_hand"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,6 +138,11 @@
 
     <include
         android:id="@+id/demographics_continue"
-        layout="@layout/mod_continue_button" />
+        layout="@layout/mod_continue_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
