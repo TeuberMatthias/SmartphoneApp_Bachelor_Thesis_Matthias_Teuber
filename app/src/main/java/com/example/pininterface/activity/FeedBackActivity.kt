@@ -50,8 +50,8 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson, InterfaceDbPa
      */
     private fun finishParticipant() {
 
-        dbAddFeedback(participant.getID(), editTextFeedBack.text.toString(), this)
-        dbUpdateParticipantComplete(participant.getID(), 1, this)
+        dbAddFeedback(participant.getPhoneID(), participant.getID(), editTextFeedBack.text.toString(), this)
+        dbUpdateParticipantComplete(participant.getPhoneID(), participant.getID(), 1, this)
 
         startNewActivity(participant, StartActivity::class.java)
     }

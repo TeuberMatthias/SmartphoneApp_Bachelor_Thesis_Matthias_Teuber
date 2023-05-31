@@ -22,11 +22,11 @@ interface InterfaceDbInputSubmission {
      * @param pContext context ("this" in activity)
      * @return positive Long if successful, -1 when unsuccessful
      */
-    fun dbAddSubmission(pId: Int, pInterface: EnumInterfaceTypes, pPin: String, pSubmission: EnumButtonTypes, pTime: Int, pContext: Context): Long {
+    fun dbAddSubmission(pPhoneID: Int, pId: Int, pInterface: EnumInterfaceTypes, pPin: String, pSubmission: EnumButtonTypes, pTime: Int, pContext: Context): Long {
 
         val dataBaseHelper = DataBaseHelper(pContext)
 
-        val submission = ModelClassInterActionSubmission(pId, pInterface.toString(), pPin, pSubmission.toString(), pTime)
+        val submission = ModelClassInterActionSubmission(pPhoneID, pId, pInterface.toString(), pPin, pSubmission.toString(), pTime)
 
         val success = dataBaseHelper.addSubmission(submission)
         Log.e("db.add_submission", success.toString())

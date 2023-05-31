@@ -6,5 +6,6 @@ package com.example.pininterface.database.modelclass
  * @param pId id - PRIMARY KEY
  * @param pFeedBack feedback
  */
-class ModelClassFeedBack(val pId: Int,
+class ModelClassFeedBack(val pPhoneID: Int,
+                         val pId: Int,
                          val pFeedBack: String)

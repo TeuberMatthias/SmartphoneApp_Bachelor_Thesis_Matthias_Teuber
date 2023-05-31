@@ -113,6 +113,7 @@ open class SuperLayoutActivity : SuperActivityNavigation(), InterfaceViewManipul
 
         val time = timeDif.calcTimeDif()
         dbAddSubmission(
+            participant.getPhoneID(),
             participant.getID(),
             participant.getActiveInterface(),
             participant.getActivePin().getPin(),

@@ -32,6 +32,7 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces, InterfaceDbOrderP
      */
     fun dbAddParticipant(pParticipant: Participant, pContext: Context): Long {
 
+        val phoneID = pParticipant.getPhoneID()
         val id = pParticipant.getID()
         val orderPinsString = pParticipant.getPinSetsAsString()
         val orderPinsId = dbGetIdOrderPins(ModelClassOrderPins(-1,orderPinsString), pContext)
@@ -40,7 +41,7 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces, InterfaceDbOrderP
         val orderInterfacesId = dbGetIdOrderInterfaces(ModelClassOrderInterfaces(-1, orderInterfacesString), pContext)
 
         val db = DataBaseHelper(pContext)
-        val participant = ModelClassParticipant(id, 0, orderPinsId, orderInterfacesId)
+        val participant = ModelClassParticipant(phoneID, id, 0, orderPinsId, orderInterfacesId)
 
         val success = db.addParticipant(participant)
         Log.e("db.add_participant", success.toString())
@@ -54,11 +55,11 @@ interface InterfaceDbParticipant : InterfaceDbOrderInterfaces, InterfaceDbOrderP
      * @param pContext context ("this" in activity)
      * @return positive Int when successful, -1 if unsuccessful
      */
-    fun dbUpdateParticipantComplete(pId: Int, pComplete: Int, pContext: Context): Int {
+    fun dbUpdateParticipantComplete(pPhoneID: Int, pId: Int, pComplete: Int, pContext: Context): Int {
 
         val dataBaseHelper = DataBaseHelper(pContext)
 
-        val success = dataBaseHelper.updateParticipantComplete(ModelClassParticipant(pId, pComplete))
+        val success = dataBaseHelper.updateParticipantComplete(ModelClassParticipant(pPhoneID, pId, pComplete))
         Log.e("db.update_participant", success.toString())
         return success
     }

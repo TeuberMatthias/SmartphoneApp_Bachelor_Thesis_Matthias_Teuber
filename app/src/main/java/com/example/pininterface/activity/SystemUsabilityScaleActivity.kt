@@ -231,7 +231,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
         if (checkAllRadioButtonsSet()) { // kann man entfernen da button nur sichtbar ist wenn alle gesetzt
 
-            dbAddSUS(participant.getID(), activeInterfaceTyp, listAnswers, this)
+            dbAddSUS(participant.getPhoneID(), participant.getID(), activeInterfaceTyp, listAnswers, this)
 
             if (listUsedInterfaceTypes.isNotEmpty()) {
                 activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()

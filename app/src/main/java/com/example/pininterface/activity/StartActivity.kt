@@ -1,6 +1,7 @@
 package com.example.pininterface.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import com.example.pininterface.database.interfaces.InterfaceDbParticipant
@@ -59,10 +60,16 @@ class StartActivity : SuperActivityNavigation(), InterfaceDbParticipant {
             id = (100_000..999_999).random()
         } while (!checkIdFree(id))
 
-        val participant = Participant(id, PinSets(), ListInterfaces())
+        val participant = Participant(getPhoneID(), id, PinSets(), ListInterfaces())
         dbAddParticipant(participant, this)
 
         return participant
+    }
+
+    private fun getPhoneID(): Int {
+
+        val sharedPreferences = getSharedPreferences("userStudyTeuberSharedPreferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("phoneID", "404").toString().toIntOrNull() ?: -1
     }
 
     /**

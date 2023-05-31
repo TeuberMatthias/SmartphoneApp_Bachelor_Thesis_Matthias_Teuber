@@ -10,8 +10,9 @@ import com.example.pininterface.values.PinSets
  * @param pId Participant ID
  * @param pParticipantPinSets the pinSets for this participant
  */
-class Participant (pId: Int, pParticipantPinSets: PinSets, pListInterfaces: ListInterfaces) {
+class Participant (pPhoneID: Int, pId: Int, pParticipantPinSets: PinSets, pListInterfaces: ListInterfaces) {
 
+    private val phoneID: Int = pPhoneID
     // The unique id for the participant
     private val id: Int = pId
     // The Interfaces that will be used for this participant. Order randomized. Once an interface becomes active, it will be removed from this list
@@ -39,6 +40,11 @@ class Participant (pId: Int, pParticipantPinSets: PinSets, pListInterfaces: List
 
         nextActiveInterface()
         setActivePin()
+    }
+
+    fun getPhoneID(): Int {
+
+        return this.phoneID
     }
 
     /**

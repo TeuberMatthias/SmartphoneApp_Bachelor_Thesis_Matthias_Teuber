@@ -8,7 +8,8 @@ package com.example.pininterface.database.modelclass
  * @param pIdOrderPins order of the Pins for this participant
  * @param pIdOrderInterfaces order of the Interfaces for this participant
  */
-class ModelClassParticipant (val pId: Int,
+class ModelClassParticipant (val pPhoneID: Int,
+                             val pId: Int,
                              val pComplete: Int = 0,
                              val pIdOrderPins: Int = -1,
                              val pIdOrderInterfaces: Int = -1)

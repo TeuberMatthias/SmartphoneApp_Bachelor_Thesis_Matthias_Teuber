@@ -10,7 +10,8 @@ package com.example.pininterface.database.modelclass
  * @param pSubmission submission
  * @param pTime time in msec since last submission
  */
-class ModelClassInterActionSubmission(val pId: Int,
+class ModelClassInterActionSubmission(val pPhoneID: Int,
+                                      val pId: Int,
                                       val pInterface: String,
                                       val pPin: String,
                                       val pSubmission: String,

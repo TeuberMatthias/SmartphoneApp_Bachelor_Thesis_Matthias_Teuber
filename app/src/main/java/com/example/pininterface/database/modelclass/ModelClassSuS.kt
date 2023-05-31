@@ -17,7 +17,8 @@ package com.example.pininterface.database.modelclass
  * @param pQ8 answer value sus question 8
  * @param pQ9 answer value sus question 9
  */
-class ModelClassSuS(val pId: Int,
+class ModelClassSuS(val pPhoneID: Int,
+                    val pId: Int,
                     val pInterfaceTyp: String,
                     val pQ0: Int,
                     val pQ1: Int,

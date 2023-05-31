@@ -26,7 +26,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     companion object {
         private const val DATABASE_NAME = "thesis_database"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 7
         private const val TABLE_DEMOGRAPHICS = "demographics"
         private const val TABLE_FEEDBACK = "feedback"
         private const val TABLE_SUS = "sus"
@@ -37,6 +37,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         private const val PK_TABLE_SUS = "pk_table_sus"
 
+        private const val KEY_ID_PHONE = "id_phone"
         private const val KEY_ID_SUBMISSION = "id_submission"
         private const val KEY_ID_PARTICIPANT = "id_participant"
         private const val KEY_ID_ORDER_INTERFACES = "id_order_interface"
@@ -72,51 +73,59 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     override fun onCreate(db: SQLiteDatabase?) {
 
         db?.execSQL("CREATE TABLE $TABLE_PARTICIPANT(" +
-                "$KEY_ID_PARTICIPANT INTEGER PRIMARY KEY," +
+                "$KEY_ID_PHONE INTEGER," +
+                "$KEY_ID_PARTICIPANT INTEGER," +
                 "$KEY_COMPLETE INTEGER," +
                 "$KEY_ID_ORDER_PINS INTEGER," +
-                "$KEY_ID_ORDER_INTERFACES INTEGER)" +
-                "")
+                "$KEY_ID_ORDER_INTERFACES INTEGER," +
+                "PRIMARY KEY ($KEY_ID_PHONE, $KEY_ID_PARTICIPANT))"
+        )
 
         db?.execSQL("CREATE TABLE $TABLE_DEMOGRAPHICS(" +
-                "$KEY_ID_PARTICIPANT INTEGER PRIMARY KEY," +
+                "$KEY_ID_PHONE INTEGER," +
+                "$KEY_ID_PARTICIPANT INTEGER," +
                 "$KEY_AGE INTEGER," +
                 "$KEY_GENDER TEXT," +
-                "$KEY_DOMINANT_HAND TEXT)" +
-                "")
+                "$KEY_DOMINANT_HAND TEXT," +
+                "PRIMARY KEY ($KEY_ID_PHONE, $KEY_ID_PARTICIPANT))"
+        )
 
         db?.execSQL("CREATE TABLE $TABLE_FEEDBACK(" +
-                "$KEY_ID_PARTICIPANT INTEGER PRIMARY KEY," +
-                "$KEY_FEEDBACK TEXT)" +
-                "")
+                "$KEY_ID_PHONE INTEGER," +
+                "$KEY_ID_PARTICIPANT INTEGER," +
+                "$KEY_FEEDBACK TEXT," +
+                "PRIMARY KEY ($KEY_ID_PHONE, $KEY_ID_PARTICIPANT))"
+        )
 
         db?.execSQL("CREATE TABLE $TABLE_SUS(" +
+                "$KEY_ID_PHONE INTEGER," +
                 "$KEY_ID_PARTICIPANT INTEGER NOT NULL," +
                 "$KEY_INTERFACE TEXT NOT NULL," +
                 "$KEY_Q0 INTEGER,$KEY_Q1 INTEGER,$KEY_Q2 INTEGER,$KEY_Q3 INTEGER,$KEY_Q4 INTEGER," +
                 "$KEY_Q5 INTEGER,$KEY_Q6 INTEGER,$KEY_Q7 INTEGER,$KEY_Q8 INTEGER,$KEY_Q9 INTEGER," +
-                "CONSTRAINT $PK_TABLE_SUS PRIMARY KEY ($KEY_ID_PARTICIPANT, $KEY_INTERFACE))" +
-                "")
+                "CONSTRAINT $PK_TABLE_SUS PRIMARY KEY ($KEY_ID_PHONE, $KEY_ID_PARTICIPANT, $KEY_INTERFACE))"
+        )
 
         db?.execSQL("CREATE TABLE $TABLE_SUBMISSIONS(" +
                 "$KEY_ID_SUBMISSION INTEGER," +
+                "$KEY_ID_PHONE INTEGER," +
                 "$KEY_ID_PARTICIPANT INTEGER," +
                 "$KEY_INTERFACE TEXT," +
                 "$KEY_PIN TEXT," +
                 "$KEY_SUBMISSION TEXT," +
                 "$KEY_TIME INTEGER," +
-                "PRIMARY KEY ($KEY_ID_SUBMISSION, $KEY_ID_PARTICIPANT))" +
-                "")
+                "PRIMARY KEY ($KEY_ID_PHONE, $KEY_ID_SUBMISSION, $KEY_ID_PARTICIPANT))"
+        )
 
         db?.execSQL("CREATE TABLE $TABLE_ORDER_INTERFACES(" +
                 "$KEY_ID_ORDER_INTERFACES INTEGER PRIMARY KEY," +
-                "$KEY_ORDER_INTERFACES TEXT UNIQUE)" +
-                "")
+                "$KEY_ORDER_INTERFACES TEXT UNIQUE)"
+        )
 
         db?.execSQL("CREATE TABLE $TABLE_ORDER_PINS(" +
                 "$KEY_ID_ORDER_PINS INTEGER PRIMARY KEY," +
-                "$KEY_ORDER_PINS TEXT UNIQUE)" +
-                "")
+                "$KEY_ORDER_PINS TEXT UNIQUE)"
+        )
     }
 
     /**
@@ -209,6 +218,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun addParticipant(pParticipant: ModelClassParticipant): Long {
 
         val contentValues = ContentValues().apply {
+            put(KEY_ID_PHONE, pParticipant.pPhoneID)
             put(KEY_ID_PARTICIPANT, pParticipant.pId)
             put(KEY_COMPLETE, pParticipant.pComplete)
             put(KEY_ID_ORDER_PINS, pParticipant.pIdOrderPins)
@@ -238,6 +248,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             return mutableListOf()
         }
 
+        var phoneID: Int
         var id: Int
         var complete: Int
         var orderPinsID: Int
@@ -245,12 +256,13 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         if (cursor.moveToFirst()) {
             do {
+                phoneID = cursor.getInt(cursor.getColumnIndex(KEY_ID_PHONE))
                 id = cursor.getInt(cursor.getColumnIndex(KEY_ID_PARTICIPANT))
                 complete = cursor.getInt(cursor.getColumnIndex(KEY_COMPLETE))
                 orderPinsID = cursor.getInt(cursor.getColumnIndex(KEY_ID_ORDER_PINS))
                 orderInterfacesID = cursor.getInt(cursor.getColumnIndex(KEY_ID_ORDER_INTERFACES))
 
-                val participant = ModelClassParticipant(id, complete, orderPinsID, orderInterfacesID)
+                val participant = ModelClassParticipant(phoneID, id, complete, orderPinsID, orderInterfacesID)
                 listParticipant.add(participant)
             } while (cursor.moveToNext())
         }
@@ -266,11 +278,12 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val db = this.writableDatabase
         val contentValues = ContentValues().apply {
+            put(KEY_ID_PHONE, pParticipant.pPhoneID)
             put(KEY_ID_PARTICIPANT, pParticipant.pId)
             put(KEY_COMPLETE, pParticipant.pComplete)
         }
 
-        val success = db.update(TABLE_PARTICIPANT, contentValues, "$KEY_ID_PARTICIPANT=${pParticipant.pId}", null)
+        val success = db.update(TABLE_PARTICIPANT, contentValues, "$KEY_ID_PARTICIPANT=${pParticipant.pId} AND $KEY_ID_PHONE=${pParticipant.pPhoneID}", null)
         db.close()
         return success
     }
@@ -286,7 +299,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val query = "SELECT MAX($KEY_ID_SUBMISSION) " +
                 "FROM $TABLE_SUBMISSIONS " +
-                "WHERE $KEY_ID_PARTICIPANT = ${pSubmission.pId}"
+                "WHERE $KEY_ID_PARTICIPANT = ${pSubmission.pId} AND $KEY_ID_PHONE = ${pSubmission.pPhoneID}"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
         val idSubmission = cursor.getInt(0) + 1
@@ -296,6 +309,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val contentValues = ContentValues().apply {
             put(KEY_ID_SUBMISSION, idSubmission)
+            put(KEY_ID_PHONE, pSubmission.pPhoneID)
             put(KEY_ID_PARTICIPANT, pSubmission.pId)
             put(KEY_INTERFACE, pSubmission.pInterface)
             put(KEY_PIN, pSubmission.pPin)
@@ -314,6 +328,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun addFeedBack(pFeedback: ModelClassFeedBack): Long {
 
         val contentValues = ContentValues().apply {
+            put(KEY_ID_PHONE, pFeedback.pPhoneID)
             put(KEY_ID_PARTICIPANT, pFeedback.pId)
             put(KEY_FEEDBACK, pFeedback.pFeedBack)
         }
@@ -328,11 +343,13 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addDemographics(pDemographics: ModelClassDemographics): Long {
 
-        val contentValues = ContentValues()
-        contentValues.put(KEY_ID_PARTICIPANT, pDemographics.pId)
-        contentValues.put(KEY_AGE, pDemographics.pAge)
-        contentValues.put(KEY_GENDER, pDemographics.pGender)
-        contentValues.put(KEY_DOMINANT_HAND, pDemographics.pDominant_hand)
+        val contentValues = ContentValues().apply {
+            put(KEY_ID_PHONE, pDemographics.pPhoneID)
+            put(KEY_ID_PARTICIPANT, pDemographics.pId)
+            put(KEY_AGE, pDemographics.pAge)
+            put(KEY_GENDER, pDemographics.pGender)
+            put(KEY_DOMINANT_HAND, pDemographics.pDominant_hand)
+        }
 
         return addRowToTable(TABLE_DEMOGRAPHICS, contentValues)
     }
@@ -345,6 +362,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun addSUS(pSUS: ModelClassSuS): Long {
 
         val contentValues = ContentValues().apply {
+            put(KEY_ID_PHONE, pSUS.pPhoneID)
             put(KEY_ID_PARTICIPANT, pSUS.pId)
             put(KEY_INTERFACE, pSUS.pInterfaceTyp)
             put(KEY_Q0, pSUS.pQ0)

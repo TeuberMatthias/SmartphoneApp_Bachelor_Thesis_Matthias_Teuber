@@ -72,9 +72,8 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
 
             val gender: RadioButton = findViewById(radioGroupGenderValue)
             val dominantHand: RadioButton = findViewById(radioGroupDominantHand)
-            val id = participant.getID()
 
-            dbAddDemographics(id, age, gender.tag.toString(), dominantHand.tag.toString(), this)
+            dbAddDemographics(participant.getPhoneID(), participant.getID(), age, gender.tag.toString(), dominantHand.tag.toString(), this)
 
             startNewActivity(participant, SystemUsabilityScaleActivity::class.java)
         }

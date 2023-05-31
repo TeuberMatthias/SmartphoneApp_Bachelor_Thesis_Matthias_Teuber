@@ -8,7 +8,8 @@ package com.example.pininterface.database.modelclass
  * @param pGender gender
  * @param pDominant_hand dominant hand
  */
-class ModelClassDemographics(val pId: Int,
+class ModelClassDemographics(val pPhoneID: Int,
+                             val pId: Int,
                              val pAge: Int,
                              val pGender: String,
                              val pDominant_hand: String)

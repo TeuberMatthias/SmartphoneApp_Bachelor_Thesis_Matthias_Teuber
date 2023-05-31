@@ -19,10 +19,10 @@ interface InterfaceDbSUS {
      * @param pContext context ("this" in activity)
      * @return positive Long if successful, -1 when unsuccessful
      */
-    fun dbAddSUS(pId: Int, pInterfaceTyp: EnumInterfaceTypes, pListAnswers: MutableList<Int>, pContext: Context): Long {
+    fun dbAddSUS(pPhoneID: Int, pId: Int, pInterfaceTyp: EnumInterfaceTypes, pListAnswers: MutableList<Int>, pContext: Context): Long {
 
         val dataBaseHelper = DataBaseHelper(pContext)
-        val modelClassSUS = ModelClassSuS(pId, pInterfaceTyp.toString(),
+        val modelClassSUS = ModelClassSuS(pPhoneID, pId, pInterfaceTyp.toString(),
             pListAnswers[0], pListAnswers[1], pListAnswers[2], pListAnswers[3], pListAnswers[4],
             pListAnswers[5], pListAnswers[6], pListAnswers[7],  pListAnswers[9], pListAnswers[9])
 
