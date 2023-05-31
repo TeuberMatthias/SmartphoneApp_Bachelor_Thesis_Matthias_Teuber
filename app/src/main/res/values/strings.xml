@@ -69,6 +69,11 @@
     <string name="app_description">Löse Pins in unterschiedlichen Interfaces.\nBeantworte Fragen zu deiner Person.\nBeantworte die SUS Fragen.\nGib Feedback.\nZeichne deine Interface Idee.</string>
     <string name="thesis_name">Usability study of mobile authentication for elderly users with rheumatoid arthritis</string>
     <string name="finish">Beenden</string>
+    <string name="settings">Einstellungen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="phone_id">"PhoneID: %s"</string>
+    <string name="apply">OK</string>
 
 
 </resources>

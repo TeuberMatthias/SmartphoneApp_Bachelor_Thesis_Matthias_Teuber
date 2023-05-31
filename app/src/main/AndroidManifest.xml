@@ -12,6 +12,7 @@
         android:theme="@style/Theme.PinInterface"
         >
 
+        <activity android:name=".activity.StartActivity"> </activity>
         <activity android:name=".activity.layout.LayoutStandardActivity"> </activity>
         <activity android:name=".activity.layout.LayoutStandardVisualAidActivity"> </activity>
 
@@ -31,7 +32,8 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

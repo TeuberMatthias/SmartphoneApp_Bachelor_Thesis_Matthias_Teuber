@@ -53,7 +53,7 @@ class FeedBackActivity : SuperActivityNavigation(), InterfaceGson, InterfaceDbPa
         dbAddFeedback(participant.getID(), editTextFeedBack.text.toString(), this)
         dbUpdateParticipantComplete(participant.getID(), 1, this)
 
-        startNewActivity(participant, MainActivity::class.java)
+        startNewActivity(participant, StartActivity::class.java)
     }
 
 

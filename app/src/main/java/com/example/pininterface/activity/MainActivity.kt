@@ -1,16 +1,16 @@
 package com.example.pininterface.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
+import android.widget.EditText
+import android.widget.Toast
 import com.example.pininterface.database.interfaces.InterfaceDbParticipant
 import com.example.pininterface.R
-import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.activity.helper.SuperActivityNavigation
-import com.example.pininterface.logic.Participant
-import com.example.pininterface.values.ListInterfaces
-import com.example.pininterface.values.PinSets
 
 /**
  * MainActivity
@@ -19,6 +19,12 @@ import com.example.pininterface.values.PinSets
 class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var editTextFieldPhoneID: EditText
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var phoneID: String
 
     /**
      * onCreate
@@ -29,58 +35,50 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        sharedPreferences = getSharedPreferences("userStudyTeuberSharedPreferences", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        phoneID = sharedPreferences.getString("phoneID", "1").toString()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        val button = binding.buttonMainStart
+        val buttonStart = binding.buttonMainStart
+        val buttonApplyPhoneID = binding.buttonApplyPhoneId
+        editTextFieldPhoneID = binding.editTextPhoneId
 
-        var id: Int
-        do {
-            id = (100_000..999_999).random()
-        } while (!checkIdFree(id))
+        updateEditTextPhoneID()
 
-
-        val participant = Participant(id, PinSets(), ListInterfaces())
-
-        dbAddParticipant(participant, this)
-        //showParticipants(dbViewListParticipant(this))
-
-        button.setOnClickListener { startNewActivity(participant, IntermediatePageActivity::class.java) }
-
-        //val displayMetrics = resources.displayMetrics
-        //val dpWidth = displayMetrics.widthPixels / displayMetrics.density
-        //Log.e("dp", "$dpWidth dp")
+        buttonStart.setOnClickListener { start() }
+        buttonApplyPhoneID.setOnClickListener { applyPhoneId() }
     }
 
-    /**
-     * displays the participant table in Log
-     * @param pListParticipant the participant table as MutableList<ModelClassParticipant>
-     */
-    private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
 
-        pListParticipant.forEach {
-            val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pIdOrderPins},orderInterfaces:${it.pIdOrderInterfaces}"
-            Log.e("participant", string)
-        }
+    private fun start() {
+
+        val intent = Intent(this, StartActivity::class.java)
+        startActivity(intent)
     }
 
-    /**
-     * Checks if an Id is already in DB
-     * @param pId id
-     * @return true if id is free/not in DB, false if id was already used
-     */
-    private fun checkIdFree(pId: Int): Boolean {
-        val listParticipant = dbViewListParticipant(this)
-        listParticipant.forEach {
-            if (it.pId == pId) {
-                Log.e("id_used", "Id: $pId already in use")
-                return false
-            }
-        }
-        Log.e("id_used", "Id: $pId not in use")
-        return true
+    private fun applyPhoneId() {
+
+        val newPhoneID = editTextFieldPhoneID.text.toString().toIntOrNull() ?: -1
+        if (newPhoneID == -1)
+            Toast.makeText(this,"invalid Phone ID. Use only positive, whole numbers!", Toast.LENGTH_SHORT).show()
+        else
+            phoneID = newPhoneID.toString()
+
+        editor.putString("phoneID", phoneID)
+        editor.apply()
+        updateEditTextPhoneID()
     }
+
+    private fun updateEditTextPhoneID() {
+
+        editTextFieldPhoneID.hint = getString(R.string.phone_id, phoneID)
+    }
+
+
 
 }
 
