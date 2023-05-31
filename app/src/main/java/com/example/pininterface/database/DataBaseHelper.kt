@@ -206,6 +206,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return rowCount
     }
 
+    /**
+     * Counts number of Rows of Table Participant
+     * @return number of rows
+     */
     fun countRowsParticipant(): Int {
 
         return countRowsOfTable(TABLE_PARTICIPANT)
