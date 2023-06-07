@@ -107,7 +107,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         imageViewInterfaceTyp.setOnClickListener { imageViewInterfaceTypPressed() }
 
         writeQuestions()
-        updateTextView(buttonShowInterfaceTyp, "\"" + this.resources.getString(activeInterfaceTyp.stringResId) + "\" (klick zum anzeigen)")
+        updateTextView(buttonShowInterfaceTyp, "\"" + this.resources.getString(activeInterfaceTyp.stringResId) + getString(R.string.click_to_show))
         updateButtonsNextAndBack(buttonNext, buttonBack)
 
         for (questionView in listQuestionView) {
@@ -268,7 +268,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
             if (listUsedInterfaceTypes.isNotEmpty()) {
                 activeInterfaceTyp = listUsedInterfaceTypes.removeFirst()
-                updateTextView(buttonShowInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
+                updateTextView(buttonShowInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId) + getString(R.string.click_to_show))
                 listAnswers = initListAnswers()
                 page = 0
                 updateButtonsNextAndBack(buttonNext, buttonBack)
