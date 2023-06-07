@@ -29,7 +29,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant, Interfac
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var phoneID: String
 
-    private val passwort = 1999
+    private val password = 2023
 
     /**
      * onCreate
@@ -79,7 +79,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant, Interfac
     private fun resetDB() {
 
         val pwResetDb = editTextFieldResetDB.text.toString().toIntOrNull() ?: -1
-        if (pwResetDb == -1 || pwResetDb != passwort) {
+        if (pwResetDb == -1 || pwResetDb != password) {
             Toast.makeText(this, "invalid PW", Toast.LENGTH_SHORT).show()
             return
         }
