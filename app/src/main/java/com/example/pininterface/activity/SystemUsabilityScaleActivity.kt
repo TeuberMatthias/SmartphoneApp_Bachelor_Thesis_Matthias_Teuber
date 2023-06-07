@@ -107,7 +107,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         imageViewInterfaceTyp.setOnClickListener { imageViewInterfaceTypPressed() }
 
         writeQuestions()
-        updateTextView(buttonShowInterfaceTyp, this.resources.getString(activeInterfaceTyp.stringResId))
+        updateTextView(buttonShowInterfaceTyp, "\"" + this.resources.getString(activeInterfaceTyp.stringResId) + "\" (klick zum anzeigen)")
         updateButtonsNextAndBack(buttonNext, buttonBack)
 
         for (questionView in listQuestionView) {
@@ -200,7 +200,9 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         if (page == 1 && pButton == buttonBack) {
             page = 0
             updateButtonsNextAndBack(buttonNext, buttonBack)
+            Log.e("test", "1")
         } else if (page == 0 && pButton == buttonNext) {
+            Log.e("test", "2")
             page = 1
             updateButtonsNextAndBack(buttonBack, buttonNext)
         }
@@ -216,8 +218,9 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
      */
     private fun updateButtonsNextAndBack(pButtonActivate: Button, pButtonInactive: Button) {
 
-        setColorButton(pButtonActivate, colorButtonActive)
-        setColorButton(pButtonInactive, colorButtonInactive)
+        pButtonActivate.visibility = View.VISIBLE
+        pButtonInactive.visibility = View.GONE
+
         val pageIndicator = if (pButtonActivate == buttonNext)
             "(" + getString(R.string.page) + " 1/2)"
         else
@@ -232,8 +235,11 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private fun setChecked() {
 
         listQuestionView.forEachIndexed{index, modSusScaleBinding ->
+            Log.e("index", index.toString())
             val radioGroup = modSusScaleBinding.radioGroup
             val checkedValue = listAnswers[index + 5 * page]
+            Log.e("checkedValue", checkedValue.toString())
+
             if (checkedValue >= 0) {
                 val radioButton = radioGroup.getChildAt(checkedValue) as RadioButton
                 radioButton.isChecked = true
