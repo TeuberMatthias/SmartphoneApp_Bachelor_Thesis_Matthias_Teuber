@@ -25,8 +25,10 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      * Companion object with the table and key/column names of the DataBank
      */
     companion object {
+
         private const val DATABASE_NAME = "thesis_database"
         private const val DATABASE_VERSION = 9
+
         private const val TABLE_DEMOGRAPHICS = "demographics"
         private const val TABLE_FEEDBACK = "feedback"
         private const val TABLE_SUS = "sus"
@@ -143,6 +145,25 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL("DROP TABLE IF EXISTS $TABLE_SUBMISSIONS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_INTERFACES")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_PINS")
+
+        onCreate(db)
+    }
+
+    /**
+     * Drop all Tables in DB and recreates it new
+     */
+    fun dropTables() {
+
+        val db = this.writableDatabase
+
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_PARTICIPANT")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_DEMOGRAPHICS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_FEEDBACK")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_SUS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_SUBMISSIONS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_INTERFACES")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDER_PINS")
+
         onCreate(db)
     }
 

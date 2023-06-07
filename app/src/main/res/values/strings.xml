@@ -74,6 +74,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="phone_id">"PhoneID: %s"</string>
     <string name="apply">OK</string>
+    <string name="pw">passwort</string>
+    <string name="reset_db">reset DB</string>
 
 
 </resources>

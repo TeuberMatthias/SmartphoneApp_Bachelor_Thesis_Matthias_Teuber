@@ -56,7 +56,7 @@
         android:digits="0123456789"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thesis_name"
-        tools:ignore="TextFields" />
+        tools:ignore="LabelFor,TextFields" />
 
     <Button
         android:id="@+id/button_apply_phone_id"
@@ -66,5 +66,27 @@
         android:text="@string/apply"
         app:layout_constraintStart_toEndOf="@+id/edit_text_phone_id"
         app:layout_constraintTop_toTopOf="@+id/edit_text_phone_id" />
+
+    <Button
+        android:id="@+id/button_reset_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/reset_db"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_reset_db"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_reset_db" />
+
+    <EditText
+        android:id="@+id/edit_text_reset_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:inputType="number"
+        android:importantForAutofill="no"
+        android:hint="@string/pw"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_phone_id"
+        tools:ignore="TextFields" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,20 +12,24 @@ import com.example.pininterface.database.interfaces.InterfaceDbParticipant
 import com.example.pininterface.R
 import com.example.pininterface.databinding.ActivityMainBinding
 import com.example.pininterface.activity.helper.SuperActivityNavigation
+import com.example.pininterface.database.interfaces.InterfaceDbGeneral
 
 /**
  * MainActivity
  * once participant is finished, loops back to MainActivity
  */
-class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
+class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant, InterfaceDbGeneral {
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var editTextFieldPhoneID: EditText
+    private lateinit var editTextFieldResetDB: EditText
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var phoneID: String
+
+    private val passwort = 1999
 
     /**
      * onCreate
@@ -54,6 +58,8 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         val buttonStart = binding.buttonMainStart
         val buttonApplyPhoneID = binding.buttonApplyPhoneId
         editTextFieldPhoneID = binding.editTextPhoneId
+        editTextFieldResetDB = binding.editTextResetDb
+        val buttonResetDB = binding.buttonResetDb
 
         updateEditTextPhoneID()
 
@@ -64,6 +70,21 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant {
 
         buttonStart.setOnClickListener { start() }
         buttonApplyPhoneID.setOnClickListener { applyPhoneId() }
+        buttonResetDB.setOnClickListener { resetDB() }
+    }
+
+    /**
+     * Resets DB
+     */
+    private fun resetDB() {
+
+        val pwResetDb = editTextFieldResetDB.text.toString().toIntOrNull() ?: -1
+        if (pwResetDb == -1 || pwResetDb != passwort) {
+            Toast.makeText(this, "invalid PW", Toast.LENGTH_SHORT).show()
+            return
+        }
+        resetDB(this)
+        Toast.makeText(this, "DB reset", Toast.LENGTH_SHORT).show()
     }
 
     /**
