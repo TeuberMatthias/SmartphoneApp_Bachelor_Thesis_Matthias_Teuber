@@ -2,7 +2,7 @@
     <string name="app_name">PinInterface</string>
     <string name="target_pin">Einzugebener PIN:</string>
     <string name="start">Start</string>
-    <string name="user_study">User Study</string>
+    <string name="user_study">Benutzerstudie</string>
 
     <string name="interface_types_standard">Android Interface</string>
     <string name="interface_types_column">Column Interface</string>
@@ -66,8 +66,8 @@
     <string name="all_pin_interfaces_solved">Alle Pin Interfaces gelöst!</string>
     <string name="message_take_of_gloves">Bitte die Handschuhe nun ausziehen.</string>
     <string name="message_put_on_gloves">Bitte die Handschuhe nun anziehen.</string>
-    <string name="app_description">Löse Pins in unterschiedlichen Interfaces.\nBeantworte Fragen zu deiner Person.\nBeantworte die SUS Fragen.\nGib Feedback.\nZeichne deine Interface Idee.</string>
-    <string name="thesis_name">Usability study of mobile authentication for elderly users with rheumatoid arthritis</string>
+    <string name="app_description">Löse Pins in unterschiedlichen Interfaces.\nBeantworte Fragen zu deiner Person.\nBeantworte Fragen.\nGib Feedback.\nZeichne deine Interface Idee.</string>
+    <string name="thesis_name">\"Usability study of mobile authentication for elderly users with rheumatoid arthritis\"</string>
     <string name="finish">Beenden</string>
     <string name="settings">Einstellungen</string>
     <!-- TODO: Remove or change this placeholder text -->
