@@ -60,6 +60,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant, Interfac
         editTextFieldPhoneID = binding.editTextPhoneId
         editTextFieldResetDB = binding.editTextResetDb
         val buttonResetDB = binding.buttonResetDb
+        val buttonExportDB = binding.buttonExportDb
 
         updateEditTextPhoneID()
 
@@ -71,6 +72,15 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant, Interfac
         buttonStart.setOnClickListener { start() }
         buttonApplyPhoneID.setOnClickListener { applyPhoneId() }
         buttonResetDB.setOnClickListener { resetDB() }
+        buttonExportDB.setOnClickListener { exportDB() }
+    }
+
+    /**
+     * Export DB
+     */
+    private fun exportDB() {
+
+        //TODO("write")
     }
 
     /**

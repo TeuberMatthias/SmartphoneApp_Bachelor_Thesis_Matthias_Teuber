@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.pininterface.database.interfaces.InterfaceDbHelper
 import com.example.pininterface.database.modelclass.ModelClassDemographics
 import com.example.pininterface.database.modelclass.ModelClassFeedBack
 import com.example.pininterface.database.modelclass.ModelClassInterActionSubmission
@@ -19,7 +20,8 @@ import com.example.pininterface.database.modelclass.ModelClassSuS
 /**
  * Class to manage the DataBank
  */
-class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION),
+    InterfaceDbHelper {
 
     /**
      * Companion object with the table and key/column names of the DataBank
@@ -168,72 +170,13 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     /**
-     * Adds a new row to a table with an Integer Primary Key and one unique Text column
-     * If the unique Text already is in the DB it will give back the primary key of the already
-     * existing row with this unique Text
-     * Will return -1 if action is unsuccessful
-     * @param pTABLE the table
-     * @param pKEY_ID_PRIMARY name of the primary key column (Integer)
-     * @param pKEY_UNIQUE_COLUMN the unique text column
-     * @param pContent the text field that is supposed to be inserted
-     * @return the primary key of the row which includes pContent as float
-     */
-    @SuppressLint("Range")
-    private fun getPrimaryKeyFromUniqueColumnStringValue(pTABLE: String, pKEY_ID_PRIMARY: String, pKEY_UNIQUE_COLUMN: String, pContent: String): Long {
-
-        val  db = this.writableDatabase
-        var primaryKey: Long
-
-        val contentValues = ContentValues().apply {
-            put(pKEY_UNIQUE_COLUMN, pContent)
-        }
-
-        try {
-            primaryKey = db.insertOrThrow(pTABLE, null, contentValues)
-        } catch (e: SQLiteConstraintException) {
-            val query = "SELECT $pKEY_ID_PRIMARY FROM $pTABLE WHERE $pKEY_UNIQUE_COLUMN = ?"
-            val selectionArgs = arrayOf(pContent)
-
-            val cursor = db.rawQuery(query, selectionArgs)
-
-            primaryKey = if (cursor.moveToFirst()) {
-                cursor.getLong(cursor.getColumnIndex(pKEY_ID_PRIMARY))
-            } else {
-                -1
-            }
-            cursor.close()
-        }
-        db.close()
-        return primaryKey
-    }
-
-    /**
-     * counts the Rows of a Table
-     * @param pTABLE Table
-     * @return number of Rows of Table
-     */
-    private fun countRowsOfTable(pTABLE: String): Int {
-
-        val db = this.writableDatabase
-        val query = "SELECT COUNT(*) FROM $pTABLE"
-        val cursor = db.rawQuery(query, null)
-
-        var rowCount = 0
-        if (cursor.moveToFirst())
-            rowCount = cursor.getInt(0)
-
-        cursor.close()
-        db.close()
-        return rowCount
-    }
-
-    /**
      * Counts number of Rows of Table Participant
      * @return number of rows
      */
     fun countRowsParticipant(): Int {
 
-        return countRowsOfTable(TABLE_PARTICIPANT)
+        val db = this.writableDatabase
+        return countRowsOfTable(db, TABLE_PARTICIPANT)
     }
 
     /**
@@ -244,8 +187,9 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addOrderPins(pOrderPins: ModelClassOrderPins): Long {
 
+        val db = this.writableDatabase
         val orderPins = pOrderPins.pOrderPins
-        return getPrimaryKeyFromUniqueColumnStringValue(TABLE_ORDER_PINS, KEY_ID_ORDER_PINS, KEY_ORDER_PINS, orderPins)
+        return getPrimaryKeyFromUniqueColumnStringValue(db, TABLE_ORDER_PINS, KEY_ID_ORDER_PINS, KEY_ORDER_PINS, orderPins)
     }
 
     /**
@@ -256,8 +200,9 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addOrderInterfaces(pOrderInterfaces: ModelClassOrderInterfaces): Long {
 
+        val db = this.writableDatabase
         val orderInterfaces = pOrderInterfaces.pOrderInterfaces
-        return getPrimaryKeyFromUniqueColumnStringValue(TABLE_ORDER_INTERFACES, KEY_ID_ORDER_INTERFACES, KEY_ORDER_INTERFACES, orderInterfaces)
+        return getPrimaryKeyFromUniqueColumnStringValue(db, TABLE_ORDER_INTERFACES, KEY_ID_ORDER_INTERFACES, KEY_ORDER_INTERFACES, orderInterfaces)
     }
 
     /**
@@ -267,6 +212,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addParticipant(pParticipant: ModelClassParticipant): Long {
 
+        val db = this.writableDatabase
         val contentValues = ContentValues().apply {
             put(KEY_ID_PHONE, pParticipant.pPhoneID)
             put(KEY_ID_PARTICIPANT, pParticipant.pId)
@@ -275,7 +221,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_ID_ORDER_INTERFACES, pParticipant.pIdOrderInterfaces)
         }
 
-        return addRowToTable(TABLE_PARTICIPANT, contentValues)
+        return addRowToTable(db, TABLE_PARTICIPANT, contentValues)
     }
 
     /**
@@ -355,7 +301,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val idSubmission = cursor.getInt(0) + 1
 
         cursor.close()
-        db.close()
+        //db.close()
 
         val contentValues = ContentValues().apply {
             put(KEY_ID_SUBMISSION, idSubmission)
@@ -367,7 +313,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_TIME, pSubmission.pTime)
         }
 
-        return addRowToTable(TABLE_SUBMISSIONS, contentValues)
+        return addRowToTable(db, TABLE_SUBMISSIONS, contentValues)
     }
 
     /**
@@ -377,13 +323,14 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addFeedBack(pFeedback: ModelClassFeedBack): Long {
 
+        val db = this.writableDatabase
         val contentValues = ContentValues().apply {
             put(KEY_ID_PHONE, pFeedback.pPhoneID)
             put(KEY_ID_PARTICIPANT, pFeedback.pId)
             put(KEY_FEEDBACK, pFeedback.pFeedBack)
         }
 
-        return addRowToTable(TABLE_FEEDBACK, contentValues)
+        return addRowToTable(db, TABLE_FEEDBACK, contentValues)
     }
 
     /**
@@ -393,6 +340,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addDemographics(pDemographics: ModelClassDemographics): Long {
 
+        val db = this.writableDatabase
         val contentValues = ContentValues().apply {
             put(KEY_ID_PHONE, pDemographics.pPhoneID)
             put(KEY_ID_PARTICIPANT, pDemographics.pId)
@@ -401,7 +349,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_DOMINANT_HAND, pDemographics.pDominant_hand)
         }
 
-        return addRowToTable(TABLE_DEMOGRAPHICS, contentValues)
+        return addRowToTable(db, TABLE_DEMOGRAPHICS, contentValues)
     }
 
     /**
@@ -411,6 +359,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      */
     fun addSUS(pSUS: ModelClassSuS): Long {
 
+        val db = this.writableDatabase
         val contentValues = ContentValues().apply {
             put(KEY_ID_PHONE, pSUS.pPhoneID)
             put(KEY_ID_PARTICIPANT, pSUS.pId)
@@ -427,7 +376,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_Q9, pSUS.pQ9)
         }
 
-        return addRowToTable(TABLE_SUS, contentValues)
+        return addRowToTable(db, TABLE_SUS, contentValues)
     }
 
     /**
@@ -436,7 +385,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      * @param pContentValues The values of the row in form of contentValues
      * @return positive Long if successful, -1 when unsuccessful
      */
-    private fun addRowToTable(pTABLE: String, pContentValues: ContentValues): Long {
+    private fun adddRowToTable(pTABLE: String, pContentValues: ContentValues): Long {
 
         val db = this.writableDatabase
 

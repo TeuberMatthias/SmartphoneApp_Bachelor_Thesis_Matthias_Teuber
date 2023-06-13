@@ -77,6 +77,7 @@
     <string name="pw">passwort</string>
     <string name="reset_db">reset DB</string>
     <string name="click_to_show">\" (klick zum anzeigen)</string>
+    <string name="export_db">export DB</string>
 
 
 </resources>
