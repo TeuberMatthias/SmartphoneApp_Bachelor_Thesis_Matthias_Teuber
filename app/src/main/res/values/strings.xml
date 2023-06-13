@@ -78,6 +78,8 @@
     <string name="reset_db">reset DB</string>
     <string name="click_to_show">\" (klick zum anzeigen)</string>
     <string name="export_db">export DB</string>
+    <string name="text_hand_used">Wie wurde das Handy gehalten?</string>
+    <string name="hand_used_normaly">Wie nutzt du normalerweise das Handy</string>
 
 
 </resources>

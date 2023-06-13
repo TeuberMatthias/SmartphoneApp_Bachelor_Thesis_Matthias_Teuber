@@ -128,7 +128,7 @@ class MainActivity : SuperActivityNavigation(), InterfaceDbParticipant, Interfac
             Toast.makeText(this,"invalid Phone ID. Use only positive, whole numbers!", Toast.LENGTH_SHORT).show()
         else {
             phoneID = newPhoneID.toString()
-            Toast.makeText(this, "PhoneID: " + phoneID, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "PhoneID: $phoneID", Toast.LENGTH_SHORT).show()
         }
 
         editor.putString("phoneID", phoneID)
