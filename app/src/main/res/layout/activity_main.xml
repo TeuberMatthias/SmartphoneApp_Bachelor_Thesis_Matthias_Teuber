@@ -71,22 +71,22 @@
         android:id="@+id/button_reset_db"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/reset_db"
-        app:layout_constraintStart_toEndOf="@+id/edit_text_reset_db"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_reset_db" />
+        app:layout_constraintBottom_toTopOf="@+id/button_main_start"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/edit_text_reset_db"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:inputType="number"
-        android:importantForAutofill="no"
+        android:layout_marginEnd="16dp"
         android:hint="@string/pw"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_phone_id"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/button_reset_db"
+        app:layout_constraintTop_toTopOf="@+id/button_reset_db"
         tools:ignore="TextFields" />
 
     <Button
@@ -97,7 +97,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/export_db"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_reset_db" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_reset_db"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
