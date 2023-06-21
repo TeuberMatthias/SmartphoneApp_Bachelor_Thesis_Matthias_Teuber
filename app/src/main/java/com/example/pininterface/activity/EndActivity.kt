@@ -45,7 +45,7 @@ class EndActivity: SuperActivityNavigation() {
 
         oldTime = newTime
 
-        if (counter >= 5) {
+        if (counter >= 4) {
             val intent = Intent(this, StartActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
