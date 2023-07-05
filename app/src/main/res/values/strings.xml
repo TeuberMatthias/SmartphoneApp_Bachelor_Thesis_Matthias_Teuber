@@ -80,8 +80,8 @@
     <string name="export_db">export DB</string>
     <string name="text_hand_used">Wie wurde das Handy gehalten?</string>
     <string name="hand_used_normaly">Wie nutzt du normalerweise das Handy</string>
-    <string name="end">Die Benutzerstudie ist nun beendet</string>
-    <string name="end_description">Vielen Dank für Ihre Teilname an der Studie.\n</string>
+    <string name="end">Vielen Dank!</string>
+    <string name="end_description">Der Smartphone-Teil der Studie ist nun beendet.</string>
 
 
 </resources>
