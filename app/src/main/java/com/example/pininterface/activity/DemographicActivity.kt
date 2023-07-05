@@ -52,6 +52,8 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
 
         val radioGroupGenderValue = binding.radioGroupGender.checkedRadioButtonId
         val radioGroupDominantHand = binding.radioGroupDominantHand.checkedRadioButtonId
+        val radioGroupHandUsed = binding.radioGroupHandUsed.checkedRadioButtonId
+        val radioGroupHandUsedNormaly = binding.radioGroupHandUsedNormaly.checkedRadioButtonId
 
         val age: Int = binding.ageInput.text.toString().toIntOrNull() ?: -1
 
@@ -65,6 +67,14 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
             return
         } else if (radioGroupDominantHand <= 0) {
             toastDemographics = Toast.makeText(this, getString(R.string.no_dominant_hand_selected), Toast.LENGTH_LONG)
+            toastDemographics?.show()
+            return
+        } else if (radioGroupHandUsed <= 0) {
+            toastDemographics = Toast.makeText(this, getString(R.string.hand_used_not_selected), Toast.LENGTH_LONG)
+            toastDemographics?.show()
+            return
+        } else if (radioGroupHandUsedNormaly <= 0) {
+            toastDemographics = Toast.makeText(this, getString(R.string.hand_used_normaly_not_selected), Toast.LENGTH_LONG)
             toastDemographics?.show()
             return
         } else {

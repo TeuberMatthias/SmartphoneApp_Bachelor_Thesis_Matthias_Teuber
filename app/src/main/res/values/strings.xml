@@ -59,9 +59,9 @@
     <string name="hint_feedback_anyonym">Um Ihre Anonymität zu wahren, bitte keine Namen oder sonstige identifizierbarende Merkmale nennen.</string>
     <string name="feedback_edit_text">Feedback…</string>
     <string name="not_all_fields_filled">Bitte alle Felder ausfüllen</string>
-    <string name="no_gender_selected">No Gender Selected</string>
-    <string name="invalid_age_selected">Invalid Age Selected</string>
-    <string name="no_dominant_hand_selected">No Dominant Hand Selected</string>
+    <string name="no_gender_selected">kein Geschlecht angegeben</string>
+    <string name="invalid_age_selected">ungültiges Alter angegeben</string>
+    <string name="no_dominant_hand_selected">Dominante Hand nicht angegeben</string>
     <string name="next_interface">"Nächstes Interface: "</string>
     <string name="all_pin_interfaces_solved">Alle Pin Interfaces gelöst!</string>
     <string name="message_take_of_gloves">Bitte die Handschuhe nun ausziehen.</string>
@@ -82,6 +82,8 @@
     <string name="hand_used_normaly">Wie nutzt du normalerweise das Handy</string>
     <string name="end">Vielen Dank!</string>
     <string name="end_description">Der Smartphone-Teil der Studie ist nun beendet.</string>
+    <string name="hand_used_normaly_not_selected">\'Wie nutzt du normalerweise das Handy\' nicht angegeben</string>
+    <string name="hand_used_not_selected">\'Wie wurde das Handy gehalten\' nicht angegeben</string>
 
 
 </resources>
