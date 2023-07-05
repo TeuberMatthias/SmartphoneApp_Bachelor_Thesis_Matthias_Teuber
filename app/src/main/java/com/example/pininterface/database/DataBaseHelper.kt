@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
@@ -29,7 +28,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     companion object {
 
         private const val DATABASE_NAME = "thesis_database"
-        private const val DATABASE_VERSION = 9
+        private const val DATABASE_VERSION = 10
 
         private const val TABLE_DEMOGRAPHICS = "demographics"
         private const val TABLE_FEEDBACK = "feedback"
@@ -50,6 +49,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_AGE = "age"
         private const val KEY_GENDER = "gender"
         private const val KEY_DOMINANT_HAND = "dominant_hand"
+        private const val KEY_HAND_USED = "hand_used"
+        private const val KEY_HAND_USED_NORMALLY = "hand_used_normally"
         private const val KEY_FEEDBACK = "feedback_text"
         private const val KEY_INTERFACE = "interface"
         private const val KEY_PIN = "pin"
@@ -91,6 +92,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$KEY_AGE INTEGER," +
                 "$KEY_GENDER TEXT," +
                 "$KEY_DOMINANT_HAND TEXT," +
+                "$KEY_HAND_USED TEXT," +
+                "$KEY_HAND_USED_NORMALLY TEXT," +
                 "PRIMARY KEY ($KEY_ID_PHONE, $KEY_ID_PARTICIPANT))"
         )
 
@@ -347,6 +350,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_AGE, pDemographics.pAge)
             put(KEY_GENDER, pDemographics.pGender)
             put(KEY_DOMINANT_HAND, pDemographics.pDominant_hand)
+            put(KEY_HAND_USED, pDemographics.pHandUsed)
+            put(KEY_HAND_USED_NORMALLY, pDemographics.pHandUsedNormally)
         }
 
         return addRowToTable(db, TABLE_DEMOGRAPHICS, contentValues)
@@ -379,18 +384,4 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return addRowToTable(db, TABLE_SUS, contentValues)
     }
 
-    /**
-     * Adds a new Row to a Table
-     * @param pTABLE The Table where the row should be added
-     * @param pContentValues The values of the row in form of contentValues
-     * @return positive Long if successful, -1 when unsuccessful
-     */
-    private fun adddRowToTable(pTABLE: String, pContentValues: ContentValues): Long {
-
-        val db = this.writableDatabase
-
-        val success = db.insert(pTABLE, null, pContentValues)
-        db.close()
-        return success
-    }
 }

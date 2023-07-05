@@ -53,7 +53,7 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
         val radioGroupGenderValue = binding.radioGroupGender.checkedRadioButtonId
         val radioGroupDominantHand = binding.radioGroupDominantHand.checkedRadioButtonId
         val radioGroupHandUsed = binding.radioGroupHandUsed.checkedRadioButtonId
-        val radioGroupHandUsedNormaly = binding.radioGroupHandUsedNormaly.checkedRadioButtonId
+        val radioGroupHandUsedNormally = binding.radioGroupHandUsedNormaly.checkedRadioButtonId
 
         val age: Int = binding.ageInput.text.toString().toIntOrNull() ?: -1
 
@@ -73,7 +73,7 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
             toastDemographics = Toast.makeText(this, getString(R.string.hand_used_not_selected), Toast.LENGTH_LONG)
             toastDemographics?.show()
             return
-        } else if (radioGroupHandUsedNormaly <= 0) {
+        } else if (radioGroupHandUsedNormally <= 0) {
             toastDemographics = Toast.makeText(this, getString(R.string.hand_used_normaly_not_selected), Toast.LENGTH_LONG)
             toastDemographics?.show()
             return
@@ -82,8 +82,10 @@ class DemographicActivity : SuperActivityNavigation(), InterfaceDbDemographics, 
 
             val gender: RadioButton = findViewById(radioGroupGenderValue)
             val dominantHand: RadioButton = findViewById(radioGroupDominantHand)
+            val handUsed: RadioButton = findViewById(radioGroupHandUsed)
+            val handUsedNormally: RadioButton = findViewById(radioGroupHandUsedNormally)
 
-            dbAddDemographics(participant.getPhoneID(), participant.getID(), age, gender.tag.toString(), dominantHand.tag.toString(), this)
+            dbAddDemographics(participant.getPhoneID(), participant.getID(), age, gender.tag.toString(), dominantHand.tag.toString(), handUsed.tag.toString(), handUsedNormally.tag.toString(), this)
 
             startNewActivity(participant, SystemUsabilityScaleActivity::class.java)
         }
