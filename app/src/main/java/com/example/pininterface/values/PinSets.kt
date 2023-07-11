@@ -4,7 +4,7 @@ import com.example.pininterface.logic.Pin
 
 /**
  * PinSets
- * All the different PinSets with their corrosponding Pins that will be used for the User Study
+ * All the different PinSets with their corresponding Pins that will be used for the User Study
  */
 class PinSets {
 

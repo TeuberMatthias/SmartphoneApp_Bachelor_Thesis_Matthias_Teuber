@@ -1,4 +1,4 @@
-package com.example.pininterface.database.interfaces
+package com.example.pininterface.interfaces
 
 import android.content.Context
 import android.os.Build
