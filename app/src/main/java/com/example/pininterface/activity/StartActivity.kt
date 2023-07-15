@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.pininterface.database.interfaces.InterfaceDbParticipant
 import com.example.pininterface.R
-import com.example.pininterface.database.modelclass.ModelClassParticipant
+//import com.example.pininterface.database.modelclass.ModelClassParticipant
 import com.example.pininterface.databinding.ActivityStartBinding
 import com.example.pininterface.activity.helper.SuperActivityNavigation
 import com.example.pininterface.logic.Participant
@@ -73,23 +73,12 @@ class StartActivity : SuperActivityNavigation(), InterfaceDbParticipant {
     }
 
     /**
-     * displays the participant table in Log
-     * @param pListParticipant the participant table as MutableList<ModelClassParticipant>
-     */
-    private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
-
-        pListParticipant.forEach {
-            val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pIdOrderPins},orderInterfaces:${it.pIdOrderInterfaces}"
-            Log.e("participant", string)
-        }
-    }
-
-    /**
      * Checks if an Id is already in DB
      * @param pId id
      * @return true if id is free/not in DB, false if id was already used
      */
     private fun checkIdFree(pId: Int): Boolean {
+
         val listParticipant = dbViewListParticipant(this)
         listParticipant.forEach {
             if (it.pId == pId) {
@@ -101,6 +90,18 @@ class StartActivity : SuperActivityNavigation(), InterfaceDbParticipant {
         return true
     }
 
+    /*
+    /**
+     * displays the participant table in Log
+     * @param pListParticipant the participant table as MutableList<ModelClassParticipant>
+     */
+    private fun showParticipants(pListParticipant: MutableList<ModelClassParticipant>) {
+
+        pListParticipant.forEach {
+            val string = "id:${it.pId},complete:${it.pComplete},orderPins:${it.pIdOrderPins},orderInterfaces:${it.pIdOrderInterfaces}"
+            Log.e("participant", string)
+        }
+    }*/
 }
 
 
