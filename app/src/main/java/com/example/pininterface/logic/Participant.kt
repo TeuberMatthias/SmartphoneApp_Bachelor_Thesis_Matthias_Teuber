@@ -184,7 +184,7 @@ class Participant (pPhoneID: Int, pId: Int, pParticipantPinSets: PinSets, pListI
         listInterfaces.forEach {
             string += it.toString() + ";"
         }
-        return string
+        return string.dropLast(1)
     }
 
 
