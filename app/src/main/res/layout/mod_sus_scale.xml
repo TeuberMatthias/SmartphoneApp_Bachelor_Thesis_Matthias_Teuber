@@ -33,6 +33,11 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="0" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:tag="1" />
 
         <RadioButton
@@ -59,10 +64,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tag="6" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tag="7" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
