@@ -237,7 +237,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         listQuestionView.forEachIndexed{index, modSusScaleBinding ->
             Log.e("index", index.toString())
             val radioGroup = modSusScaleBinding.radioGroup
-            val checkedValue = listAnswers[index + 5 * page] - 1
+            val checkedValue = listAnswers[index + 5 * page]
             Log.e("checkedValue", checkedValue.toString())
 
             if (checkedValue >= 0) {

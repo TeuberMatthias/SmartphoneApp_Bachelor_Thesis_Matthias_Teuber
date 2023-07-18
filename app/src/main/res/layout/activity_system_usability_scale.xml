@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/system_usability_scale"
         android:gravity="center"
+        android:text="@string/system_usability_scale"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text=""
         android:backgroundTint="@color/button_continue"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sus_title" />
@@ -99,19 +99,19 @@
         android:layout_marginStart="36dp"
         android:layout_marginEnd="16dp"
         android:text="@string/back"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewPageIndicator"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewPageIndicator" />
 
     <Button
         android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="36dp"
         android:text="@string/next"
-        app:layout_constraintStart_toEndOf="@+id/textViewPageIndicator"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewPageIndicator"
         app:layout_constraintTop_toTopOf="@+id/textViewPageIndicator" />
 
     <include
@@ -123,8 +123,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text=""
         android:gravity="center"
+        android:text=""
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +139,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_sus_explanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:text="@string/sus_score_explanation"
+        app:layout_constraintBottom_toBottomOf="@+id/system_usability_scale_continue"
+        app:layout_constraintEnd_toStartOf="@+id/system_usability_scale_continue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/system_usability_scale_continue" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,6 +84,7 @@
     <string name="end_description">Der Smartphone-Teil der Studie ist nun beendet.</string>
     <string name="hand_used_normaly_not_selected">\'Wie nutzt du normalerweise das Handy\' nicht angegeben</string>
     <string name="hand_used_not_selected">\'Wie wurde das Handy gehalten\' nicht angegeben</string>
+    <string name="sus_score_explanation">1 = stimme stark nicht zu\n 5 = stimme stark zu</string>
 
 
 </resources>
