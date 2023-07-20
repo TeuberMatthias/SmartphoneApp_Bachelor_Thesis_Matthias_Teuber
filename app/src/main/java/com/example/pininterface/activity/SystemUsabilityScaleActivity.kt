@@ -42,6 +42,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
     private lateinit var imageViewInterfaceTyp: ImageView
 
     private lateinit var textViewPageIndicator: TextView
+    private lateinit var textViewSUSExplain: TextView
 
     private lateinit var listQuestionView: MutableList<ModSusScaleBinding>
     private lateinit var listQuestionText: MutableList<String>
@@ -67,6 +68,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         buttonNext = binding.buttonNext
         buttonContinue = binding.systemUsabilityScaleContinue.buttonContinue
         textViewPageIndicator = binding.textViewPageIndicator
+        textViewSUSExplain = binding.tvSusExplanation
 
         buttonShowInterfaceTyp = binding.buttonInterfaceTyp
         imageViewInterfaceTyp = binding.imageViewInterfaceTyp
@@ -114,8 +116,10 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
             val radioGroup: RadioGroup = questionView.radioGroup
             radioGroup.setOnCheckedChangeListener { _, _ ->
                 saveAnswers()
-                if (checkAllRadioButtonsSet())
+                if (checkAllRadioButtonsSet()) {
                     buttonContinue.visibility = View.VISIBLE
+                    textViewSUSExplain.visibility = View.INVISIBLE
+                }
             }
         }
 
@@ -200,9 +204,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
         if (page == 1 && pButton == buttonBack) {
             page = 0
             updateButtonsNextAndBack(buttonNext, buttonBack)
-            Log.e("test", "1")
         } else if (page == 0 && pButton == buttonNext) {
-            Log.e("test", "2")
             page = 1
             updateButtonsNextAndBack(buttonBack, buttonNext)
         }
@@ -238,7 +240,6 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
             Log.e("index", index.toString())
             val radioGroup = modSusScaleBinding.radioGroup
             val checkedValue = listAnswers[index + 5 * page]
-            Log.e("checkedValue", checkedValue.toString())
 
             if (checkedValue >= 0) {
                 val radioButton = radioGroup.getChildAt(checkedValue) as RadioButton
@@ -261,6 +262,7 @@ class SystemUsabilityScaleActivity : SuperActivityNavigation(), InterfaceViewMan
 
         clearAnswers()
         buttonContinue.visibility = View.INVISIBLE
+        textViewSUSExplain.visibility = View.VISIBLE
 
         if (checkAllRadioButtonsSet()) { // kann man entfernen da button nur sichtbar ist wenn alle gesetzt
 

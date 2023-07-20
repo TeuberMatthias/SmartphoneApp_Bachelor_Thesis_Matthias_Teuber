@@ -70,7 +70,6 @@
     <string name="thesis_name">\"Usability study of mobile authentication for elderly users with rheumatoid arthritis\"</string>
     <string name="finish">Beenden</string>
     <string name="settings">Einstellungen</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="phone_id">"PhoneID: %s"</string>
     <string name="apply">OK</string>
@@ -79,7 +78,7 @@
     <string name="click_to_show">\" (klick zum anzeigen)</string>
     <string name="export_db">export DB</string>
     <string name="text_hand_used">Wie wurde das Handy gehalten?</string>
-    <string name="hand_used_normaly">Wie nutzt du normalerweise das Handy</string>
+    <string name="hand_used_normaly">Wie nutzt du normalerweise das Handy?</string>
     <string name="end">Vielen Dank!</string>
     <string name="end_description">Der Smartphone-Teil der Studie ist nun beendet.</string>
     <string name="hand_used_normaly_not_selected">\'Wie nutzt du normalerweise das Handy\' nicht angegeben</string>
